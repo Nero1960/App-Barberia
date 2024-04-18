@@ -7,21 +7,16 @@ import Footer from "../components/Footer";
 
 function AppLayout() {
 
-    const { auth , cargando } = useAuth();
+  const { auth, cargando } = useAuth();
 
-    if(cargando) return 'cargando....'
-  
+  if (cargando) return 'cargando....'
+
 
   return (
     <>
-       <Header/>
-
-        {auth?.idClientes && !auth?.admin ? (<Outlet/>) : <Navigate to={'/'}/>}
-
-        
-       
-
-        <Footer/>
+      <Header />
+      {auth?.idClientes && !auth?.admin ? (<Outlet />) : <Navigate to={'/'} />}
+      <Footer />
 
     </>
 

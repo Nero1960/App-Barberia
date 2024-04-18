@@ -87,5 +87,13 @@
     
 }
 
+.modal{
+    background: linear-gradient(rgb(0 0 0 / .7), rgb(0 0 0 / .7)), url(../src/public/background.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
 
 
