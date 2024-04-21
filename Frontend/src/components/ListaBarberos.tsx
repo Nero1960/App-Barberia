@@ -88,7 +88,7 @@ function ListaBarberos({ barberoProp }: { barberoProp: Barberos }) {
                                     </div>
 
                                     <div className='md:w-1/2 text-center'>
-                                        <p className='text-secondary-400 text-xl'>{barbero?.especialidad}</p>
+                                        <p className='text-secondary-400 text-xl font-Heading'>{barbero?.especialidad}</p>
 
                                     </div>
                                 </div>

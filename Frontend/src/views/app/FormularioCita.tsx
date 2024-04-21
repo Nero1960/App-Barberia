@@ -172,7 +172,7 @@ function FormularioCita() {
                 </div>
 
 
-                <input type="submit" className='bg-primary-500 mt-5 duration-300 hover:bg-primary-600 cursor-pointer px-5 py-2 rounded-xl text-white text-center' value={'Reservar Cita'} />
+                <input type="submit" className='w-full bg-primary-500 mt-5 duration-300 hover:bg-primary-600 cursor-pointer px-5 py-2 rounded text-white text-center' value={'Reservar Cita'} />
 
                 {cargando && (
                     <Spinner/>

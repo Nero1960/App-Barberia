@@ -3,13 +3,11 @@ import ubicacionIcons from '../../public/Icons/MapPin.svg'
 import home from '../../public/Icons/Home.svg'
 import tijeras from '../../public/Icons/scissors.png'
 import imagen1 from '../../public/imagen2.jpg'
-import logo from '../../public/logo1.png'
 import useServicios from '../../hooks/useServicios'
 import { Link } from 'react-router-dom'
 import ListaServicios from '../../components/ListaServicios'
 import ListaBarberos from '../../components/ListaBarberos'
 import useBarberos from '../../hooks/useBarberos'
-import FormularioCita from './FormularioCita'
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import imagen2 from '../../public/galeria1.jpg'
@@ -75,13 +73,13 @@ function Inicio() {
 
         <div className='grid grid-cols-1 md:grid-cols-3 mt-5 gap-y-20 md:gap-x-1 md:gap-y-0'>
           <div className='info text-xs text-secondary-100 leading-6 text-justify'>
-            <p className='mb-5'>!Bienvenido a Mojica's BarberShop!. En Mojica's BarberShop, nos enorgullece ofrecer servicios de barbería de primera calidad desde hace más de <span className='text-primary-500'>{new Date().getFullYear() - 2019}</span> años.</p>
+            <p className='mb-5'>!Bienvenido Link Mojica's BarberShop!. En Mojica's BarberShop, nos enorgullece ofrecer servicios de barbería de primera calidad desde hace más de <span className='text-primary-500'>{new Date().getFullYear() - 2019}</span> años.</p>
             <p>Fundada en [2019], nuestra barbería se ha convertido en un destino confiable para hombres que buscan un corte de cabello impecable, un afeitado suave y un servicio excepcional..</p>
 
             <p className='mt-5'>En Mojica's BarberShop, no solo nos preocupamos por el aspecto exterior; también nos preocupamos por la experiencia en su totalidad. </p>
 
             <div className='mt-10'>
-              <Link to={'#'} className='rounded-lg bg-primary-500 text-white px-10 py-2 hover:bg-primary-600 duration-700'>Leer Más</Link>
+              <Link to={'nosotros'} className='rounded-lg bg-primary-500 text-white px-10 py-2 hover:bg-primary-600 duration-700'>Leer Más</Link>
             </div>
           </div>
 
@@ -140,7 +138,7 @@ function Inicio() {
 
       <section className='barberos px-5 md:px-40 py-12 space-y-9 ' id='barberos'>
         <h2 className=' text-3xl md:text-5xl text-secondary-400 text-center font-Heading w-2/3 mx-auto'>Nuestros Profesionales</h2>
-        <p className='my-6 text-center text-xs text-secondary-100 md:w-2/5 leading-5 mx-auto'> Descubre quiénes son los talentos detrás de nuestros servicios y déjate consentir por manos expertas. ¡Te invitamos a conocer a nuestros profesionales!</p>
+        <p className='my-6 text-center text-xs text-secondary-100 md:w-2/5 leading-5 mx-auto'> Descubre quiénes son los talentos detrás de nuestros servicios y déjate consentir por manos expertas. ¡Te invitamos Link conocer Link nuestros profesionales!</p>
 
         <div className='grid grid-cols-1 md:grid-cols-3 space-y-7 md:space-y-0'>
           {barberos.map(barbero => (
@@ -154,20 +152,6 @@ function Inicio() {
         </div>
       </section>
 
-
-      <section className='citas px-5 md:px-40 mt-16 space-y-9' id='citas'>
-
-        <div className='flex flex-col justify-between gap-y-28 md:flex-row md:h-full md:justify-center md:items-center  md:mx-auto gap-x-10 py-20'>
-          <div className='order-2 md:order-1 text-secondary-100 font-Heading md:w-2/3 -mt-14'>
-            <img src={logo} alt="logo" loading='lazy' width={150} height={150} className='mx-auto' />
-
-            <h2 className='text-3xl md:text-4xl text-secondary-400 text-center leading-snug font-bold'>Consigue El Mejor Corte Reservando tu Cita Hoy Mismo</h2>
-          </div>
-
-          <FormularioCita />
-        </div>
-
-      </section>
 
       <section className='galeria bg-dark-500 px-5 md:px-40 py-20' id='galeria'>
 
@@ -205,14 +189,12 @@ function Inicio() {
 
       </section>
 
-      <section className='politica px-5 md:px-40 py-40'>
+      <section className='policy px-5 md:px-40 py-40'>
         <div className='bg-primary-500 rounded-xl'>
-          <div className='flex flex-col items-center justify-center text-white w-1/2 mx-auto py-10 space-y-5'>
+          <div className='flex flex-col px-5 items-center justify-center text-white md:w-1/2 mx-auto py-10 space-y-5'>
             <h2 className='font-Heading text-center text-sm'>Explora Nuestras Políticas de Citas <span className='text-2xl block mt-2'> Todo lo que Necesitas Saber para una Experiencia Perfecta</span></h2>
-            <p className='text-xs font-light text-center w-3/4 leading-5'>Descubre cómo nuestras políticas de citas están diseñadas para garantizar tu comodidad, seguridad y satisfacción en cada visita</p>
-            <a href="#" className='bg-white w-full text-center text-black-200 hover:bg-primary-600 hover:text-white duration-300 py-2'>Ver Políticas De Citas</a>
-
-
+            <p className='text-xs font-light text-center md:w-3/4 leading-5'>Descubre cómo nuestras políticas de citas están diseñadas para garantizar tu comodidad, seguridad y satisfacción en cada visita</p>
+            <Link to="policy" className='bg-white w-full text-center text-black-200 hover:bg-primary-600 hover:text-white duration-300 py-2'>Ver Políticas De Citas</Link>
           </div>
 
         </div>

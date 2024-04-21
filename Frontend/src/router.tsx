@@ -21,6 +21,10 @@ import AppLayout from './layouts/AppLayout';
 import Inicio from './views/app/Inicio';
 import { BarberosProvider } from './context/BarberosProvider';
 
+import ReservarCita from './views/app/ReservarCita';
+import Nosotros from './views/app/Nosotros';
+import Policy from './views/app/Policy';
+
 
 function router() {
     return (
@@ -46,6 +50,9 @@ function router() {
 
                                 <Route path='/app' element={<AppLayout />}>
                                     <Route index element={<Inicio />} />
+                                    <Route path='/app/citas' element={<ReservarCita/>}/>
+                                    <Route path='/app/nosotros' element={<Nosotros/>}/>
+                                    <Route path='/app/policy' element={<Policy/>}/>
                                 </Route>
                             </Routes>
                         </BarberosProvider>

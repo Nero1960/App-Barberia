@@ -10,6 +10,7 @@ import close from '../public/Icons/x-lg.svg'
 import logo from '../public/logo2.png'
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
+import { Link } from 'react-router-dom'
 
 function Header() {
 
@@ -40,16 +41,16 @@ function Header() {
 
 
                 <div className="text-white flex space-x-2 mt-5 md:mt-0">
-                    <a href="#"><img src={facebook} alt="facebook red social" /></a>
-                    <a href="#"><img src={instagram} alt="instagram red social" /></a>
-                    <a href="#"><img src={tiktok} alt="tiktok red social" /></a>
+                    <Link to="#"><img src={facebook} alt="facebook red social" /></Link>
+                    <Link to="#"><img src={instagram} alt="instagram red social" /></Link>
+                    <Link to="#"><img src={tiktok} alt="tiktok red social" /></Link>
                 </div>
 
             </div>
 
             <div className='md:px-36 barra flex justify-between py-0 md:py-3 w-full items-center'>
                 <div className='logo'>
-                    <a href="/app"> <img src={logo} alt="Logo BarberShop" width={150} height={150} /></a>
+                    <Link to="/app"> <img src={logo} alt="Logo BarberShop" width={150} height={150} /></Link>
                 </div>
 
                 <div className='menu -mt-3 md:hidden' onClick={handleClick} >
@@ -57,17 +58,16 @@ function Header() {
                 </div>
 
                 <nav className={` ${showMenu ? 'flex flex-col justify-start items-start px-10 py-10 absolute left-0 top-20 space-y-5 bg-dark-500 w-full ' : 'hidden'} md:flex md:space-x-5 md:items-center`}>
-                    <a href="/app" className='text-white text-sm hover:text-secondary-400 duration-300'>Inicio</a>
-                    <a href="#servicios" className='text-white text-sm hover:text-secondary-400 duration-300'>Servicios</a>
-                    <a href="#barberos" className='text-white text-sm hover:text-secondary-400 duration-300'>Barberos</a>
-                    <a href="/app" className='text-white text-sm hover:text-secondary-400 duration-300'>Citas</a>
-                    <a href="/app" className='text-white text-sm hover:text-secondary-400 duration-300'>Mi Perfil</a>
-                    <a href="/" className='flex items-center gap-x-2 text-white text-sm hover:text-secondary-400 duration-300' onClick={cerrarSession} >
-                        <img src={cerrarSesion} alt="cerrar sesion icono" /> Cerrar Sesión</a>
+                    <Link to="/app" className='text-white text-sm hover:text-secondary-400 duration-300'>Inicio</Link>
+                    <Link to="nosotros" className='text-white text-sm hover:text-secondary-400 duration-300'>Nosotros</Link>
+                    <Link to="mis-citas" className='text-white text-sm hover:text-secondary-400 duration-300'>Mis Citas</Link>
+                    <Link to="perfil" className='text-white text-sm hover:text-secondary-400 duration-300'>Mi Perfil</Link>
+                    <Link to="/" className='flex items-center gap-x-2 text-white text-sm hover:text-secondary-400 duration-300' onClick={cerrarSession} >
+                        <img src={cerrarSesion} alt="cerrar sesion icono" /> Cerrar Sesión</Link>
                     <div className='block w-full md:flex md:w-auto'>
-                        <a href='#citas' className={`cursor-pointer flex gap-x-2 items-center w-full md:w-auto  bg-primary-500 text-white px-6 py-2 text-sm rounded-md hover:bg-primary-600 duration-300`}>
+                        <Link to='citas' className={`cursor-pointer flex gap-x-2 items-center w-full md:w-auto  bg-primary-500 text-white px-6 py-2 text-sm rounded-md hover:bg-primary-600 duration-300`}>
                             <img src={calendar} alt="cita icon" width={16} height={16} />
-                            Haz Tu Cita</a>
+                            Haz Tu Cita</Link>
                     </div>
                 </nav>
 
