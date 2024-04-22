@@ -11,7 +11,7 @@ import {
 import checkAuth from '../middleware/checkAuth';
 import { getBarberos, getBarberoCliente } from '../controllers/barberoController';
 import { getServices } from '../controllers/serviciosController';
-import { actualizarCita, reprogramarCita, reservarCita } from '../controllers/citasController';
+import { actualizarCita, reprogramarCita, reservarCita, mostrarCita } from '../controllers/citasController';
 
 
 const router = express.Router();
@@ -33,6 +33,7 @@ router.get('/app/obtener-servicios', checkAuth, getServices);
 router.post('/app/reservar-cita', checkAuth, reservarCita);
 router.post('/app/reprogramar-cita/:idCita', checkAuth, reprogramarCita)
 router.post('/app/actualizar-cita/:idCita', checkAuth, actualizarCita);
+router.get('/app/obtener-cita/:idClientes', checkAuth, mostrarCita)
 
 
 export default router;

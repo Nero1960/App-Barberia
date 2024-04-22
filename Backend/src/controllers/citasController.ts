@@ -4,13 +4,20 @@ import Citas from "../models/Citas";
 import Cliente from "../models/Clientes";
 import Barbero from "../models/Barberos";
 import CitasServicios from "../models/CitasServicios";
-import sequelize from "sequelize/lib/sequelize";
 import validarHora from "../helpers/validarHora";
+import Servicios from "../models/Servicios";
+import Sequelize from 'sequelize';
+
 
 type RequestCustom = Request & {
     cliente?: Cliente
 }
 
+
+// Define una interfaz para las opciones de inclusión
+interface IncludeThroughOptionsWithModel extends Sequelize.IncludeThroughOptions {
+    model: typeof Servicios; // Tipo de modelo para la inclusión
+}
 
 
 const barberoDisponible = async (idBarberos: number, fecha: Date, hora: string): Promise<boolean> => {
@@ -56,7 +63,7 @@ const reservarCita = async (request: RequestCustom, response: Response) => {
             return response.status(400).json({ error: 'El barbero ya está ocupado en esta fecha y hora.' });
         }
 
-        if(!validarHora(hora)){
+        if (!validarHora(hora)) {
             return response.status(400).json({ error: 'Selecciona una hora dentro del rango de atención.' });
         }
 
@@ -82,7 +89,7 @@ const reservarCita = async (request: RequestCustom, response: Response) => {
             }));
         }
 
-        response.json({msg: 'La cita se ha reservado Correctamente'});
+        response.json({ msg: 'La cita se ha reservado Correctamente' });
 
 
     } catch (error) {
@@ -181,8 +188,57 @@ const actualizarCita = async (request: Request, response: Response) => {
     }
 }
 
+const mostrarCita = async (request: Request, response: Response) => {
+
+    const idClientes = request.params.idClientes;
+
+    console.log(idClientes)
+
+    try {
+
+        const citasCliente = await Citas.findAll((
+            {
+                where: { idClientes: idClientes },
+                include: [
+                    {
+                        model: Servicios,
+                        through: {
+                            model: CitasServicios,
+                            attributes: []
+                        } as any,
+
+                        attributes: ['nombre', 'precio']
+                    }, 
+                    {
+                        model: Barbero,
+                        attributes: ['nombre', 'apellido']
+                    }
+                ],
+
+                attributes: ['fecha', 'hora', 'idCitas']
+
+            }
+        ));
+
+        // Si el cliente no tiene citas, responde con un mensaje de error
+        if (citasCliente.length === 0) {
+            return response.status(400).json({ mensaje: 'El cliente no tiene citas' });
+        }
+
+        response.json(citasCliente);
+
+
+    } catch (error) {
+
+        // Si ocurre algún error, responde con un mensaje de error
+        console.error('Error al mostrar las citas del cliente:', error);
+        response.status(500).json({ mensaje: 'Error interno del servidor' });
+    }
+
+}
 export {
     reservarCita,
     reprogramarCita,
-    actualizarCita
+    actualizarCita,
+    mostrarCita
 }

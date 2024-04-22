@@ -24,6 +24,7 @@ import { BarberosProvider } from './context/BarberosProvider';
 import ReservarCita from './views/app/ReservarCita';
 import Nosotros from './views/app/Nosotros';
 import Policy from './views/app/Policy';
+import MisCitas from './views/app/MisCitas';
 
 
 function router() {
@@ -53,6 +54,8 @@ function router() {
                                     <Route path='/app/citas' element={<ReservarCita/>}/>
                                     <Route path='/app/nosotros' element={<Nosotros/>}/>
                                     <Route path='/app/policy' element={<Policy/>}/>
+                                    <Route path='/app/mis-citas/:idClientes' element={<MisCitas/>}/>
+
                                 </Route>
                             </Routes>
                         </BarberosProvider>
