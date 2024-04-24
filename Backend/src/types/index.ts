@@ -17,7 +17,8 @@ type ClienteType = {
     password: string,
     token: string,
     confirmado: number,
-    direccion: string
+    direccion: string,
+    imagen: string
 
 }
 

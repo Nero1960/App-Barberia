@@ -1,4 +1,4 @@
-import { Model, Table, Column, DataType, Default, BeforeCreate, BeforeUpdate, HasMany} from 'sequelize-typescript';
+import { Model, Table, Column, DataType, Default, BeforeCreate, BeforeUpdate, HasMany, AllowNull} from 'sequelize-typescript';
 import bcrypt from 'bcrypt';
 import generarId from '../helpers/generarId';
 import Citas from './Citas';
@@ -85,6 +85,14 @@ class Cliente extends Model {
     })
 
     declare admin: number;
+
+    @Default('defaultImage.jpg')
+    @Column({
+        type: DataType.STRING(100),
+        allowNull: true
+    })
+
+    declare imagen: string
 
     @HasMany(() => Citas)
     citas: Citas[]

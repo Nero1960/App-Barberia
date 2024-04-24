@@ -28,9 +28,7 @@ const checkAuth = async(request: Requests, response: Response, next: NextFunctio
                 throw new Error('Token no válido');
             }
 
-            const cliente  = await Cliente.findByPk(decoded.id, {
-                attributes: ['idClientes', 'nombre', 'email','admin']
-            }) ;
+            const cliente  = await Cliente.findByPk(decoded.id) ;
 
             if(!cliente){
                 const error = new Error('Usuario no encontrado')

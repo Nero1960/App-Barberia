@@ -4,11 +4,13 @@ import generarId from "../helpers/generarId";
 import generarJWT from "../helpers/generarToken";
 import emailRegister from "../helpers/sendEmailRegister";
 import newPasswordEmail from "../helpers/sendEmailForgotPassword";
+import { ClienteType } from "../types";
 
 type RequestBody = {
     email: string,
     password: string
 }
+
 
 type Requests = Request & {
     cliente?: Cliente
@@ -18,13 +20,18 @@ const addClient = async (request: Request, response: Response) => {
 
     const { email } : Cliente = request.body;
 
+
     const userExist = await Cliente.findOne({ where: { email } });
+   
 
     if (userExist) {
         const error = new Error('Este usuario ya existe');
         response.status(404).json({ msg: error.message });
         return;
     }
+
+    // const imagenDefault = path.join(__dirname, 'uploads', 'defaultImage.jpg');
+    // console.log(imagenDefault);
 
     try {
         const cliente = new Cliente(request.body);
@@ -170,6 +177,8 @@ const authClient = async (request: Request, response: Response) => {
     response.json({
         idClientes: cliente.idClientes,
         nombre: cliente.nombre,
+        apellido: cliente.apellido,
+        direccion: cliente.direccion,
         email: cliente.email,
         telefono: cliente.telefono,
         admin: cliente.admin,
@@ -184,6 +193,42 @@ const perfil = async (request: Request, response: Response) => {
     response.json(cliente);
 }
 
+const actualizarPerfil = async (request: Request, response: Response) => {
+
+    const  { cliente } : Requests = request;
+    const { nombre, apellido, direccion,  email, telefono } : ClienteType = request.body;
+
+    const clienteExiste = await Cliente.findByPk(cliente.idClientes);
+
+    if(!clienteExiste){
+        const error = new Error('El Cliente no existe')
+        response.status(400).json({msg: error.message})
+        return;
+    }
+
+    try {
+
+        cliente.nombre = nombre || cliente.nombre;
+        cliente.apellido = apellido || cliente.apellido;
+        cliente.email = email || cliente.email;
+        cliente.telefono = telefono || cliente.telefono;
+        cliente.imagen = request.file.filename || cliente.imagen;
+        cliente.direccion = direccion || cliente.direccion;
+
+        await cliente.save();
+
+        response.json({msg: 'Perfil Actualizado con éxito'})
+        
+    } catch (error) {
+
+        console.error(error);
+        response.status(500).json({ msg: 'Ocurrió un error al actualizar el perfil' });
+        
+    }
+
+
+}
+
 
 export {
     addClient,
@@ -192,5 +237,6 @@ export {
     confirmToken,
     newPassword,
     authClient,
+    actualizarPerfil,
     perfil,
 }

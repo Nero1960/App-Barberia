@@ -7,11 +7,13 @@ import {
     newPassword,
     authClient,
     perfil,
+    actualizarPerfil
 } from '../controllers/clientesControllers';
 import checkAuth from '../middleware/checkAuth';
 import { getBarberos, getBarberoCliente } from '../controllers/barberoController';
 import { getServices } from '../controllers/serviciosController';
 import { actualizarCita, reprogramarCita, reservarCita, mostrarCita } from '../controllers/citasController';
+import upload from '../middleware/subidaArchivos';
 
 
 const router = express.Router();
@@ -34,6 +36,8 @@ router.post('/app/reservar-cita', checkAuth, reservarCita);
 router.post('/app/reprogramar-cita/:idCita', checkAuth, reprogramarCita)
 router.post('/app/actualizar-cita/:idCita', checkAuth, actualizarCita);
 router.get('/app/obtener-cita/:idClientes', checkAuth, mostrarCita)
+
+router.put('/app/actualizar-perfil', checkAuth,  upload.single('imagen'), actualizarPerfil)
 
 
 export default router;
