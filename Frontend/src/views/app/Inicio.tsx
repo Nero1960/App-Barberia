@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 import ListaServicios from '../../components/ListaServicios'
 import ListaBarberos from '../../components/ListaBarberos'
 import useBarberos from '../../hooks/useBarberos'
-import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import imagen2 from '../../public/galeria1.jpg'
 import imagen3 from '../../public/galeria2.jpg'
@@ -201,11 +200,6 @@ function Inicio() {
 
       </section>
 
-
-      <ToastContainer
-        theme='colored'
-        position='top-left'
-      />
     </>
   )
 }

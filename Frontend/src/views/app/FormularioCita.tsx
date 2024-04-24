@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import getFormattedDate from "../../helpers/FormatDate";
 import clienteAxios from "../../config/axios";
 import Spinner from "../../components/Spinner";
+import { ToastContainer } from "react-toastify";
 import { toast } from 'react-toastify'; // Importa toast para mostrar notificaciones
 import { useState } from "react";
 
@@ -16,7 +17,7 @@ function FormularioCita() {
     const { auth } = useAuth();
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const [ cargando , setCargando ] = useState(false);
+    const [cargando, setCargando] = useState(false);
 
     const reservarCita = async (datos: any) => {
         console.log(datos)
@@ -48,7 +49,7 @@ function FormularioCita() {
                 setCargando(false)
             }, 3000)
 
-        } catch (error : any) {
+        } catch (error: any) {
             setCargando(true);
 
             setTimeout(() => {
@@ -75,7 +76,7 @@ function FormularioCita() {
                             Nombre
                         </label>
                         <input
-                            {...register('idClientes', {valueAsNumber: true})} // Registrar el campo idClientes en el formulario
+                            {...register('idClientes', { valueAsNumber: true })} // Registrar el campo idClientes en el formulario
                             type="hidden" // Campo oculto para el idClientes
                             value={auth?.idClientes} // Valor del idClientes
                         />
@@ -175,10 +176,16 @@ function FormularioCita() {
                 <input type="submit" className='w-full bg-primary-500 mt-5 duration-300 hover:bg-primary-600 cursor-pointer px-5 py-2 rounded text-white text-center' value={'Reservar Cita'} />
 
                 {cargando && (
-                    <Spinner/>
+                    <Spinner />
                 )}
 
             </form>
+
+
+            <ToastContainer
+                theme='colored'
+                position='top-left'
+            />
 
 
         </>

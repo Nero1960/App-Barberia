@@ -6,9 +6,12 @@ type AuthData = {
     idClientes: number;
     token: string;
     telefono: string;
+    imagen: string;
     nombre: string;
     email: string;
     admin: number;
+    apellido: string;
+    direccion: string;
 }
 
 type AuthContextType = {

@@ -15,6 +15,8 @@ type Data = {
     nombre: string,
     email: string,
     token: string,
+    apellido: string,
+    direccion: string,
     admin: number,
     telefono: string
     msg: string
@@ -39,7 +41,7 @@ function Login() {
             navigate('/admin')
             return
         }
-    })
+    }, [])
 
 
 
