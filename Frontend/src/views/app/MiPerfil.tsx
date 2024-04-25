@@ -11,12 +11,12 @@ function MiPerfil() {
     console.log(auth?.imagen)
 
     return (
-        <main className=' max-w-[90%] md:max-w-[80%] bg-dark-500 mb-10 py-5 mx-auto'>
+        <main className='max-w-[90%] md:max-w-[80%] bg-dark-500 mb-10 py-5 mx-auto'>
 
-            <div className='p-5 flex gap-x-10'>
-                <aside className='imagen-perfil w-[20%]'>
+            <div className='p-5 flex flex-col md:flex-row gap-x-10'>
+                <aside className='imagen-perfil md:w-[20%]'>
 
-                    <div className='flex flex-col items-center'>
+                    <div className='flex flex-col items-center mb-10 md:mb-0'>
                         <img src={`${import.meta.env.VITE_BASE_IMAGE}/${auth?.imagen}`} alt="imagen"
                             className='rounded-full mx-auto h-[80%] w-[80%]'
                         />
@@ -24,7 +24,7 @@ function MiPerfil() {
 
                 </aside>
 
-                <div className='informacion-personal w-[80%]'>
+                <div className='informacion-personal md:w-[80%]'>
                     <h1 className='text-secondary-100 border-b pb-2 border-b-white'>Información Personal</h1>
 
                     <form action="" className='space-y-3'>

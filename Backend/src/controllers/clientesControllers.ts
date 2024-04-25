@@ -182,6 +182,7 @@ const authClient = async (request: Request, response: Response) => {
         email: cliente.email,
         telefono: cliente.telefono,
         admin: cliente.admin,
+        imagen: cliente.imagen,
         token,
         msg: 'Inicio de sesión Exitoso.'
 
