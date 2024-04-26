@@ -28,7 +28,6 @@ function MisCitas() {
     const idClientes = Number(params.idClientes);
 
     const [infoCita, setInfoCita] = useState<CitaConDetalle[]>([]);
-    console.log(idClientes);
 
     useEffect(() => {
 
@@ -61,7 +60,36 @@ function MisCitas() {
 
         obtenerCitas();
 
-    }, [])
+    }, []);
+
+
+    const eliminarCita = async (idCitas: number) => {
+
+        try {
+
+            console.log('eliminando Cita', idCitas)
+
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                return;
+            }
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const { data } : any  = await clienteAxios.delete(`app/eliminar-cita/${idCitas}`, config);
+            console.log(data);
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    }
 
 
     return (
@@ -102,7 +130,10 @@ function MisCitas() {
 
                                     <div className="flex gap-x-4">
 
-                                        <button type="button" className="mt-5 bg-primary-500 text-white py-2 px-4 rounded hover:bg-primary-600 duration-300">Actualizar Cita</button>
+                                        <button type="button" className="mt-5 bg-primary-500 text-white py-2 px-4 rounded hover:bg-primary-600 duration-300">Actualizar</button>
+
+                                        <button type="button" onClick={() => eliminarCita(cita.idCitas as number)} className="mt-5 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 duration-300">Eliminar</button>
+
 
                                     </div>
 

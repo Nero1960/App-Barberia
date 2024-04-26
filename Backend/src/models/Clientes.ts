@@ -86,7 +86,7 @@ class Cliente extends Model {
 
     declare admin: number;
 
-    @Default('defaultImage.jpg')
+    @Default('default.png')
     @Column({
         type: DataType.STRING(100),
         allowNull: true

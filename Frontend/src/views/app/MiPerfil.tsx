@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import pencilSquare from '../../public/Icons/PencilSquare.svg'
+import {ToastContainer} from 'react-toastify'
 
 
 function MiPerfil() {
@@ -63,13 +64,13 @@ function MiPerfil() {
 
                         <div className='mb-3 text-sm flex flex-col'>
                             <label htmlFor="direccion" className='text-secondary-100'>Dirección</label>
-                            <textarea id="direccion" className='w-full rounded px-2 py-1 bg-transparent border border-white text-secondary-200 h-56' disabled>{auth?.direccion}</textarea>
+                            <textarea id="direccion" className='w-full rounded px-2 py-1 bg-transparent border border-white text-secondary-200 h-56' defaultValue={auth?.direccion} disabled></textarea>
 
                         </div>
 
 
                         <div className='inline-block'>
-                            <Link to={'/app/actualizar-perfil'} className='bg-primary-500 py-2 px-10 gap-x-2 rounded flex justify-start mt-5 bg-primary-500 hover:bg-primary-600 duration-300'>
+                            <Link to={'/app/actualizar-perfil'} className='bg-primary-500 py-2 px-5 gap-x-2 rounded flex justify-start mt-5 bg-primary-500 hover:bg-primary-600 duration-300'>
                                 <img src={pencilSquare} alt="icono actualizar" width={18} height={18} />
                                 <span className='text-sm text-white'>Edit</span>
 
@@ -82,6 +83,8 @@ function MiPerfil() {
                 </div>
 
             </div>
+
+            
 
         </main>
     )

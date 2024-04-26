@@ -19,7 +19,8 @@ type Data = {
     direccion: string,
     admin: number,
     telefono: string
-    msg: string
+    msg: string,
+    imagen: string
 }
 
 

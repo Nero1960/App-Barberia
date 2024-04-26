@@ -26,6 +26,7 @@ import Nosotros from './views/app/Nosotros';
 import Policy from './views/app/Policy';
 import MisCitas from './views/app/MisCitas';
 import MiPerfil from './views/app/MiPerfil';
+import ActualizarPerfil from './views/app/ActualizarPerfil';
 
 
 function router() {
@@ -57,6 +58,7 @@ function router() {
                                     <Route path='/app/policy' element={<Policy/>}/>
                                     <Route path='/app/mis-citas/:idClientes' element={<MisCitas/>}/>
                                     <Route path='/app/perfil' element={<MiPerfil/>}/>
+                                    <Route path='/app/actualizar-perfil' element={<ActualizarPerfil/>} />
 
                                 </Route>
                             </Routes>

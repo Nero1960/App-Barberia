@@ -4,5 +4,9 @@ export type cliente = {
     email: string,
     telefono: string,
     password: string
+    imagen: string,
+    direccion: string,
+    admin: number,
+    token: string
 }
 

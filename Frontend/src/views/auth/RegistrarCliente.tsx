@@ -22,6 +22,8 @@ function RegistrarCliente() {
         apellido.trim();
         telefono.trim();
 
+        
+
         try {
             // Envía una solicitud POST para registrar el cliente
             const response = await clienteAxios.post('/registrar', {
@@ -31,6 +33,7 @@ function RegistrarCliente() {
                 telefono,
                 password
             });
+
 
             // Muestra una notificación de éxito y activa el Spinner durante 3 segundos
             setCargando(true);

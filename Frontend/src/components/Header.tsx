@@ -15,13 +15,13 @@ import { Link } from 'react-router-dom'
 function Header() {
 
     const [showMenu, setShowMenu] = useState(false);
-    const { cerrarSession, auth }  = useAuth();
+    const { cerrarSession, auth } = useAuth();
 
     const handleClick = () => {
         setShowMenu(!showMenu)
     }
 
-   
+
 
     return (
         <header className={`px-5  py-3 md:p-0`}>
@@ -61,14 +61,40 @@ function Header() {
                     <Link to="/app" className='text-white text-sm hover:text-secondary-400 duration-300'>Inicio</Link>
                     <Link to="nosotros" className='text-white text-sm hover:text-secondary-400 duration-300'>Nosotros</Link>
                     <Link to={`mis-citas/${auth?.idClientes}`} className='text-white text-sm hover:text-secondary-400 duration-300'>Mis Citas</Link>
-                    <Link to="perfil" className='text-white text-sm hover:text-secondary-400 duration-300'>Mi Perfil</Link>
-                    <Link to="/" className='flex items-center gap-x-2 text-white text-sm hover:text-secondary-400 duration-300' onClick={cerrarSession} >
-                        <img src={cerrarSesion} alt="cerrar sesion icono" /> Cerrar Sesión</Link>
+
+                    <div className='flex flex-col gap-y-5 gap-x-3 md:hidden'>
+                        <Link to="perfil" className='flex items-center gap-x-2 text-white text-sm hover:text-secondary-400 duration-300'>
+                            Perfil <img src={`${import.meta.env.VITE_BASE_IMAGE}/${auth?.imagen}`} className='rounded-full' alt="imagen perfil" width={25} height={25} />
+                        </Link>
+                        <Link to="/" className='flex items-center gap-x-2 text-white text-sm hover:text-secondary-400 duration-250' onClick={cerrarSession} >
+                            <img src={cerrarSesion} alt="cerrar sesion icono" width={20} height={20}/></Link>
+
+                    </div>
+
                     <div className='block w-full md:flex md:w-auto'>
                         <Link to='citas' className={`cursor-pointer flex gap-x-2 items-center w-full md:w-auto  bg-primary-500 text-white px-6 py-2 text-sm rounded-md hover:bg-primary-600 duration-300`}>
                             <img src={calendar} alt="cita icon" width={16} height={16} />
                             Haz Tu Cita</Link>
                     </div>
+
+                </nav>
+
+                <nav className='hidden md:flex items-center gap-x-8'>
+                    <div className='flex items-center gap-x-4'>
+                        <Link to="perfil">
+                            <img src={`${import.meta.env.VITE_BASE_IMAGE}/${auth?.imagen}`} className='rounded-full' alt="imagen perfil" width={45} height={45} />
+                        </Link>
+
+                        <div className='flex flex-col text-secondary-100 text-xs'>
+                            <p className='font-thin'>Bienvenido</p>
+                            <p className='text-sm'>{auth?.nombre}{" "}{auth?.apellido}</p>
+
+                        </div>
+
+                    </div>
+                    <Link to="/" className='flex items-center gap-x-2 text-white text-sm hover:text-secondary-400 duration-250' onClick={cerrarSession} >
+                        <img src={cerrarSesion} alt="cerrar sesion icono" width={20} height={20}/></Link>
+
                 </nav>
 
             </div>

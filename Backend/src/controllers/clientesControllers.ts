@@ -5,6 +5,8 @@ import generarJWT from "../helpers/generarToken";
 import emailRegister from "../helpers/sendEmailRegister";
 import newPasswordEmail from "../helpers/sendEmailForgotPassword";
 import { ClienteType } from "../types";
+import path from "path";
+import fs from 'fs';
 
 type RequestBody = {
     email: string,
@@ -18,11 +20,11 @@ type Requests = Request & {
 
 const addClient = async (request: Request, response: Response) => {
 
-    const { email } : Cliente = request.body;
+    const { email }: Cliente = request.body;
 
 
     const userExist = await Cliente.findOne({ where: { email } });
-   
+
 
     if (userExist) {
         const error = new Error('Este usuario ya existe');
@@ -43,8 +45,8 @@ const addClient = async (request: Request, response: Response) => {
             email,
             token: cliente.token
         })
-        
-        response.json({ msg: 'OK, Revisa tu correo para confirmar tu cuenta', clienteSave })
+
+        response.json({ msg: 'Revisa tu correo para confirmar tu cuenta', clienteSave })
 
     } catch (error) {
         response.status(404).json({ msg: 'Oops! Ha ocurrido un error inesperado' });
@@ -55,7 +57,7 @@ const addClient = async (request: Request, response: Response) => {
 const confirmClient = async (request: Request, response: Response) => {
     console.log(request.params.token)
     const { token } = request.params;
-    
+
 
     const confirmClient = await Cliente.findOne({ where: { token } });
 
@@ -102,7 +104,7 @@ const forgotPassword = async (request: Request, response: Response) => {
             email,
             token: confirmClient.token
         })
-        
+
 
     } catch (error) {
 
@@ -123,7 +125,7 @@ const confirmToken = async (request: Request, response: Response) => {
         return response.status(404).json({ msg: error.message })
     }
 
-    response.json({ msg: 'Introduce Tu Nueva Contraseña'})
+    response.json({ msg: 'Introduce Tu Nueva Contraseña' })
 }
 
 const newPassword = async (request: Request, response: Response) => {
@@ -172,7 +174,7 @@ const authClient = async (request: Request, response: Response) => {
 
     }
 
-    const token = generarJWT({id: cliente.idClientes, admin: cliente.admin})
+    const token = generarJWT({ id: cliente.idClientes, admin: cliente.admin })
 
     response.json({
         idClientes: cliente.idClientes,
@@ -190,21 +192,37 @@ const authClient = async (request: Request, response: Response) => {
 }
 
 const perfil = async (request: Request, response: Response) => {
-    const { cliente } : Requests = request;
+    const { cliente }: Requests = request;
     response.json(cliente);
 }
 
 const actualizarPerfil = async (request: Request, response: Response) => {
 
-    const  { cliente } : Requests = request;
-    const { nombre, apellido, direccion,  email, telefono } : ClienteType = request.body;
+    const { cliente }: Requests = request;
+    const { nombre, apellido, direccion, email, telefono }: ClienteType = request.body;
 
     const clienteExiste = await Cliente.findByPk(cliente.idClientes);
 
-    if(!clienteExiste){
+
+
+    if (!clienteExiste) {
         const error = new Error('El Cliente no existe')
-        response.status(400).json({msg: error.message})
+        response.status(400).json({ msg: error.message })
         return;
+    }
+
+    // Obtener la imagen de perfil previa del cliente, si existe
+    const imagenPrevia = clienteExiste.imagen;
+
+    // Verificar si se ha subido un archivo
+    if (request.file) {
+        cliente.imagen = request.file.filename;
+
+        if (imagenPrevia && imagenPrevia !== 'default.png') {
+            const rutaImagenPrevia = path.join(__dirname,'..', 'uploads', imagenPrevia);
+            fs.unlinkSync(rutaImagenPrevia);
+
+        }
     }
 
     try {
@@ -213,18 +231,17 @@ const actualizarPerfil = async (request: Request, response: Response) => {
         cliente.apellido = apellido || cliente.apellido;
         cliente.email = email || cliente.email;
         cliente.telefono = telefono || cliente.telefono;
-        cliente.imagen = request.file.filename || cliente.imagen;
         cliente.direccion = direccion || cliente.direccion;
 
         await cliente.save();
 
-        response.json({msg: 'Perfil Actualizado con éxito'})
-        
+        response.json({ msg: 'Perfil Actualizado con éxito', cliente })
+
     } catch (error) {
 
         console.error(error);
         response.status(500).json({ msg: 'Ocurrió un error al actualizar el perfil' });
-        
+
     }
 
 

@@ -208,7 +208,7 @@ const mostrarCita = async (request: Request, response: Response) => {
                         } as any,
 
                         attributes: ['nombre', 'precio']
-                    }, 
+                    },
                     {
                         model: Barbero,
                         attributes: ['nombre', 'apellido']
@@ -236,9 +236,54 @@ const mostrarCita = async (request: Request, response: Response) => {
     }
 
 }
+
+const eliminarCita = async (request: Request, response: Response) => {
+    const { idCitas } = request.params;
+    console.log(idCitas)
+
+    try {
+        const citaExiste = await Citas.findByPk(idCitas);
+
+        const fechaActual = moment();
+
+
+        if (!citaExiste) {
+            const error = new Error("No se ha encontrado ninguna cita");
+            return response.json({ msg: error.message })
+        }
+
+        const diferenciaHoras = Math.abs(moment.duration(fechaActual.diff(citaExiste.fecha)).asHours());
+
+
+        if (diferenciaHoras <= 24) {
+            response.status(404).json({ msg: 'No se puede Eliminar la cita dentro de las 24 horas previas a la cita original' })
+            return;
+
+        }
+
+        // Eliminar las filas relacionadas en la tabla citas_servicios
+        await CitasServicios.destroy({ where: { idCitas: idCitas } });
+
+
+        await citaExiste.destroy()
+        response.json({ msg: "Se ha eliminado la cita, según la política de cita" });
+
+
+    } catch (error) {
+
+        console.log(error)
+
+    }
+
+
+
+
+
+}
 export {
     reservarCita,
     reprogramarCita,
     actualizarCita,
-    mostrarCita
+    mostrarCita,
+    eliminarCita
 }
