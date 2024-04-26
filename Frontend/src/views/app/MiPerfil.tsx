@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import pencilSquare from '../../public/Icons/PencilSquare.svg'
-import {ToastContainer} from 'react-toastify'
 
 
 function MiPerfil() {
