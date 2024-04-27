@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form'
 import getFormattedDate from "../../helpers/FormatDate";
 import clienteAxios from "../../config/axios";
 import Spinner from "../../components/Spinner";
-import { ToastContainer } from "react-toastify";
 import { toast } from 'react-toastify'; // Importa toast para mostrar notificaciones
 import { useState } from "react";
 
@@ -44,7 +43,9 @@ function FormularioCita() {
             setTimeout(() => {
                 toast.success(data.msg, {
                     theme: 'colored',
-                    position: 'top-left'
+                    position: 'top-left',
+                    autoClose: false,
+
                 });
                 setCargando(false)
             }, 3000)
@@ -55,7 +56,9 @@ function FormularioCita() {
             setTimeout(() => {
                 toast.error(error.response.data.error, {
                     theme: 'colored',
-                    position: 'top-left'
+                    position: 'top-left',
+                    autoClose: false,
+
                 });
                 setCargando(false)
             }, 3000)
@@ -180,12 +183,6 @@ function FormularioCita() {
                 )}
 
             </form>
-
-
-            <ToastContainer
-                theme='colored'
-                position='top-left'
-            />
 
 
         </>

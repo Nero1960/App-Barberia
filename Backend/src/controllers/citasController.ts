@@ -220,10 +220,6 @@ const mostrarCita = async (request: Request, response: Response) => {
             }
         ));
 
-        // Si el cliente no tiene citas, responde con un mensaje de error
-        if (citasCliente.length === 0) {
-            return response.status(400).json({ mensaje: 'El cliente no tiene citas' });
-        }
 
         response.json(citasCliente);
 
@@ -265,8 +261,8 @@ const eliminarCita = async (request: Request, response: Response) => {
         await CitasServicios.destroy({ where: { idCitas: idCitas } });
 
 
-        await citaExiste.destroy()
-        response.json({ msg: "Se ha eliminado la cita, según la política de cita" });
+        await Citas.destroy({where: {idCitas: idCitas}})
+        response.json({ msg: "Se ha eliminado la cita, según la política de cita", Citas });
 
 
     } catch (error) {

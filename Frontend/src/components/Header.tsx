@@ -82,7 +82,7 @@ function Header() {
                 <nav className='hidden md:flex items-center gap-x-8'>
                     <div className='flex items-center gap-x-4'>
                         <Link to="perfil">
-                            <img src={`${import.meta.env.VITE_BASE_IMAGE}/${auth?.imagen}`} className='rounded-full' alt="imagen perfil" width={45} height={45} />
+                            <img src={`${import.meta.env.VITE_BASE_IMAGE}/${auth?.imagen}`} className='rounded-full' alt="imagen perfil" width={30} height={30} />
                         </Link>
 
                         <div className='flex flex-col text-secondary-100 text-xs'>

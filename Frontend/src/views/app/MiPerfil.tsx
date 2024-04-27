@@ -18,7 +18,7 @@ function MiPerfil() {
 
                     <div className='flex flex-col items-center mb-10 md:mb-0'>
                         <img src={`${import.meta.env.VITE_BASE_IMAGE}/${auth?.imagen}`} alt="imagen"
-                            className='rounded-full mx-auto h-[80%] w-[80%]'
+                            className='rounded-full mx-auto h-[80%] w-[90%] object-cover'
                         />
                     </div>
 

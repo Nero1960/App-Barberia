@@ -1,109 +1,73 @@
 import { useEffect, useState } from "react"
-import { useParams } from 'react-router-dom'
 import clienteAxios from "../../config/axios";
 import formatToCordobas from "../../helpers/formatDinero";
 import formatFecha from "../../helpers/FormatFecha";
 import formatHora from "../../helpers/FormatHora";
 import logo from '../../public/logo2.png'
+import useCitas from "../../hooks/useCitas";
+import { toast } from "react-toastify";
 
 
-type CitaConDetalle = {
-    barbero: {
-        nombre: string;
-        apellido: string;
-    };
-    fecha: string;
-    hora: string;
-    idCitas: number
-    servicios: {
-        nombre: string;
-        precio: number;
-    }[];
-};
+
 
 
 function MisCitas() {
 
-    const params = useParams();
-    const idClientes = Number(params.idClientes);
 
-    const [infoCita, setInfoCita] = useState<CitaConDetalle[]>([]);
-
-    useEffect(() => {
-
-        const obtenerCitas = async () => {
-
-            try {
-
-                const token = localStorage.getItem('token');
-
-                if (!token) {
-                    return;
-                }
-
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-
-                const { data } = await clienteAxios.get(`app/obtener-cita/${idClientes}`, config);
-                setInfoCita(data);
-
-            } catch (error) {
-                console.log(error)
-                setInfoCita([]);
-            }
-
-        }
-
-        obtenerCitas();
-
-    }, []);
+    const { citas } = useCitas();
 
 
-    const eliminarCita = async (idCitas: number) => {
 
-        try {
+   const eliminarCita = async (idCitas: number) => {
 
-            console.log('eliminando Cita', idCitas)
+       try {
 
-            const token = localStorage.getItem('token');
+           console.log('eliminando Cita', idCitas)
 
-            if (!token) {
-                return;
-            }
+           const token = localStorage.getItem('token');
 
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
+           if (!token) {
+               return;
+           }
 
-            const { data } : any  = await clienteAxios.delete(`app/eliminar-cita/${idCitas}`, config);
-            console.log(data);
-        } catch (error) {
-            console.log(error)
-        }
+           const config = {
+               headers: {
+                   'Content-Type': 'application/json',
+                   Authorization: `Bearer ${token}`
+               }
+           }
+
+           const { data } : any  = await clienteAxios.delete(`app/eliminar-cita/${idCitas}`, config);
+           toast.success(data.msg, {
+            theme: 'colored',
+            position: 'top-left',
+            autoClose: false
+           })
+       } catch (error : any) {
+           console.log(error)
+           toast.error(error.response.data.msg, {
+            theme: 'colored',
+            position: 'top-left',
+            autoClose: false
+           })
+       }
 
 
-    }
+   }
 
 
     return (
         <>
 
-            <main className={`${infoCita.length === 0 ? 'h-screen' : 'h-full'} w-[90%] md:my-10 md:max-w-[70%] mx-auto`}>
+            <main className={`${citas.length === 0 ? 'h-screen' : 'h-full'} w-[90%] md:my-10 md:max-w-[70%] mx-auto`}>
 
-                {infoCita.length > 0 ?
+                {citas.length > 0 ?
 
                     <>
 
                         <h1 className="text-secondary-400 text-5xl font-Heading text-center">Mis Citas</h1>
 
-                        {infoCita.map(cita => (
+                        {citas.map(cita => (
 
                             <div className="bg-dark-500 grid md:grid-cols-2 my-10 " key={cita.idCitas}>
 

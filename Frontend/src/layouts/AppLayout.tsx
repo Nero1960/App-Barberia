@@ -18,16 +18,17 @@ function AppLayout() {
     <>
       <Header />
       {auth?.idClientes && !auth?.admin ? (<Outlet />) : <Navigate to={'/'} />}
-      <Footer />
-
       <ToastContainer
         theme='colored'
         position='top-left'
       />
+      <Footer />
+
+
 
     </>
 
-    
+
 
   )
 }

@@ -137,7 +137,7 @@ function Inicio() {
 
       <section className='barberos px-5 md:px-40 py-12 space-y-9 ' id='barberos'>
         <h2 className=' text-3xl md:text-5xl text-secondary-400 text-center font-Heading w-2/3 mx-auto'>Nuestros Profesionales</h2>
-        <p className='my-6 text-center text-xs text-secondary-100 md:w-2/5 leading-5 mx-auto'> Descubre quiénes son los talentos detrás de nuestros servicios y déjate consentir por manos expertas. ¡Te invitamos Link conocer Link nuestros profesionales!</p>
+        <p className='my-6 text-center text-xs text-secondary-100 md:w-2/5 leading-5 mx-auto'> Descubre quiénes son los talentos detrás de nuestros servicios y déjate consentir por manos expertas. ¡Te invitamos a conocer a nuestros profesionales!</p>
 
         <div className='grid grid-cols-1 md:grid-cols-3 space-y-7 md:space-y-0'>
           {barberos.map(barbero => (

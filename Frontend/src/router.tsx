@@ -27,6 +27,7 @@ import Policy from './views/app/Policy';
 import MisCitas from './views/app/MisCitas';
 import MiPerfil from './views/app/MiPerfil';
 import ActualizarPerfil from './views/app/ActualizarPerfil';
+import { CitasProvider } from './context/CitasProvider';
 
 
 function router() {
@@ -36,32 +37,34 @@ function router() {
                 <AuthProvider>
                     <ServiciosProvider>
                         <BarberosProvider>
-                            <Routes>
-                                <Route path='/' element={<AuthLayout />}>
-                                    <Route index element={<Login />} />
-                                    <Route path='/registrar-cliente' element={<RegistrarCliente />} />
-                                    <Route path='/confirmar/:token' element={<ConfirmarCuenta />} />
-                                    <Route path='/olvide-password' element={<OlvidePassword />} />
-                                    <Route path='/olvide-password/:token' element={<NuevoPassword />} />
-                                </Route>
+                            <CitasProvider>
+                                <Routes>
+                                    <Route path='/' element={<AuthLayout />}>
+                                        <Route index element={<Login />} />
+                                        <Route path='/registrar-cliente' element={<RegistrarCliente />} />
+                                        <Route path='/confirmar/:token' element={<ConfirmarCuenta />} />
+                                        <Route path='/olvide-password' element={<OlvidePassword />} />
+                                        <Route path='/olvide-password/:token' element={<NuevoPassword />} />
+                                    </Route>
 
-                                <Route path='/admin' element={<AdminLayout />}>
-                                    <Route index element={<InicioAdmin />} />
+                                    <Route path='/admin' element={<AdminLayout />}>
+                                        <Route index element={<InicioAdmin />} />
 
-                                </Route>
+                                    </Route>
 
 
-                                <Route path='/app' element={<AppLayout />}>
-                                    <Route index element={<Inicio />} />
-                                    <Route path='/app/citas' element={<ReservarCita/>}/>
-                                    <Route path='/app/nosotros' element={<Nosotros/>}/>
-                                    <Route path='/app/policy' element={<Policy/>}/>
-                                    <Route path='/app/mis-citas/:idClientes' element={<MisCitas/>}/>
-                                    <Route path='/app/perfil' element={<MiPerfil/>}/>
-                                    <Route path='/app/actualizar-perfil' element={<ActualizarPerfil/>} />
+                                    <Route path='/app' element={<AppLayout />}>
+                                        <Route index element={<Inicio />} />
+                                        <Route path='/app/citas' element={<ReservarCita />} />
+                                        <Route path='/app/nosotros' element={<Nosotros />} />
+                                        <Route path='/app/policy' element={<Policy />} />
+                                        <Route path='/app/mis-citas/:idClientes' element={<MisCitas />} />
+                                        <Route path='/app/perfil' element={<MiPerfil />} />
+                                        <Route path='/app/actualizar-perfil' element={<ActualizarPerfil />} />
 
-                                </Route>
-                            </Routes>
+                                    </Route>
+                                </Routes>
+                            </CitasProvider>
                         </BarberosProvider>
                     </ServiciosProvider>
                 </AuthProvider>

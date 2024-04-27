@@ -7,7 +7,7 @@
 
 /* width */
 ::-webkit-scrollbar {
-    width: 20px;
+    width: 10px;
 }
 
 /* Track */
@@ -19,6 +19,7 @@
 ::-webkit-scrollbar-thumb {
     background: #D6A354;
     border-radius: 5px;
+    transition-property: background-color;
     transition-duration: 3000ms;
 }
 
