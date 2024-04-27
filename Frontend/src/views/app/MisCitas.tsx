@@ -8,15 +8,13 @@ import useCitas from "../../hooks/useCitas";
 import { toast } from "react-toastify";
 
 
-
-
-
 function MisCitas() {
 
+   const { citas , actualizarCitas} = useCitas();
 
-    const { citas } = useCitas();
-
-
+   useEffect(() => {
+        actualizarCitas();
+   }, [])
 
    const eliminarCita = async (idCitas: number) => {
 
@@ -51,7 +49,9 @@ function MisCitas() {
             autoClose: false
            })
        }
+       
 
+       actualizarCitas();
 
    }
 
