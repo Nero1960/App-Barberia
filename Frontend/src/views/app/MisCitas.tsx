@@ -59,7 +59,7 @@ function MisCitas() {
     return (
         <>
 
-            <main className={`${citas.length === 0 ? 'h-screen' : 'h-full'} w-[90%] md:my-10 md:max-w-[70%] mx-auto`}>
+            <main className={`${citas.length === 0 ? 'h-screen' : 'h-full'} max-w-[90%] md:my-10 md:max-w-3xl mx-auto`}>
 
                 {citas.length > 0 ?
 

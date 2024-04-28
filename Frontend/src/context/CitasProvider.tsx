@@ -9,7 +9,6 @@ type CitasTypeContext = {
     citas: CitasType,
     setCitas: React.Dispatch<React.SetStateAction<CitasType>>,
     actualizarCitas : () => void
-
 }
 
 const CitasContext = createContext<CitasTypeContext>({ citas: [], setCitas: () => { } , actualizarCitas: () => {}});
@@ -80,7 +79,6 @@ const CitasProvider = ({ children }: { children: React.ReactNode }) => {
         >
 
             {children}
-
 
         </CitasContext.Provider>
     )

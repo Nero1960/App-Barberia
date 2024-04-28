@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const AuthLayout = () => {
     return (
         <>
-            <main className="md:grid md:grid-cols-2 gap-x-2 items-center justify-center h-screen">
+            <main className="max-w-[90%] space-y-10 md:space-y-0 my-10 md:my-0 mx-auto md:grid md:grid-cols-2 md:gap-x-2 items-center justify-center md:h-screen">
                 <Outlet />
             </main>
 

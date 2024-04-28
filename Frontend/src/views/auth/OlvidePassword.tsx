@@ -42,12 +42,12 @@ function OlvidePassword() {
     }
     return (
         <>
-            <div className='flex flex-col items-center mx-5'>
-                <h1 className="text-center text-secondary-400 text-4xl mt-10 mb-10 md:mt-0 md:mb-0 md:text-5xl font-Heading font-bold md:leading-tight">
+            <div className='flex flex-col items-center'>
+                <h1 className="text-center text-secondary-400 text-3xl mt-10 mb-10 md:mt-0 md:mb-0 md:text-5xl font-Heading font-bold md:leading-tight">
                     ! Recupera Tu Cuenta y No Pierdas Tu Acceso!
                 </h1>
 
-                <img src={logo2} alt="LogoTipo" className='rounded-full mx-auto -mt-6 md:mt-0' width={250} height={250} />
+                <img src={logo2} alt="LogoTipo" className='rounded-full mx-auto -mt-6 md:mt-0 w-[40%] h-[40%]'/>
             </div>
 
             <form action="/olvide-password" method="post" className="md:w-3/4 mx-auto bg-dark-500 p-8 rounded-lg shadow-dark-500 shadow-2xl" noValidate onSubmit={handleSubmit(validarForm)}>

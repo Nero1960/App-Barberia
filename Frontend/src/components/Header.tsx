@@ -26,29 +26,34 @@ function Header() {
     return (
         <header className={`px-5  py-3 md:p-0`}>
 
-            <div className={'py-5 px-5 md:px-0 bg-primary-500 hidden md:flex flex-col md:flex-row items-center md:justify-around text-white'}>
-                <div className="flex items-center space-x-5 md:space-x-0 md:justify-around w-full md:w-1/2">
-                    <div className="flex items-center space-x-2">
-                        <img src={phoneIcons} alt="icono teléfono" />
-                        <p className='text-xs font-light'>Contactarnos: <span className='ms-2'>+505 8788 2866</span></p>
+            <div className='bg-primary-500'>
+
+                <div className={'py-5 px-5 md:px-0 max-w-5xl mx-auto hidden md:flex flex-col md:flex-row items-center md:justify-between text-white'}>
+                    <div className="flex items-center space-x-5 justify-between">
+                        <div className="flex items-center space-x-2">
+                            <img src={phoneIcons} alt="icono teléfono" />
+                            <p className='text-xs font-light'>Contactarnos: <span className='ms-2'>+505 8788 2866</span></p>
+                        </div>
+
+                        <div className="text-white flex items-center space-x-2">
+                            <img src={clockIcons} alt="icono hora" />
+                            <p className='text-xs font-light'>Horario: <span className='ms-2'>Lunes - Sábado, 9:00 AM - 5:00 PM</span></p>
+                        </div>
                     </div>
 
-                    <div className="text-white flex items-center space-x-2">
-                        <img src={clockIcons} alt="icono hora" />
-                        <p className='text-xs font-light'>Horario: <span className='ms-2'>Lunes - Sábado, 9:00 AM - 5:00 PM</span></p>
+
+                    <div className="text-white flex space-x-2 mt-5 md:mt-0">
+                        <Link to="#"><img src={facebook} alt="facebook red social" /></Link>
+                        <Link to="#"><img src={instagram} alt="instagram red social" /></Link>
+                        <Link to="#"><img src={tiktok} alt="tiktok red social" /></Link>
                     </div>
-                </div>
 
-
-                <div className="text-white flex space-x-2 mt-5 md:mt-0">
-                    <Link to="#"><img src={facebook} alt="facebook red social" /></Link>
-                    <Link to="#"><img src={instagram} alt="instagram red social" /></Link>
-                    <Link to="#"><img src={tiktok} alt="tiktok red social" /></Link>
                 </div>
 
             </div>
 
-            <div className='md:px-36 barra flex justify-between py-0 md:py-3 w-full items-center'>
+
+            <div className='mx-w-[90%] md:max-w-5xl mx-auto barra flex justify-between py-0 md:py-3 w-full items-center'>
                 <div className='logo'>
                     <Link to="/app"> <img src={logo} alt="Logo BarberShop" width={150} height={150} /></Link>
                 </div>
@@ -67,7 +72,7 @@ function Header() {
                             Perfil <img src={`${import.meta.env.VITE_BASE_IMAGE}/${auth?.imagen}`} className='rounded-full' alt="imagen perfil" width={25} height={25} />
                         </Link>
                         <Link to="/" className='flex items-center gap-x-2 text-white text-sm hover:text-secondary-400 duration-250' onClick={cerrarSession} >
-                            <img src={cerrarSesion} alt="cerrar sesion icono" width={20} height={20}/></Link>
+                            <img src={cerrarSesion} alt="cerrar sesion icono" width={20} height={20} /></Link>
 
                     </div>
 
@@ -93,7 +98,7 @@ function Header() {
 
                     </div>
                     <Link to="/" className='flex items-center gap-x-2 text-white text-sm hover:text-secondary-400 duration-250' onClick={cerrarSession} >
-                        <img src={cerrarSesion} alt="cerrar sesion icono" width={20} height={20}/></Link>
+                        <img src={cerrarSesion} alt="cerrar sesion icono" width={20} height={20} /></Link>
 
                 </nav>
 

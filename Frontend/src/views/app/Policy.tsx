@@ -7,7 +7,7 @@ function Policy() {
     return (
         <>
 
-            <main className="max-w-4xl px-10 my-20 flex flex-col md:flex-row mx-auto">
+            <main className="md:max-w-5xl max-w-[90%] px-10 my-20 flex flex-col md:flex-row mx-auto">
 
 
                 <div className="md:w-[70%] mx-auto">

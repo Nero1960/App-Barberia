@@ -34,13 +34,13 @@
     background-size: 35rem;
     background-position: bottom center;
     background-repeat: no-repeat;
-    height: auto;
+    height: 50rem;
 }
 
 @media (min-width: 768px) {
     .hero {
-        height: 34rem;
-        background-size: 60%;
+        height: 40rem;
+        background-size: 63%;
         background-position: bottom right;
     }
 }
@@ -51,7 +51,7 @@
 
 
 .citas {
-    background: linear-gradient(rgb(0 0 0 /.7), rgb(0 0 0 /.7)), url(./public/citas.jpg);
+    background: linear-gradient(rgb(0 0 0 /.6), rgb(0 0 0 /.6)), url(./public/citas.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 function ReservarCita() {
     return (
-        <main className='citas px-5 md:px-40 space-y-9' id='citas'>
+        <main className='citas space-y-9' id='citas'>
 
-            <div className='flex flex-col justify-between gap-y-28 md:flex-row md:h-full md:justify-center md:items-center  md:mx-auto gap-x-10 py-20'>
+            <div className='flex flex-col justify-between gap-y-28 md:flex-row md:h-full md:justify-center md:items-center md:max-w-5xl max-w-[90%] mx-auto gap-x-10 py-20'>
                 <div className='order-2 md:order-1 text-secondary-100 flex flex-col gap-y-15 font-Heading md:w-2/3 -mt-14'>
                     <img src={logo} alt="logo" loading='lazy' width={150} height={150} className='mx-auto' />
 

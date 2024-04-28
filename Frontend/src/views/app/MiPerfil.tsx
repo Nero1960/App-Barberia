@@ -11,7 +11,7 @@ function MiPerfil() {
     console.log(auth?.imagen)
 
     return (
-        <main className='max-w-[90%] md:max-w-[80%] bg-dark-500 mb-10 py-5 mx-auto'>
+        <main className='max-w-5xl md:max-w-[80%] bg-dark-500 mb-10 py-5 mx-auto'>
 
             <div className='p-5 flex flex-col md:flex-row gap-x-10'>
                 <aside className='imagen-perfil md:w-[20%]'>

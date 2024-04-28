@@ -9,8 +9,8 @@ import logo2 from '../public/logo1.png'
 
 function Footer() {
     return (
-        <footer className="bg-dark-500 px-5 md:px-48 pt-10 pb-4">
-            <div className="flex flex-col md:flex-row justify-around text-secondary-500 place-items-center space-y-5 md:space-y-0 w-full">
+        <footer className="bg-dark-500 pt-10 pb-4">
+            <div className="flex flex-col md:flex-row justify-around text-secondary-500 place-items-center space-y-5 md:space-y-0 md:max-w-5xl max-w-[90%] mx-auto ">
                 <div className='md:w-1/3 flex flex-col  justify-center items-center'>
                     <img src={logo} alt="Logotipo" width={150} height={150} />
                     <p className='text-xs font-thin leading-relaxed mb-5 text-white text-center'>!Recuerda seguirnos en todas nuestras redes sociales y no perderte de nuestras Promociones!</p>

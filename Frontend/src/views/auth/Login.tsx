@@ -95,16 +95,16 @@ function Login() {
     return (
         <>
 
-            <div className='flex flex-col items-center'>
-                <h1 className="text-center text-secondary-400 text-4xl mt-10 mb-5 md:mt-0 md:mb-0 md:text-5xl font-Heading font-bold md:leading-tight">
+            <div className='flex flex-col items-center mt-10 md:mt-0'>
+                <h1 className="text-center text-secondary-400 text-3xl mt-10 mb-10 md:mt-0 md:mb-0 md:text-5xl font-Heading font-bold md:leading-tight">
                     ! Bienvenido a Mojica's BarberShop!
                 </h1>
 
-                <img src={logo2} alt="LogoTipo" className='rounded-full mx-auto ' width={250} height={250} />
+                <img src={logo2} alt="LogoTipo" className='rounded-full mx-auto -mt-6 md:mt-0 w-[40%] h-[40%]'/>
             </div>
 
 
-            <form action="/login" method="POST" className="md:w-3/4 mx-auto bg-dark-500 p-8 rounded-2xl shadow-dark-500 shadow-2xl" noValidate onSubmit={handleSubmit(autenticarCliente)}>
+            <form action="/login" method="POST" className="md:w-3/4 mx-auto bg-dark-500 p-8 rounded-xl shadow-dark-500 shadow-2xl" noValidate onSubmit={handleSubmit(autenticarCliente)}>
                 <div className='mb-5'>
                     <img src={logo1} alt="LogoTipo" className='rounded-full mx-auto' width={150} height={150} />
                     <span className='block text-sm text-secondary-400 text-center -mt-3'>Mojica's BarberShop</span>
