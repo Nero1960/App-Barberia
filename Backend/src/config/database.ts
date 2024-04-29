@@ -9,5 +9,9 @@ const db = new Sequelize(process.env.DATABASE_NAME , process.env.DATABASE_USER, 
     models: [__dirname + '/../models/**/*.ts']
 })
 
+db.sync();
+
+
+
 
 export default db;

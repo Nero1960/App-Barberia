@@ -25,6 +25,7 @@ import ReservarCita from './views/app/ReservarCita';
 import Nosotros from './views/app/Nosotros';
 import Policy from './views/app/Policy';
 import MisCitas from './views/app/MisCitas';
+import ActualizarCita from './views/app/ActualizarCita';
 import MiPerfil from './views/app/MiPerfil';
 import ActualizarPerfil from './views/app/ActualizarPerfil';
 import { CitasProvider } from './context/CitasProvider';
@@ -58,7 +59,8 @@ function router() {
                                         <Route path='/app/citas' element={<ReservarCita />} />
                                         <Route path='/app/nosotros' element={<Nosotros />} />
                                         <Route path='/app/policy' element={<Policy />} />
-                                        <Route path='/app/mis-citas/:idClientes' element={<MisCitas />} />
+                                        <Route path='/app/mis-citas' element={<MisCitas />} />
+                                        <Route path='/app/actualizar-cita/:idCitas' element={<ActualizarCita />} />
                                         <Route path='/app/perfil' element={<MiPerfil />} />
                                         <Route path='/app/actualizar-perfil' element={<ActualizarPerfil />} />
 

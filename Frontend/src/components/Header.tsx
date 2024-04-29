@@ -65,7 +65,7 @@ function Header() {
                 <nav className={` ${showMenu ? 'flex flex-col justify-start items-start px-10 py-10 absolute left-0 top-20 space-y-5 bg-dark-500 w-full ' : 'hidden'} md:flex md:space-x-5 md:items-center`}>
                     <Link to="/app" className='text-white text-sm hover:text-secondary-400 duration-300'>Inicio</Link>
                     <Link to="nosotros" className='text-white text-sm hover:text-secondary-400 duration-300'>Nosotros</Link>
-                    <Link to={`mis-citas/${auth?.idClientes}`} className='text-white text-sm hover:text-secondary-400 duration-300'>Mis Citas</Link>
+                    <Link to={`mis-citas`} className='text-white text-sm hover:text-secondary-400 duration-300'>Mis Citas</Link>
 
                     <div className='flex flex-col gap-y-5 gap-x-3 md:hidden'>
                         <Link to="perfil" className='flex items-center gap-x-2 text-white text-sm hover:text-secondary-400 duration-300'>

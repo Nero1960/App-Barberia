@@ -37,6 +37,22 @@
     height: 50rem;
 }
 
+.actualizar {
+    background: linear-gradient(rgb(0 0 0 /.6), rgb(0 0 0 /.6)), url(./public/citas.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: auto;
+}
+
+@media (min-width: 768px) {
+    .actualizar {
+        height: 50rem;
+        background-position: left;
+
+    }
+}
+
 @media (min-width: 768px) {
     .hero {
         height: 40rem;

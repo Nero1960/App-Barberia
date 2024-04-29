@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect} from "react"
 import clienteAxios from "../../config/axios";
 import formatToCordobas from "../../helpers/formatDinero";
 import formatFecha from "../../helpers/FormatFecha";
@@ -12,6 +12,7 @@ function MisCitas() {
 
    const { citas , actualizarCitas} = useCitas();
 
+
    useEffect(() => {
         actualizarCitas();
    }, [])
@@ -20,7 +21,6 @@ function MisCitas() {
 
        try {
 
-           console.log('eliminando Cita', idCitas)
 
            const token = localStorage.getItem('token');
 
@@ -59,9 +59,9 @@ function MisCitas() {
     return (
         <>
 
-            <main className={`${citas.length === 0 ? 'h-screen' : 'h-full'} max-w-[90%] md:my-10 md:max-w-3xl mx-auto`}>
+            <main className={`${citas?.length === 0 ? 'h-screen' : 'h-full'} max-w-[90%] md:my-10 md:max-w-3xl mx-auto`}>
 
-                {citas.length > 0 ?
+                {citas?.length > 0 ?
 
                     <>
 
@@ -94,7 +94,7 @@ function MisCitas() {
 
                                     <div className="flex gap-x-4">
 
-                                        <button type="button" className="mt-5 bg-primary-500 text-white py-2 px-4 rounded hover:bg-primary-600 duration-300">Actualizar</button>
+                                        <a href={`/app/actualizar-cita/${cita.idCitas}`} className="mt-5 bg-primary-500 text-white py-2 px-4 rounded hover:bg-primary-600 duration-300">Actualizar</a>
 
                                         <button type="button" onClick={() => eliminarCita(cita.idCitas as number)} className="mt-5 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 duration-300">Eliminar</button>
 

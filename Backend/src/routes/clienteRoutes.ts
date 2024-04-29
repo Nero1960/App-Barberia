@@ -12,7 +12,7 @@ import {
 import checkAuth from '../middleware/checkAuth';
 import { getBarberos, getBarberoCliente } from '../controllers/barberoController';
 import { getServices } from '../controllers/serviciosController';
-import { actualizarCita, reprogramarCita, reservarCita, mostrarCita, eliminarCita } from '../controllers/citasController';
+import { actualizarCita, reprogramarCita, reservarCita, mostrarCita, eliminarCita, obtenerCita } from '../controllers/citasController';
 import upload from '../middleware/subidaArchivos';
 
 
@@ -34,8 +34,9 @@ router.get('/app/obtener-servicios', checkAuth, getServices);
 
 router.post('/app/reservar-cita', checkAuth, reservarCita);
 router.post('/app/reprogramar-cita/:idCita', checkAuth, reprogramarCita)
-router.post('/app/actualizar-cita/:idCita', checkAuth, actualizarCita);
-router.get('/app/obtener-cita/:idClientes', checkAuth, mostrarCita)
+router.put('/app/actualizar-cita/:idCitas', checkAuth, actualizarCita);
+router.get('/app/obtener-cita/:idCitas', checkAuth, obtenerCita)
+router.get('/app/obtener-citas/:idClientes', checkAuth, mostrarCita)
 router.delete('/app/eliminar-cita/:idCitas', checkAuth, eliminarCita);
 
 router.put('/app/actualizar-perfil', checkAuth,  upload.single('imagen'), actualizarPerfil)

@@ -43,6 +43,48 @@ const barberoDisponible = async (idBarberos: number, fecha: Date, hora: string):
     }
 }
 
+const obtenerCita = async (request: Request, response: Response) => {
+
+    const idCitas = request.params.idCitas;
+
+    try {
+
+        const citaCliente = await Citas.findByPk(idCitas,(
+            {
+                include: [
+                    {
+                        model: Servicios,
+                        through: {
+                            model: CitasServicios,
+                            attributes: []
+                        } as any,
+
+                        attributes: ['nombre', 'precio']
+                    },
+                    {
+                        model: Barbero,
+                        attributes: ['idBarberos', 'nombre', 'apellido']
+                    }
+                ],
+
+                attributes: ['fecha', 'hora', 'idCitas']
+
+            }
+        ));
+
+
+        response.json(citaCliente);
+
+
+    } catch (error) {
+
+        // Si ocurre algún error, responde con un mensaje de error
+        console.error('Error al mostrar las citas del cliente:', error);
+        response.status(500).json({ mensaje: 'Error interno del servidor' });
+    }
+
+}
+
 const reservarCita = async (request: RequestCustom, response: Response) => {
 
     const { idBarberos, fecha, servicios, hora }: Citas = request.body;
@@ -148,15 +190,44 @@ const reprogramarCita = async (request: Request, response: Response) => {
 
 const actualizarCita = async (request: Request, response: Response) => {
 
-    const { idCita } = request.params;
-    const { idBarberos, servicios }: Citas = request.body;
+    const { idCitas } = request.params;
+    const { idBarberos, servicios, fecha, hora }: Citas = request.body;
 
-    console.log(idCita)
+    console.log(idCitas)
+
+    const fechaActual = moment();
 
     try {
-        const cita = await Citas.findByPk(idCita, {
-            include: [CitasServicios]
+        const cita = await Citas.findByPk(idCitas, {
+            include: [
+                {
+                    model: Servicios,
+                    through: {
+                        model: CitasServicios,
+                        attributes: []
+                    },
+                    attributes: ['nombre', 'precio']
+                } as any,
+                {
+                    model: Barbero,
+                    attributes: ['idBarberos']
+                }
+            ]
         })
+
+        // Verificar si la fecha propuesta es mayor a la fecha actual
+        const fechaPropuesta = moment(fecha, 'YYYY-MM-DD');
+        if (!fechaPropuesta.isValid() || fechaPropuesta.isSameOrBefore(fechaActual)) {
+            return response.status(400).json({ msg: 'La fecha propuesta debe ser válida y mayor a la fecha actual' });
+        }
+
+        const diferenciaHoras = Math.abs(moment.duration(fechaActual.diff(cita.fecha)).asHours());
+
+        if (diferenciaHoras <= 24) {
+            response.status(404).json({ msg: 'No se puede reprogramar la cita dentro de las 24 horas previas a la cita original' })
+            return;
+
+        }
 
         if (!cita) {
             const error = new Error('No se ha encontrado una cita');
@@ -169,13 +240,17 @@ const actualizarCita = async (request: Request, response: Response) => {
         }
 
         cita.idBarberos = idBarberos || cita.idBarberos;
+        cita.fecha = fecha || cita.fecha;
+        cita.hora = hora || cita.hora;
 
         // Eliminamos todos los servicios asociados a la cita
-        await CitasServicios.destroy({ where: { idCita } });
+        await CitasServicios.destroy({ where: { idCitas } });
 
         // Creamos los nuevos servicios para la cita
-        const nuevosServicios = servicios.map(servicio => ({ idCita, idServicios: servicio.idServicios }));
-        await CitasServicios.bulkCreate(nuevosServicios);
+        // Crear nuevos registros en la tabla intermedia para los servicios actualizados
+        await Promise.all(servicios.map(async (servicioId: any) => {
+            await CitasServicios.create({ idCitas: idCitas, idServicios: servicioId });
+        }));
 
 
         await cita.save();
@@ -261,7 +336,7 @@ const eliminarCita = async (request: Request, response: Response) => {
         await CitasServicios.destroy({ where: { idCitas: idCitas } });
 
 
-        await Citas.destroy({where: {idCitas: idCitas}})
+        await Citas.destroy({ where: { idCitas: idCitas } })
         response.json({ msg: "Se ha eliminado la cita, según la política de cita", Citas });
 
 
@@ -281,5 +356,6 @@ export {
     reprogramarCita,
     actualizarCita,
     mostrarCita,
-    eliminarCita
+    eliminarCita,
+    obtenerCita
 }
