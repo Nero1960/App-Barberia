@@ -109,8 +109,17 @@ function ActualizarCita() {
                 navigate('/app/mis-citas')
             }, 3000)
             
-        } catch (error) {
+        } catch (error : any) {
             console.log(error)
+            setTimeout(() => {
+                toast.error(error.response.data.msg, {
+                    theme: 'colored',
+                    position: 'top-left',
+                    autoClose: false,
+
+                });
+                setCargando(false)
+            }, 3000)
         }
         // Actualiza la lista de citas
         actualizarCitas();
