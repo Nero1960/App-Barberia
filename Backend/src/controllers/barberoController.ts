@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import Barbero from "../models/Barberos";
 import Cliente from "../models/Clientes";
 import { BarberoType } from "../types";
+import path from "path";
+import fs from 'fs';
+
 
 
 type Requests = Request & {
@@ -12,9 +15,7 @@ type Requests = Request & {
 
 const addBarbero = async (request: Requests, response: Response) => {
     const { email, nombre, apellido, telefono, especialidad }: BarberoType = request.body;
-     //request.file.filename;
-     console.log(email)
-     console.log(request.file.filename);
+
 
     try {
 
@@ -38,7 +39,7 @@ const addBarbero = async (request: Requests, response: Response) => {
             especialidad,
             apellido,
             telefono,
-            imagen: request.file.filename
+            imagen: request?.file?.filename || 'default.png'
         });
         await nuevoBarbero.save();
 
@@ -86,7 +87,7 @@ const getBarberoCliente = async (request: Request, response: Response) => {
             return response.status(404).json({ msg: error.message })
         }
 
-        response.json({ nombre: barbero.nombre, apellido: barbero.apellido, especialidad: barbero.especialidad , imagen: barbero.imagen});
+        response.json({ nombre: barbero.nombre, apellido: barbero.apellido, especialidad: barbero.especialidad, imagen: barbero.imagen });
     } catch (error) {
         console.log(error)
     }
@@ -104,6 +105,20 @@ const updateBarbero = async (request: Request, response: Response) => {
         return response.status(404).json({ msg: error.message });
     }
 
+    // Obtener la imagen de perfil previa del cliente, si existe
+    const imagenPrevia = barbero.imagen;
+
+    // Verificar si se ha subido un archivo
+    if (request.file) {
+        barbero.imagen = request.file.filename;
+
+        if (imagenPrevia && imagenPrevia !== 'default.png') {
+            const rutaImagenPrevia = path.join(__dirname, '..', 'uploads', imagenPrevia);
+            fs.unlinkSync(rutaImagenPrevia);
+
+        }
+    }
+
     try {
 
         barbero.nombre = nombre || barbero.nombre;
@@ -112,8 +127,8 @@ const updateBarbero = async (request: Request, response: Response) => {
         barbero.email = email || barbero.email;
         barbero.especialidad = especialidad || barbero.especialidad;
 
-        await barbero.save();
-        response.json(barbero);
+        const nuevoBarbero = await barbero.save();
+        response.json({ msg: 'Barbero Actualizado con éxito', nuevoBarbero });
 
     } catch (error) {
         console.log(error)
@@ -133,7 +148,15 @@ const deleteBarbero = async (request: Request, response: Response) => {
             return response.status(404).json({ msg: error.message })
         }
 
+        const imagen = barbero.imagen;
+
         await barbero.destroy();
+
+        if (imagen && imagen !== 'default.png') {
+            const rutaImagen = path.join(__dirname, '..', 'uploads', imagen);
+            fs.unlinkSync(rutaImagen);
+
+        }
 
         response.json({ msg: 'Barbero eliminado correctamente' });
 
@@ -141,7 +164,6 @@ const deleteBarbero = async (request: Request, response: Response) => {
         console.log(error)
     }
 
-    console.log(idBarbero)
 }
 
 const getBarberos = async (request: Request, response: Response) => {
@@ -151,11 +173,23 @@ const getBarberos = async (request: Request, response: Response) => {
 
 }
 
+const obtenerTotalBarbero = async (request: Request, response: Response) => {
+
+    try {
+        const totalBarberos = await Barbero.count();
+        response.status(200).json(totalBarberos);
+    } catch (error) {
+        const errors = new Error('Error al contar los Barberos');
+        response.status(403).json({ msg: errors.message });
+
+    }
+}
 export {
     addBarbero,
     getBarbero,
     getBarberoCliente,
     getBarberos,
     updateBarbero,
-    deleteBarbero
+    deleteBarbero,
+    obtenerTotalBarbero
 }

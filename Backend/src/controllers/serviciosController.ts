@@ -1,6 +1,8 @@
-import { Response, Request, request } from "express";
+import { Response, Request} from "express";
 import Servicios from "../models/Servicios";
 import { ServicioType } from "../types";
+import sequelize from "sequelize/lib/sequelize";
+import Citas from "../models/Citas";
 
 const addService = async (request: Request, response: Response) => {
 
@@ -105,11 +107,47 @@ const deleteService = async (request: Request, response: Response) => {
     }
 }
 
+const obtenerTotalServicios = async (request: Request, response: Response) => {
+    try {
+        const totalServicios = await Servicios.count();
+
+        response.json(totalServicios)
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+// Función asincrónica para obtener los servicios más solicitados
+const obtenerServiciosMasSolicitados = async () => {
+    try {
+      // Consulta para obtener los servicios más solicitados
+      const serviciosMasSolicitados = await Servicios.findAll({
+        include: [{
+          model: Citas,
+          through: {
+            attributes: [] // Esto asegura que no se incluyan atributos adicionales de la tabla pivot
+          }
+        }],
+        attributes: ['idServicios', 'nombre'],
+        group: ['Servicio.idServicios'],
+        order: sequelize.literal('total DESC'),
+        limit: 3 // Obtener los 3 servicios más solicitados
+      });
+      console.log('Servicios más solicitados:', serviciosMasSolicitados);
+      return serviciosMasSolicitados;
+    } catch (error) {
+      console.error('Error al obtener los servicios más solicitados:', error);
+      throw error;
+    }
+  };
 
 export {
     addService,
     getService,
     getServices,
     updateService,
-    deleteService
+    deleteService,
+    obtenerTotalServicios,
+    obtenerServiciosMasSolicitados
 }

@@ -8,14 +8,16 @@ type BarberosType = Barberos[];
 
 type BarberosTypeContext = {
     barberos: BarberosType,
+    actualizarBarberos : () => void
 }
 
 
-const BarberosContext = createContext<BarberosTypeContext>({ barberos: []});
+const BarberosContext = createContext<BarberosTypeContext>({ barberos: [], actualizarBarberos : () => {}});
 
 const BarberosProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [barberos, setBarberos] = useState<BarberosType>([])
+    const [cargando, setCargando] = useState(false);
     const { auth } = useAuth();
 
 
@@ -52,7 +54,11 @@ const BarberosProvider = ({ children }: { children: React.ReactNode }) => {
 
         obtenerBarberos();
 
-    }, [auth?.token])
+    }, [auth?.token, cargando])
+
+    const actualizarBarberos = () => {
+        setCargando(prevState => !prevState);
+    };
 
     
 
@@ -61,7 +67,8 @@ const BarberosProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <BarberosContext.Provider
             value={{
-                barberos
+                barberos,
+                actualizarBarberos
             }}
         >
             {children}

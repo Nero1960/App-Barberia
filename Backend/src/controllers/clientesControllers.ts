@@ -1,4 +1,4 @@
-import { Request, Response, request } from "express";
+import { Request, Response } from "express";
 import Cliente from "../models/Clientes";
 import generarId from "../helpers/generarId";
 import generarJWT from "../helpers/generarToken";
@@ -7,6 +7,7 @@ import newPasswordEmail from "../helpers/sendEmailForgotPassword";
 import { ClienteType } from "../types";
 import path from "path";
 import fs from 'fs';
+import { Op } from "sequelize";
 
 type RequestBody = {
     email: string,
@@ -219,7 +220,7 @@ const actualizarPerfil = async (request: Request, response: Response) => {
         cliente.imagen = request.file.filename;
 
         if (imagenPrevia && imagenPrevia !== 'default.png') {
-            const rutaImagenPrevia = path.join(__dirname,'..', 'uploads', imagenPrevia);
+            const rutaImagenPrevia = path.join(__dirname, '..', 'uploads', imagenPrevia);
             fs.unlinkSync(rutaImagenPrevia);
 
         }
@@ -247,6 +248,63 @@ const actualizarPerfil = async (request: Request, response: Response) => {
 
 }
 
+const obtenerTotalCliente = async (request: Request, response: Response) => {
+
+    try {
+        const totalCliente = await Cliente.count();
+        response.status(200).json(totalCliente);
+    } catch (error) {
+        const errors = new Error('Error al contar los clientes');
+        response.status(403).json({ msg: errors.message });
+
+    }
+}
+
+const obtenerUltimosClientes = async (request: Request, response: Response) => {
+    try {
+        // Consulta para obtener los últimos clientes registrados
+        const ultimosClientes = await Cliente.findAll({
+            order: [['id', 'DESC']], // Ordenar por ID en orden descendente
+            limit: 5 // Obtener los últimos 5 clientes
+        });
+        response.status(200).json({ ultimosClientes });
+    } catch (error) {
+        console.error('Error al obtener los últimos clientes:', error);
+        response.status(500).json({ error: 'Ocurrió un error al obtener los últimos clientes' });
+    }
+
+}
+
+const obtenerClientes = async (request : Request, response: Response) => {
+    try {
+        const clientes = await Cliente.findAll();
+        response.json(clientes);
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+const buscarCliente = async (request: Request, response: Response) => {
+
+    const { nombre } = request.query;
+    console.log(nombre);
+
+    try {
+        const cliente = await Cliente.findAll({
+            where: {
+                nombre: {
+                    [Op.like] : `%${nombre}%`
+                }
+            },
+            attributes: ['nombre', 'apellido', 'imagen', 'email', 'telefono', 'direccion']
+        })
+
+        response.json(cliente);
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export {
     addClient,
@@ -257,4 +315,8 @@ export {
     authClient,
     actualizarPerfil,
     perfil,
+    obtenerClientes,
+    obtenerTotalCliente,
+    obtenerUltimosClientes,
+    buscarCliente
 }

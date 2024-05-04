@@ -1,4 +1,4 @@
-import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, Default, HasMany, Model, Table } from 'sequelize-typescript';
 import Citas from './Citas';
 
 @Table({
@@ -52,6 +52,7 @@ class Barbero extends Model{
 
     declare especialidad : string;
 
+    @Default('default.png')
     @Column({
         type: DataType.STRING(60),
         allowNull: true

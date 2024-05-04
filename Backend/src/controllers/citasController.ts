@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, response } from "express";
 import moment from 'moment';
 import Citas from "../models/Citas";
 import Cliente from "../models/Clientes";
@@ -41,6 +41,24 @@ const barberoDisponible = async (idBarberos: number, fecha: Date, hora: string):
         console.log(error);
         return false; // Retornar falso en caso de error
     }
+}
+
+const obtenerCitasPendientes = async (request: Request, response: Response) => {
+
+    try {
+
+        const citasPendientes = await Citas.count({
+            where: {
+                estado: 'Pendiente'
+            }
+        })
+
+        response.json(citasPendientes)
+        
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 const obtenerCita = async (request: Request, response: Response) => {
@@ -357,5 +375,6 @@ export {
     actualizarCita,
     mostrarCita,
     eliminarCita,
-    obtenerCita
+    obtenerCita,
+    obtenerCitasPendientes
 }

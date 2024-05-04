@@ -1,4 +1,4 @@
-import { Model, Column, BelongsTo, ForeignKey, Table, DataType, BelongsToMany} from 'sequelize-typescript';
+import { Model, Column, BelongsTo, ForeignKey, Table, DataType, BelongsToMany, AllowNull, Default} from 'sequelize-typescript';
 import Barbero from './Barberos';
 import Cliente from './Clientes';
 import CitasServicios from './CitasServicios';
@@ -32,6 +32,14 @@ class Citas extends Model {
     })
 
     declare hora : string;
+
+    @Default('Pendiente')
+    @Column({
+        type: DataType.STRING,
+        allowNull:false
+    })
+
+    declare estado: string;
 
     @ForeignKey(() => Cliente)
     @Column({

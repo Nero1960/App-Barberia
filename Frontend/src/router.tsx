@@ -14,6 +14,7 @@ import NuevoPassword from './views/auth/NuevoPassword';
 //vistas administrador
 import AdminLayout from './layouts/AdminLayout';
 import InicioAdmin from './views/admin/InicioAdmin';
+import ClientesAdmin from './views/admin/ClientesAdmin';
 
 
 //vistas de la Aplicación
@@ -29,6 +30,9 @@ import ActualizarCita from './views/app/ActualizarCita';
 import MiPerfil from './views/app/MiPerfil';
 import ActualizarPerfil from './views/app/ActualizarPerfil';
 import { CitasProvider } from './context/CitasProvider';
+import BarberosAdmin from './views/admin/BarberosAdmin';
+import AgregarBarberoAdmin from './views/admin/AgregarBarberoAdmin';
+import ActualizarBarberosAdmin from './views/admin/ActualizarBarberosAdmin';
 
 
 function router() {
@@ -50,6 +54,12 @@ function router() {
 
                                     <Route path='/admin' element={<AdminLayout />}>
                                         <Route index element={<InicioAdmin />} />
+                                        <Route path='/admin/clientes' element={<ClientesAdmin/>} />
+                                        <Route path='/admin/barberos' element={<BarberosAdmin/>} />
+                                        <Route path='/admin/agregar-barbero' element={<AgregarBarberoAdmin/>}/>
+                                        <Route path='/admin/actualizar-barbero/:idBarberos' element={<ActualizarBarberosAdmin/>} />
+
+
 
                                     </Route>
 
