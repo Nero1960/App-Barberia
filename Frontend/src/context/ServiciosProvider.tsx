@@ -8,16 +8,22 @@ type ServiciosType = Servicios[];
 type ServiciosTypeContext = {
     servicios: ServiciosType,
     loading: boolean,
+    actualizarServicios : () => void
 }
 
 
-const ServiciosContext = createContext<ServiciosTypeContext>({ servicios: [], loading: true });
+const ServiciosContext = createContext<ServiciosTypeContext>({ servicios: [], loading: true , actualizarServicios : () => {}});
 
 const ServiciosProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [servicios, setServicios] = useState<ServiciosType>([])
+    const [cargando, setCargando] =  useState(false)
     const { auth } = useAuth();
     const [loading, setLoading] = useState(true)
+
+    const actualizarServicios = () => {
+        setCargando(prevState => !prevState);
+    }
 
 
 
@@ -53,7 +59,7 @@ const ServiciosProvider = ({ children }: { children: React.ReactNode }) => {
         }
 
         obtenerServicios();
-    }, [auth?.token])
+    }, [auth?.token, cargando])
 
 
 
@@ -64,6 +70,7 @@ const ServiciosProvider = ({ children }: { children: React.ReactNode }) => {
             value={{
                 servicios,
                 loading,
+                actualizarServicios
             }}
         >
             {children}

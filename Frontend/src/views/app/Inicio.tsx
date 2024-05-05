@@ -30,6 +30,7 @@ function Inicio() {
   const [scrolly, setScrollY] = useState(0);
 
   useEffect(() => {
+    
     const scrollDetect = () => {
       setScrollY(window.scrollY)
     }
@@ -75,7 +76,7 @@ function Inicio() {
 
           <div className='grid grid-cols-1 md:grid-cols-3 mt-5 gap-y-20 md:gap-x-1 md:gap-y-0'>
             <div className='info text-xs text-secondary-100 leading-6 text-justify'>
-              <p className='mb-5'>!Bienvenido Link Mojica's BarberShop!. En Mojica's BarberShop, nos enorgullece ofrecer servicios de barbería de primera calidad desde hace más de <span className='text-primary-500'>{new Date().getFullYear() - 2019}</span> años.</p>
+              <p className='mb-5'>!Bienvenido a Mojica's BarberShop!. En Mojica's BarberShop, nos enorgullece ofrecer servicios de barbería de primera calidad desde hace más de <span className='text-primary-500'>{new Date().getFullYear() - 2019}</span> años.</p>
               <p>Fundada en [2019], nuestra barbería se ha convertido en un destino confiable para hombres que buscan un corte de cabello impecable, un afeitado suave y un servicio excepcional..</p>
 
               <p className='mt-5'>En Mojica's BarberShop, no solo nos preocupamos por el aspecto exterior; también nos preocupamos por la experiencia en su totalidad. </p>
@@ -145,7 +146,7 @@ function Inicio() {
         <h2 className=' text-3xl md:text-5xl text-secondary-400 text-center font-Heading w-2/3 mx-auto'>Nuestros Profesionales</h2>
         <p className='my-6 text-center text-xs text-secondary-100 md:w-2/5 leading-5 mx-auto'> Descubre quiénes son los talentos detrás de nuestros servicios y déjate consentir por manos expertas. ¡Te invitamos a conocer a nuestros profesionales!</p>
 
-        <div className='grid grid-cols-1 md:grid-cols-3 space-y-7 md:space-y-0'>
+        <div className='grid grid-cols-1 gap-y-5 md:grid-cols-3 space-y-7 md:space-y-0'>
           {barberos.map(barbero => (
             <ListaBarberos
               key={barbero.idBarberos}

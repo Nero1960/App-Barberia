@@ -33,6 +33,9 @@ import { CitasProvider } from './context/CitasProvider';
 import BarberosAdmin from './views/admin/BarberosAdmin';
 import AgregarBarberoAdmin from './views/admin/AgregarBarberoAdmin';
 import ActualizarBarberosAdmin from './views/admin/ActualizarBarberosAdmin';
+import ServiciosAdmin from './views/admin/ServiciosAdmin';
+import AgregarServicioAdmin from './views/admin/AgregarServicioAdmin';
+import ActualizarServiciosAdmin from './views/admin/ActualizarServiciosAdmin';
 
 
 function router() {
@@ -58,6 +61,9 @@ function router() {
                                         <Route path='/admin/barberos' element={<BarberosAdmin/>} />
                                         <Route path='/admin/agregar-barbero' element={<AgregarBarberoAdmin/>}/>
                                         <Route path='/admin/actualizar-barbero/:idBarberos' element={<ActualizarBarberosAdmin/>} />
+                                        <Route path='/admin/servicios' element={<ServiciosAdmin/>}/>
+                                        <Route path='/admin/agregar-servicio' element={<AgregarServicioAdmin/>}/>
+                                        <Route path='/admin/actualizar-servicio/:idServicios' element={<ActualizarServiciosAdmin/>}/>
 
 
 
