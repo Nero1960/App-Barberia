@@ -22,6 +22,7 @@ import useBarberos from '../../hooks/useBarberos'
 
 function Inicio() {
 
+  
   const { servicios, loading } = useServicios();
   const { barberos } = useBarberos();
 
@@ -29,14 +30,18 @@ function Inicio() {
 
   const [scrolly, setScrollY] = useState(0);
 
-  useEffect(() => {
-    
-    const scrollDetect = () => {
-      setScrollY(window.scrollY)
-    }
-    window.addEventListener('scroll', scrollDetect)
 
-  }, [scrolly])
+  useEffect(() => {
+    const scrollDetect = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', scrollDetect);
+  
+    // Limpieza del efecto
+    return () => {
+      window.removeEventListener('scroll', scrollDetect);
+    };
+  }, []); 
 
 
   return (
@@ -70,7 +75,7 @@ function Inicio() {
 
       </section>
 
-      <section className='about bg-dark-500 px-5 py-10'>
+      <section className='about bg-dark-600 px-5 py-10'>
         <div className='max-w-[90%] md:max-w-5xl mx-auto '>
           <h2 className='font-Heading text-3xl md:text-5xl text-secondary-400 mb-10'>Nosotros</h2>
 
@@ -159,7 +164,7 @@ function Inicio() {
       </section>
 
 
-      <section className='galeria bg-dark-500  py-20' id='galeria'>
+      <section className='galeria bg-dark-600  py-20' id='galeria'>
 
         <div className='md:max-w-5xl max-w-[90%] mx-auto'>
           <h2 className='font-Heading text-secondary-400 text-4xl text-center'>Galería</h2>

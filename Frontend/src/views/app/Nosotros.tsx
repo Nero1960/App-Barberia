@@ -4,7 +4,7 @@ function Nosotros() {
     return (
         <>
 
-            <main className="py-24 grid md:grid-cols-2  max-w-[90%] md:max-w-5xl mx-auto gap-10">
+            <main className="py-10 md:py-24 grid md:grid-cols-2  max-w-[90%] md:max-w-5xl mx-auto gap-10">
 
                 <div className="text-xs text-secondary-100 leading-6 text-justify space-y-8">
                     <h2 className='text-4xl font-Heading text-center text-secondary-200'>¡Bienvenido a Mojica's BarberShop!</h2>

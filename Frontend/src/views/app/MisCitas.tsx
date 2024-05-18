@@ -6,6 +6,7 @@ import formatHora from "../../helpers/FormatHora";
 import logo from '../../public/logo2.png'
 import useCitas from "../../hooks/useCitas";
 import { toast } from "react-toastify";
+import { FiCalendar, FiDelete, FiEdit } from "react-icons/fi";
 
 
 function MisCitas() {
@@ -59,17 +60,17 @@ function MisCitas() {
     return (
         <>
 
-            <main className={`${citas?.length === 0 ? 'h-screen' : 'h-full'} max-w-[90%] md:my-10 md:max-w-3xl mx-auto`}>
+            <main className={`${citas?.length === 0 ? 'h-screen' : 'h-full'} max-w-[90%] my-10 md:max-w-3xl mx-auto`}>
 
                 {citas?.length > 0 ?
 
                     <>
 
-                        <h1 className="text-secondary-400 text-5xl font-Heading text-center">Mis Citas</h1>
+                        <h1 className="text-secondary-400 text-4xl font-Heading text-center flex items-center gap-x-2 justify-center"><FiCalendar/>Mis Citas</h1>
 
                         {citas.map(cita => (
 
-                            <div className="bg-dark-500 grid md:grid-cols-2 my-10 " key={cita.idCitas}>
+                            <div className="bg-dark-600 grid md:grid-cols-2 my-10 " key={cita.idCitas}>
 
                                 <div className="flex flex-col gap-y-5 p-10 rounded">
                                     <p className="font-black text-secondary-400 text-2xl font-Heading">Fecha: <span className="font-thin text-xl text-secondary-200">{formatFecha(cita.fecha)}</span></p>
@@ -94,9 +95,9 @@ function MisCitas() {
 
                                     <div className="flex gap-x-4">
 
-                                        <a href={`/app/actualizar-cita/${cita.idCitas}`} className="mt-5 bg-primary-500 text-white py-2 px-4 rounded hover:bg-primary-600 duration-300">Actualizar</a>
+                                        <a href={`/app/actualizar-cita/${cita.idCitas}`} className="mt-5 bg-primary-500 text-white py-2 px-4 rounded hover:bg-primary-600 duration-300 flex items-center gap-x-2"> <FiEdit/> Actualizar</a>
 
-                                        <button type="button" onClick={() => eliminarCita(cita.idCitas as number)} className="mt-5 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 duration-300">Eliminar</button>
+                                        <button type="button" onClick={() => eliminarCita(cita.idCitas as number)} className="mt-5 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 duration-300 flex items-center gap-x-2"><FiDelete/> Cancelar</button>
 
 
                                     </div>

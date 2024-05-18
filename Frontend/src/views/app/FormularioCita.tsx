@@ -115,7 +115,7 @@ function FormularioCita() {
                             Fecha
                         </label>
                         <div className="flex flex-col">
-                            <input className="appearance-none block w-full bg-gray-200 text-dark-500 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white" id="fecha" min={getFormattedDate()} type="date"
+                            <input className="appearance-none block w-full bg-white text-dark-500 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white" id="fecha" min={getFormattedDate()} type="date"
                                 {...register('fecha', {
                                     required: 'Proporciona una Fecha'
                                 })} />
@@ -134,7 +134,7 @@ function FormularioCita() {
                             Hora
                         </label>
                         <div className="flex flex-col">
-                            <input className="appearance-none block w-full bg-gray-200 text-dark-500 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white" id="hora" type="time" min='09:00' max='18:00'
+                            <input className="appearance-none block w-full bg-white text-dark-500 border rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white" id="hora" type="time" min='09:00' max='18:00'
                                 {...register('hora', {
                                     required: 'Proporciona una Hora'
                                 })}

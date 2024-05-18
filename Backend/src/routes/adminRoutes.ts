@@ -4,7 +4,7 @@ import upload from '../middleware/subidaArchivos';
 import { addBarbero, deleteBarbero, getBarbero, getBarberos, obtenerTotalBarbero, updateBarbero } from '../controllers/barberoController';
 import { addService, deleteService, getService, getServices, obtenerServiciosMasSolicitados, obtenerTotalServicios, updateService } from '../controllers/serviciosController';
 import { buscarCliente, obtenerClientes, obtenerTotalCliente } from '../controllers/clientesControllers';
-import { obtenerCitasPendientes } from '../controllers/citasController';
+import { obtenerCitas, obtenerCitasPendientes } from '../controllers/citasController';
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ router.delete('/eliminar-barbero/:idBarbero', checkAdmin, deleteBarbero);
 router.get('/total-barbero', checkAdmin, obtenerTotalBarbero);
 
 router.get('/citas-pendientes', checkAdmin, obtenerCitasPendientes);
-
+router.get('/obtener-citas', checkAdmin, obtenerCitas)
 
 router.post('/registrar-servicio', checkAdmin, addService);
 router.get('/obtener-servicio/:idServicio', checkAdmin, getService);

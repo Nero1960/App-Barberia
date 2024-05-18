@@ -1,9 +1,6 @@
 import phoneIcons from '../public/Icons/telephone-fill.svg'
 import clockIcons from '../public/Icons/clock-fill.svg'
 import calendar from '../public/Icons/CalendarDays.svg'
-import facebook from '../public/Icons/facebook.svg'
-import instagram from '../public/Icons/instagram.svg'
-import tiktok from '../public/Icons/tiktok-logo-fill.svg'
 import cerrarSesion from '../public/Icons/box-arrow-left.svg'
 import menu from '../public/Icons/menu.svg'
 import close from '../public/Icons/x-lg.svg'
@@ -11,6 +8,9 @@ import logo from '../public/logo2.png'
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import { Link } from 'react-router-dom'
+import { FaFacebook } from 'react-icons/fa'
+import { RiInstagramFill } from 'react-icons/ri'
+import { AiFillTikTok } from 'react-icons/ai'
 
 function Header() {
 
@@ -43,9 +43,9 @@ function Header() {
 
 
                     <div className="text-white flex space-x-2 mt-5 md:mt-0">
-                        <Link to="#"><img src={facebook} alt="facebook red social" /></Link>
-                        <Link to="#"><img src={instagram} alt="instagram red social" /></Link>
-                        <Link to="#"><img src={tiktok} alt="tiktok red social" /></Link>
+                        <a href="https://www.facebook.com/mojicasbarbershop" target='_blink' className='text-lg'><FaFacebook /></a>
+                        <a href="https://www.instagram.com/mojicasbarbershop/" className='text-lg' target='_blink'><RiInstagramFill /></a>
+                        <a href="https://www.tiktok.com/@mojicasbarber" target='_blank' className='text-lg'><AiFillTikTok /></a>
                     </div>
 
                 </div>

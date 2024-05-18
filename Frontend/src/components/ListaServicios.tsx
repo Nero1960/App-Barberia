@@ -4,7 +4,7 @@ import logo from '../public/logo2.png'
 
 function ListaServicios({servicio} : {servicio : Servicios}) {
   return (
-    <div className="bg-dark-500 p-6 hover:scale-105 duration-300  rounded-lg">
+    <div className="bg-dark-600 p-6 hover:scale-105 duration-300  rounded-lg">
         <div className="flex gap-x-3 justify-around items-center ">
             <div>
                 <img src={logo} alt="Logo" width={120} height={120} />

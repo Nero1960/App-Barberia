@@ -36,6 +36,7 @@ import ActualizarBarberosAdmin from './views/admin/ActualizarBarberosAdmin';
 import ServiciosAdmin from './views/admin/ServiciosAdmin';
 import AgregarServicioAdmin from './views/admin/AgregarServicioAdmin';
 import ActualizarServiciosAdmin from './views/admin/ActualizarServiciosAdmin';
+import CitasAdmin from './views/admin/CitasAdmin';
 
 
 function router() {
@@ -64,6 +65,7 @@ function router() {
                                         <Route path='/admin/servicios' element={<ServiciosAdmin/>}/>
                                         <Route path='/admin/agregar-servicio' element={<AgregarServicioAdmin/>}/>
                                         <Route path='/admin/actualizar-servicio/:idServicios' element={<ActualizarServiciosAdmin/>}/>
+                                        <Route path='/admin/citas' element={<CitasAdmin/>}/>
 
 
 

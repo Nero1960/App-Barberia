@@ -8,6 +8,7 @@ import clienteAxios from '../../config/axios';
 import { toast } from 'react-toastify'; // Importa toast para mostrar notificaciones
 import { useState } from 'react'; // Importa useState para manejar estado en el componente
 import Spinner from '../../components/Spinner'; // Importa el componente Spinner
+import { FiKey, FiMail, FiPhone, FiUser } from 'react-icons/fi';
 
 function RegistrarCliente() {
     // Usa el hook useForm para manejar el formulario y los errores
@@ -22,7 +23,7 @@ function RegistrarCliente() {
         apellido.trim();
         telefono.trim();
 
-        
+
 
         try {
             // Envía una solicitud POST para registrar el cliente
@@ -44,7 +45,7 @@ function RegistrarCliente() {
                     position: 'top-left'
                 });
             }, 3000);
-        } catch (error : any) {
+        } catch (error: any) {
             // Muestra una notificación de error y activa el Spinner durante 3 segundos
             setCargando(true);
             setTimeout(() => {
@@ -63,10 +64,10 @@ function RegistrarCliente() {
                     Crea Tu Cuenta y Reserva Tus Citas
                 </h1>
 
-                <img src={logo2} alt="LogoTipo" className='rounded-full mx-auto -mt-6 md:mt-0 w-[40%] h-[40%]'/>
+                <img src={logo2} alt="LogoTipo" className='rounded-full mx-auto -mt-6 md:mt-0 w-[40%] h-[40%]' />
             </div>
 
-            <form action="/registrar" method="post" className="md:w-3/4 mx-auto bg-dark-500 p-8 rounded-xl shadow-dark-500 shadow-2xl" noValidate onSubmit={handleSubmit(registrarCliente)}>
+            <form action="/registrar" method="post" className="md:w-3/4 mx-auto bg-dark-600 p-8 rounded-xl shadow-dark-500 shadow-2xl" noValidate onSubmit={handleSubmit(registrarCliente)}>
 
                 <div className='mb-5'>
                     <img src={logo} alt="LogoTipo" className='rounded-full mx-auto' width={150} height={150} />
@@ -77,9 +78,7 @@ function RegistrarCliente() {
                 <div className="mb-8">
                     <label htmlFor="nombre"></label>
                     <div className='flex  items-center border-b-[1px] border-b-secondary-400'>
-                        <svg data-slot="icon" fill="none" className='text-secondary-400' width={30} height={30} strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
-                        </svg>
+                        <div className='text-secondary-400 text-2xl'><FiUser /></div>
                         <input type="text" id="nombre" placeholder="Nombre" className="px-4 py-2  bg-transparent outline-none  text-secondary-400 w-full placeholder:text-secondary-400" {...register('nombre', {
                             required: 'Tu Nombre es obligatorio'
                         })} />
@@ -95,9 +94,7 @@ function RegistrarCliente() {
                 <div className="mb-8">
                     <label htmlFor="apellido"></label>
                     <div className='flex items-center border-b-[1px] border-b-secondary-400'>
-                        <svg data-slot="icon" fill="none" className='text-secondary-400' width={30} height={30} strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"></path>
-                        </svg>
+                        <div className='text-secondary-400 text-2xl'><FiUser /></div>
                         <input type="text" id="apellido" placeholder="Apellido" className="px-4 py-2  bg-transparent outline-none text-secondary-400 w-full placeholder:text-secondary-400"
                             {...register('apellido', {
                                 required: 'Tu apellido es requerido'
@@ -113,16 +110,14 @@ function RegistrarCliente() {
                 <div className="mb-8">
                     <label htmlFor="telefono"></label>
                     <div className='flex items-center border-b-[1px] border-b-secondary-400'>
-                        <svg data-slot="icon" fill="none" className='text-secondary-400' width={30} height={30} strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"></path>
-                        </svg>
-                        <input type="tel"  pattern="[0-9]+" id="telefono" placeholder="Número Telefónico" className="px-4 py-2  bg-transparent outline-none text-secondary-400 w-full placeholder:text-secondary-400"
+                        <div className='text-secondary-400 text-2xl'><FiPhone /></div>
+                        <input type="tel" pattern="[0-9]+" id="telefono" placeholder="Número Telefónico" className="px-4 py-2  bg-transparent outline-none text-secondary-400 w-full placeholder:text-secondary-400"
                             {...register('telefono', {
                                 required: 'Ingresa un numero telefónico',
                                 pattern: {
                                     value: /^[0-9]+$/,
                                     message: 'Por favor ingresa solo números'
-                                  }
+                                }
                             })} />
 
                     </div>
@@ -136,9 +131,7 @@ function RegistrarCliente() {
                 <div className="mb-8">
                     <label htmlFor="email"></label>
                     <div className='flex items-center border-b-[1px] border-b-secondary-400'>
-                        <svg data-slot="icon" className='text-secondary-400' fill="none" strokeWidth="1.5" stroke="currentColor" width={30} height={30} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"></path>
-                        </svg>
+                        <div className='text-secondary-400 text-2xl'><FiMail /></div>
                         <input type="tel" id="email" placeholder="E-Mail" className="px-4 py-2 bg-transparent outline-none text-secondary-400 w-full placeholder:text-secondary-400"
                             {...register('email', {
                                 required: 'Tu Correo electrónico es requerido'
@@ -154,9 +147,7 @@ function RegistrarCliente() {
                 <div className="mb-8">
                     <label htmlFor="password"></label>
                     <div className='flex items-center border-b-[1px] border-b-secondary-400'>
-                        <svg data-slot="icon" fill="none" className='text-secondary-400' width={30} height={30} strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"></path>
-                        </svg>
+                        <div className='text-secondary-400 text-2xl'><FiKey /></div>
                         <input type="password" id="password" placeholder="Contraseña" className="px-4 py-2 bg-transparent outline-none text-secondary-400 w-full placeholder:text-secondary-400"
                             {...register('password', {
                                 required: 'Tu Contraseña es requerida',

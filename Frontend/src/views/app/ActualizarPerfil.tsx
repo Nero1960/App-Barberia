@@ -78,7 +78,7 @@ function ActualizarPerfil() {
     };
 
     return (
-        <main className='md:max-w-5xl max-w-[90%] bg-dark-500 mb-10 py-5 mx-auto'>
+        <main className='md:max-w-5xl max-w-[90%] bg-dark-600 mb-10 py-5 md:px-6 mx-auto'>
 
             <div className='p-5 flex flex-col md:flex-row gap-x-10 '>
 
@@ -86,7 +86,7 @@ function ActualizarPerfil() {
                     <h1 className='text-secondary-100 border-b pb-2 border-b-white'>Actualiza Tus Datos</h1>
 
                     <form action="/app/actualizar-perfil" onSubmit={handleSubmit(actualizarPerfil)} noValidate encType='multipart/form-data' className='space-y-5'>
-                        <div className='grid grid-cols-2 text-sm gap-x-5'>
+                        <div className='grid md:grid-cols-2 text-sm gap-x-5'>
                             <div className='flex flex-col mb-3 mt-5 space-y-3'>
                                 <label htmlFor="nombre" className='text-secondary-100'>Nombre</label>
                                 <input type="text" id='nombre' defaultValue={auth?.nombre}
@@ -112,7 +112,7 @@ function ActualizarPerfil() {
                             </div>
                         </div>
 
-                        <div className='grid grid-cols-2 text-sm gap-x-5'>
+                        <div className='grid md:grid-cols-2 mb-3 text-sm gap-x-3'>
                             <div className='flex flex-col mb-3 space-y-3'>
                                 <label htmlFor="email" className='text-secondary-100'>Email</label>
                                 <input type="email" id='email' defaultValue={auth?.email}

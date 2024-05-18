@@ -54,7 +54,7 @@ const obtenerCitasPendientes = async (request: Request, response: Response) => {
         })
 
         response.json(citasPendientes)
-        
+
     } catch (error) {
         console.log(error);
     }
@@ -67,7 +67,7 @@ const obtenerCita = async (request: Request, response: Response) => {
 
     try {
 
-        const citaCliente = await Citas.findByPk(idCitas,(
+        const citaCliente = await Citas.findByPk(idCitas, (
             {
                 include: [
                     {
@@ -101,6 +101,45 @@ const obtenerCita = async (request: Request, response: Response) => {
         response.status(500).json({ mensaje: 'Error interno del servidor' });
     }
 
+}
+
+const obtenerCitas = async (request: Request, response: Response) => {
+    try {
+
+        const citas = await Citas.findAll({
+            include: [
+                {
+                    model: Servicios,
+                    through: {
+                        model: CitasServicios,
+                        attributes: []
+                    } as any,
+
+                    attributes: ['nombre', 'precio']
+                },
+                {
+                    model: Barbero,
+                    attributes: ['idBarberos', 'nombre', 'apellido', 'imagen', 'email']
+                },
+                {
+                    model: Cliente,
+                    attributes: ['nombre', 'apellido', 'imagen', 'telefono']
+                }
+            ],
+
+            attributes: ['fecha', 'hora', 'idCitas']
+
+        })
+
+        response.json(citas)
+
+
+    } catch (error) {
+
+        // Si ocurre algún error, responde con un mensaje de error
+        console.error('Error al mostrar las citas del cliente:', error);
+        response.status(500).json({ mensaje: 'Error interno del servidor' });
+    }
 }
 
 const reservarCita = async (request: RequestCustom, response: Response) => {
@@ -376,5 +415,6 @@ export {
     mostrarCita,
     eliminarCita,
     obtenerCita,
+    obtenerCitas,
     obtenerCitasPendientes
 }

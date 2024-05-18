@@ -14,6 +14,9 @@ export type CitaConDetalle = {
     barbero: {
         nombre: string;
         apellido: string;
+        imagen: string;
+        email: string
+        telefono: string
     };
     fecha: string;
     hora: string;
