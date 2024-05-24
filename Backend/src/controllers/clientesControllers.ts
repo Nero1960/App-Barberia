@@ -219,7 +219,7 @@ const actualizarPerfil = async (request: Request, response: Response) => {
     if (request.file) {
         cliente.imagen = request.file.filename;
 
-        if (imagenPrevia && imagenPrevia !== 'default.png') {
+        if (imagenPrevia && imagenPrevia !== 'default.jpeg') {
             const rutaImagenPrevia = path.join(__dirname, '..', 'uploads', imagenPrevia);
             fs.unlinkSync(rutaImagenPrevia);
 

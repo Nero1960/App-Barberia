@@ -16,13 +16,15 @@ import video1 from '../../public/videos/video1.mp4'
 import Arrow from '../../public/Icons/ArrowUp.svg'
 import useServicios from '../../hooks/useServicios'
 import useBarberos from '../../hooks/useBarberos'
+import Testimoniales from './Testimoniales'
+import { FiStar } from 'react-icons/fi'
 
 
 
 
 function Inicio() {
 
-  
+
   const { servicios, loading } = useServicios();
   const { barberos } = useBarberos();
 
@@ -30,18 +32,20 @@ function Inicio() {
 
   const [scrolly, setScrollY] = useState(0);
 
+  const year : number= new Date().getFullYear() - 2019;
+
 
   useEffect(() => {
     const scrollDetect = () => {
       setScrollY(window.scrollY);
     };
     window.addEventListener('scroll', scrollDetect);
-  
+
     // Limpieza del efecto
     return () => {
       window.removeEventListener('scroll', scrollDetect);
     };
-  }, []); 
+  }, []);
 
 
   return (
@@ -61,7 +65,7 @@ function Inicio() {
 
             </div>
 
-            <p className='text-white font-bold md:w-[40%] text-sm'>5 años Atendiendo con una excelente calidad</p>
+            <p className='text-white font-bold md:w-[40%] text-sm flex items-center gap-x-2'><span className='text-primary-500 font-bold text-xl'><FiStar/></span> {year} años Atendiendo con una excelente calidad</p>
             <div className='flex gap-x-3 items-center'>
               <img src={ubicacionIcons} alt="Ubicación" width={26} height={26} />
               <p className='text-xs text-white font-thin leading-5 md:w-1/3'>7 esquinas 25 vrs oeste, Masaya, Nicaragua</p>
@@ -163,11 +167,17 @@ function Inicio() {
         </div>
       </section>
 
+      <section className='testimoniales section'>
+        <div className='max-w-[90%] py-10 md:py-20 md:max-w-5xl mx-auto'>
+          <Testimoniales />
+        </div>
+      </section>
+
 
       <section className='galeria bg-dark-600  py-20' id='galeria'>
 
         <div className='md:max-w-5xl max-w-[90%] mx-auto'>
-          <h2 className='font-Heading text-secondary-400 text-4xl text-center'>Galería</h2>
+          <h2 className='font-Heading text-secondary-400 text-5xl text-center'>Galería</h2>
           <p className='text-xs text-center text-secondary-100 my-5 md:w-1/2 mx-auto leading-5'>Explora nuestra galería y descubre los trabajos que hemos realizado. Confía en nosotros para brindarte el mejor estilo y experiencia en cada visita.</p>
 
           <div className='grid grid-cols-2 my-10 md:grid-cols-4 gap-5'>

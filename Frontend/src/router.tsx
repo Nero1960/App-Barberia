@@ -37,6 +37,10 @@ import ServiciosAdmin from './views/admin/ServiciosAdmin';
 import AgregarServicioAdmin from './views/admin/AgregarServicioAdmin';
 import ActualizarServiciosAdmin from './views/admin/ActualizarServiciosAdmin';
 import CitasAdmin from './views/admin/CitasAdmin';
+import AgregarTestimonial from './views/app/AgregarTestimonial';
+import { TestimonialProvider } from './context/TestimonialProvider';
+import TestimonialesAdmin from './views/admin/TestimonialesAdmin';
+import InformacionTestimonial from './views/admin/InformacionTestimonial';
 
 
 function router() {
@@ -47,43 +51,48 @@ function router() {
                     <ServiciosProvider>
                         <BarberosProvider>
                             <CitasProvider>
-                                <Routes>
-                                    <Route path='/' element={<AuthLayout />}>
-                                        <Route index element={<Login />} />
-                                        <Route path='/registrar-cliente' element={<RegistrarCliente />} />
-                                        <Route path='/confirmar/:token' element={<ConfirmarCuenta />} />
-                                        <Route path='/olvide-password' element={<OlvidePassword />} />
-                                        <Route path='/olvide-password/:token' element={<NuevoPassword />} />
-                                    </Route>
+                                <TestimonialProvider>
+                                    <Routes>
+                                        <Route path='/' element={<AuthLayout />}>
+                                            <Route index element={<Login />} />
+                                            <Route path='/registrar-cliente' element={<RegistrarCliente />} />
+                                            <Route path='/confirmar/:token' element={<ConfirmarCuenta />} />
+                                            <Route path='/olvide-password' element={<OlvidePassword />} />
+                                            <Route path='/olvide-password/:token' element={<NuevoPassword />} />
+                                        </Route>
 
-                                    <Route path='/admin' element={<AdminLayout />}>
-                                        <Route index element={<InicioAdmin />} />
-                                        <Route path='/admin/clientes' element={<ClientesAdmin/>} />
-                                        <Route path='/admin/barberos' element={<BarberosAdmin/>} />
-                                        <Route path='/admin/agregar-barbero' element={<AgregarBarberoAdmin/>}/>
-                                        <Route path='/admin/actualizar-barbero/:idBarberos' element={<ActualizarBarberosAdmin/>} />
-                                        <Route path='/admin/servicios' element={<ServiciosAdmin/>}/>
-                                        <Route path='/admin/agregar-servicio' element={<AgregarServicioAdmin/>}/>
-                                        <Route path='/admin/actualizar-servicio/:idServicios' element={<ActualizarServiciosAdmin/>}/>
-                                        <Route path='/admin/citas' element={<CitasAdmin/>}/>
+                                        <Route path='/admin' element={<AdminLayout />}>
+                                            <Route index element={<InicioAdmin />} />
+                                            <Route path='/admin/clientes' element={<ClientesAdmin />} />
+                                            <Route path='/admin/barberos' element={<BarberosAdmin />} />
+                                            <Route path='/admin/agregar-barbero' element={<AgregarBarberoAdmin />} />
+                                            <Route path='/admin/actualizar-barbero/:idBarberos' element={<ActualizarBarberosAdmin />} />
+                                            <Route path='/admin/servicios' element={<ServiciosAdmin />} />
+                                            <Route path='/admin/agregar-servicio' element={<AgregarServicioAdmin />} />
+                                            <Route path='/admin/actualizar-servicio/:idServicios' element={<ActualizarServiciosAdmin />} />
+                                            <Route path='/admin/citas' element={<CitasAdmin />} />
+                                            <Route path='/admin/testimoniales' element={<TestimonialesAdmin />} />
+                                            <Route path='/admin/ver-testimonial/:idTestimoniales' element={<InformacionTestimonial />} />
 
 
 
-                                    </Route>
+                                        </Route>
 
 
-                                    <Route path='/app' element={<AppLayout />}>
-                                        <Route index element={<Inicio />} />
-                                        <Route path='/app/citas' element={<ReservarCita />} />
-                                        <Route path='/app/nosotros' element={<Nosotros />} />
-                                        <Route path='/app/policy' element={<Policy />} />
-                                        <Route path='/app/mis-citas' element={<MisCitas />} />
-                                        <Route path='/app/actualizar-cita/:idCitas' element={<ActualizarCita />} />
-                                        <Route path='/app/perfil' element={<MiPerfil />} />
-                                        <Route path='/app/actualizar-perfil' element={<ActualizarPerfil />} />
+                                        <Route path='/app' element={<AppLayout />}>
+                                            <Route index element={<Inicio />} />
+                                            <Route path='/app/citas' element={<ReservarCita />} />
+                                            <Route path='/app/nosotros' element={<Nosotros />} />
+                                            <Route path='/app/policy' element={<Policy />} />
+                                            <Route path='/app/mis-citas' element={<MisCitas />} />
+                                            <Route path='/app/actualizar-cita/:idCitas' element={<ActualizarCita />} />
+                                            <Route path='/app/perfil' element={<MiPerfil />} />
+                                            <Route path='/app/actualizar-perfil' element={<ActualizarPerfil />} />
+                                            <Route path='/app/agregar-testimonial' element={<AgregarTestimonial />} />
 
-                                    </Route>
-                                </Routes>
+                                        </Route>
+                                    </Routes>
+                                </TestimonialProvider>
                             </CitasProvider>
                         </BarberosProvider>
                     </ServiciosProvider>

@@ -1,5 +1,5 @@
 import logo from '../public/logo2.png'
-import { FiHome, FiCalendar, FiGrid, FiUsers, FiLogOut , FiLayers} from "react-icons/fi"
+import { FiHome, FiCalendar, FiGrid, FiUsers, FiLogOut, FiLayers, FiBook } from "react-icons/fi"
 import { Link, useLocation } from 'react-router-dom'
 import useAuth from '../hooks/useAuth';
 
@@ -37,6 +37,10 @@ function SideBar() {
                     <Link to="/admin/clientes" className={`${pathname === '/admin/clientes' ? 'bg-primary-500 text-white' : 'bg-transparent'} text-dark-200 text-base duration-300 hover:bg-primary-500 hover:text-white rounded-lg px-4 py-2 flex items-center gap-x-2`}>
                         <FiUsers />
                         Clientes</Link>
+
+                    <Link to="/admin/testimoniales" className={`${pathname === '/admin/testimoniales' ? 'bg-primary-500 text-white' : 'bg-transparent'} text-dark-200 text-base duration-300 hover:bg-primary-500 hover:text-white rounded-lg px-4 py-2 flex items-center gap-x-2`}>
+                        <FiBook/>
+                        Testimoniales</Link>
                 </div>
 
                 <button type='button' className='text-red-500 mt-5 text-base text-left px-4 flex gap-x-3 items-center' onClick={() => cerrarSession()}><FiLogOut />Log Out</button>
