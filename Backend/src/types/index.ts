@@ -28,6 +28,16 @@ type ServicioType = {
     precio: number
 }
 
+type TestimonialesType = {
+    idTestimoniales: number,
+    mensaje: string,
+    fecha: Date,
+    rating: number,
+    titulo: string,
+    estado: string,
+    idClientes: number
+}
+
 export {
-    BarberoType, ClienteType, ServicioType
+    BarberoType, ClienteType, ServicioType, TestimonialesType
 }

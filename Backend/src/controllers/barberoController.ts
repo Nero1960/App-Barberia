@@ -39,7 +39,7 @@ const addBarbero = async (request: Requests, response: Response) => {
             especialidad,
             apellido,
             telefono,
-            imagen: request?.file?.filename || 'default.png'
+            imagen: request?.file?.filename || 'default.jpeg'
         });
         await nuevoBarbero.save();
 
@@ -112,7 +112,7 @@ const updateBarbero = async (request: Request, response: Response) => {
     if (request.file) {
         barbero.imagen = request.file.filename;
 
-        if (imagenPrevia && imagenPrevia !== 'default.png') {
+        if (imagenPrevia && imagenPrevia !== 'default.jpeg') {
             const rutaImagenPrevia = path.join(__dirname, '..', 'uploads', imagenPrevia);
             fs.unlinkSync(rutaImagenPrevia);
 
@@ -152,7 +152,7 @@ const deleteBarbero = async (request: Request, response: Response) => {
 
         await barbero.destroy();
 
-        if (imagen && imagen !== 'default.png') {
+        if (imagen && imagen !== 'default.jpeg') {
             const rutaImagen = path.join(__dirname, '..', 'uploads', imagen);
             fs.unlinkSync(rutaImagen);
 

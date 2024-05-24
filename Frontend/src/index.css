@@ -113,5 +113,19 @@
 }
 
 
+.testimoniales{
+    background: linear-gradient(rgb(0 0 0 /.7), rgb(0 0 0 /.7)), url(./public/citas.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: auto;
+}
+
+@media (min-width: 768px) {
+    .testimoniales{
+        height: auto;
+    }
+}
+
 
 

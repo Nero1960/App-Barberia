@@ -5,6 +5,7 @@ import { addBarbero, deleteBarbero, getBarbero, getBarberos, obtenerTotalBarbero
 import { addService, deleteService, getService, getServices, obtenerServiciosMasSolicitados, obtenerTotalServicios, updateService } from '../controllers/serviciosController';
 import { buscarCliente, obtenerClientes, obtenerTotalCliente } from '../controllers/clientesControllers';
 import { obtenerCitas, obtenerCitasPendientes } from '../controllers/citasController';
+import { desaprobarTestimonial, eliminarTestimonial, obtenerTestimonial, obtenerTestimonialesAdmin, permitirTestimonial } from '../controllers/testimonialesController';
 
 const router = express.Router();
 
@@ -31,6 +32,12 @@ router.delete('/eliminar-servicio/:idServicio', checkAdmin, deleteService)
 router.get('/obtener-servicio-total', checkAdmin, obtenerTotalServicios);
 router.get('/obtener-servicio-solicitado', checkAdmin, obtenerServiciosMasSolicitados);
 
+//testimoniales
+router.get('/obtener-testimonial/:idTestimoniales', checkAdmin, obtenerTestimonial);
+router.get('/obtener-testimonialAdmin', checkAdmin, obtenerTestimonialesAdmin);
+router.put('/permitir-testimonial/:idTestimoniales', checkAdmin, permitirTestimonial);
+router.put('/desaprobar-testimonial/:idTestimoniales', checkAdmin, desaprobarTestimonial);
+router.delete('/eliminar-testimonial/:idTestimoniales', checkAdmin, eliminarTestimonial)
 
 
 

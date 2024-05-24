@@ -2,6 +2,7 @@ import { Model, Table, Column, DataType, Default, BeforeCreate, BeforeUpdate, Ha
 import bcrypt from 'bcrypt';
 import generarId from '../helpers/generarId';
 import Citas from './Citas';
+import Testimoniales from './Testimoniales';
 //definir el numero de saltos del hasheo
 const saltRounds : number = 10;
 
@@ -86,7 +87,7 @@ class Cliente extends Model {
 
     declare admin: number;
 
-    @Default('default.png')
+    @Default('default.jpeg')
     @Column({
         type: DataType.STRING(100),
         allowNull: true
@@ -96,6 +97,9 @@ class Cliente extends Model {
 
     @HasMany(() => Citas)
     citas: Citas[]
+
+    @HasMany(() => Testimoniales)
+    testimoniales: Testimoniales[]
 
     @BeforeCreate
     static asignarToken(cliente: Cliente) {
