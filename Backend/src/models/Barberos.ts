@@ -52,7 +52,7 @@ class Barbero extends Model{
 
     declare especialidad : string;
 
-    @Default('default.jpeg')
+    @Default('default.png')
     @Column({
         type: DataType.STRING(60),
         allowNull: true

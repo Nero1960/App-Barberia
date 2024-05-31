@@ -6,7 +6,7 @@ import Barbero from "../models/Barberos";
 import CitasServicios from "../models/CitasServicios";
 import validarHora from "../helpers/validarHora";
 import Servicios from "../models/Servicios";
-import Sequelize from 'sequelize';
+import Sequelize, { Op } from 'sequelize';
 
 
 type RequestCustom = Request & {
@@ -82,6 +82,10 @@ const obtenerCita = async (request: Request, response: Response) => {
                     {
                         model: Barbero,
                         attributes: ['idBarberos', 'nombre', 'apellido']
+                    }, 
+                    {
+                        model: Cliente,
+                        attributes: ['nombre', 'apellido', 'imagen']
                     }
                 ],
 
@@ -408,6 +412,50 @@ const eliminarCita = async (request: Request, response: Response) => {
 
 
 }
+
+const buscarCitaDate = async (request: Request, response: Response) => {
+    const { fecha } = request.query;
+
+    try {
+
+        const citas = await Citas.findAll({
+            where: {
+                fecha: {
+                    [Op.eq]: new Date(fecha as string)
+                }
+            },
+
+            include: [
+                {
+                    model: Servicios,
+                    through: {
+                        model: CitasServicios,
+                        attributes: []
+                    } as any,
+
+                    attributes: ['nombre', 'precio']
+                },
+                {
+                    model: Barbero,
+                    attributes: ['idBarberos', 'nombre', 'apellido', 'imagen', 'email']
+                },
+                {
+                    model: Cliente,
+                    attributes: ['nombre', 'apellido', 'imagen', 'telefono']
+                }
+            ],
+
+            attributes: ['fecha', 'hora', 'idCitas']
+        })
+
+        response.json(citas)
+
+    } catch (error) {
+        console.log(error)
+
+    }
+
+}
 export {
     reservarCita,
     reprogramarCita,
@@ -416,5 +464,6 @@ export {
     eliminarCita,
     obtenerCita,
     obtenerCitas,
-    obtenerCitasPendientes
+    obtenerCitasPendientes,
+    buscarCitaDate
 }

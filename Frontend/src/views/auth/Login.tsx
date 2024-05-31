@@ -116,7 +116,7 @@ function Login() {
                     <div className='flex items-center border-b-[1px] border-b-secondary-400'>
 
                         <div className='text-secondary-400 text-2xl'><FiMail/></div>
-                        <input type="tel" id="email" placeholder="E-Mail" className="px-4 py-2 bg-transparent outline-none text-secondary-400 w-full placeholder:text-secondary-400"
+                        <input type="tel" required id="email" placeholder="E-Mail" className="px-4 py-2 bg-transparent outline-none text-secondary-400 w-full placeholder:text-secondary-400"
                             {...register('email', {
                                 required: 'Tu Correo electrónico es requerido'
                             })} />

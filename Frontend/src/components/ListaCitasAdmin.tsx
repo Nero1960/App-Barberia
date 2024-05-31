@@ -63,7 +63,6 @@ function ListaCitasAdmin({ cita, actualizarCitaAdmin }: { cita: CitasDetails , a
     }
 
 
-    console.log(cita.cliente.imagen)
     return (
         <tr className="bg-black-500 border-b border-b-dark-500 hover:bg-dark-500">
             <td className="px-6 py-4">{cita.idCitas}</td>
@@ -90,7 +89,7 @@ function ListaCitasAdmin({ cita, actualizarCitaAdmin }: { cita: CitasDetails , a
             </td>
 
             <td className="px-6 py-4 flex justify-between gap-x-2">
-                <a href={``} className="py-1 px-8 bg-blue-500 text-white rounded flex items-center justify-center gap-x-2 hover:bg-blue-600 duration-300">
+                <a href={`/admin/ver-cita/${cita.idCitas}`} className="py-1 px-8 bg-blue-500 text-white rounded flex items-center justify-center gap-x-2 hover:bg-blue-600 duration-300">
                     <FiEye />
                     Ver
 

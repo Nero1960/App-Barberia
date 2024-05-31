@@ -1,6 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './context/AuthProvider';
-import { ServiciosProvider } from './context/ServiciosProvider';
 
 //vistas de la Autenticación
 import AuthLayout from './layouts/AuthLayout';
@@ -11,25 +9,10 @@ import OlvidePassword from './views/auth/OlvidePassword';
 import NuevoPassword from './views/auth/NuevoPassword';
 
 
-//vistas administrador
+////vistas del panel administrativo
 import AdminLayout from './layouts/AdminLayout';
 import InicioAdmin from './views/admin/InicioAdmin';
 import ClientesAdmin from './views/admin/ClientesAdmin';
-
-
-//vistas de la Aplicación
-import AppLayout from './layouts/AppLayout';
-import Inicio from './views/app/Inicio';
-import { BarberosProvider } from './context/BarberosProvider';
-
-import ReservarCita from './views/app/ReservarCita';
-import Nosotros from './views/app/Nosotros';
-import Policy from './views/app/Policy';
-import MisCitas from './views/app/MisCitas';
-import ActualizarCita from './views/app/ActualizarCita';
-import MiPerfil from './views/app/MiPerfil';
-import ActualizarPerfil from './views/app/ActualizarPerfil';
-import { CitasProvider } from './context/CitasProvider';
 import BarberosAdmin from './views/admin/BarberosAdmin';
 import AgregarBarberoAdmin from './views/admin/AgregarBarberoAdmin';
 import ActualizarBarberosAdmin from './views/admin/ActualizarBarberosAdmin';
@@ -37,10 +20,35 @@ import ServiciosAdmin from './views/admin/ServiciosAdmin';
 import AgregarServicioAdmin from './views/admin/AgregarServicioAdmin';
 import ActualizarServiciosAdmin from './views/admin/ActualizarServiciosAdmin';
 import CitasAdmin from './views/admin/CitasAdmin';
-import AgregarTestimonial from './views/app/AgregarTestimonial';
-import { TestimonialProvider } from './context/TestimonialProvider';
 import TestimonialesAdmin from './views/admin/TestimonialesAdmin';
 import InformacionTestimonial from './views/admin/InformacionTestimonial';
+import InfoCita from './views/admin/InfoCita';
+
+
+
+//vistas de la Aplicación
+import AppLayout from './layouts/AppLayout';
+import Inicio from './views/app/Inicio';
+import ReservarCita from './views/app/ReservarCita';
+import Nosotros from './views/app/Nosotros';
+import Policy from './views/app/Policy';
+import MisCitas from './views/app/MisCitas';
+import ActualizarCita from './views/app/ActualizarCita';
+import MiPerfil from './views/app/MiPerfil';
+import ActualizarPerfil from './views/app/ActualizarPerfil';
+import AgregarTestimonial from './views/app/AgregarTestimonial';
+
+
+//providers
+import { BarberosProvider } from './context/BarberosProvider';
+import { CitasProvider } from './context/CitasProvider';
+import { TestimonialProvider } from './context/TestimonialProvider';
+import { AuthProvider } from './context/AuthProvider';
+import { ServiciosProvider } from './context/ServiciosProvider';
+
+
+
+
 
 
 function router() {
@@ -73,6 +81,7 @@ function router() {
                                             <Route path='/admin/citas' element={<CitasAdmin />} />
                                             <Route path='/admin/testimoniales' element={<TestimonialesAdmin />} />
                                             <Route path='/admin/ver-testimonial/:idTestimoniales' element={<InformacionTestimonial />} />
+                                            <Route path='/admin/ver-cita/:idCitas' element={<InfoCita/>}/>
 
 
 
