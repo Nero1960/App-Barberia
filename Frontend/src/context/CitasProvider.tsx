@@ -2,12 +2,21 @@ import { createContext, useState, useEffect } from "react";
 import { CitaConDetalle } from "../types/Citas";
 import clienteAxios from "../config/axios";
 import useAuth from "../hooks/useAuth";
-type CitasType = CitaConDetalle[];
+
+type CitasDetails = CitaConDetalle & {
+    cliente: {
+        nombre: string,
+        imagen: string,
+        apellido: string
+        telefono: string
+    }
+}[]
+
 
 
 type CitasTypeContext = {
-    citas: CitasType,
-    setCitas: React.Dispatch<React.SetStateAction<CitasType>>,
+    citas: CitasDetails[],
+    setCitas: React.Dispatch<React.SetStateAction<CitasDetails[]>>,
     actualizarCitas : () => void
 }
 
@@ -15,7 +24,7 @@ const CitasContext = createContext<CitasTypeContext>({ citas: [], setCitas: () =
 
 const CitasProvider = ({ children }: { children: React.ReactNode }) => {
 
-    const [citas, setCitas] = useState<CitasType>([]);
+    const [citas, setCitas] = useState<CitasDetails[]>([]);
     const [cargando, setCargando] = useState(false);
     const { auth } = useAuth();
     
@@ -23,7 +32,6 @@ const CitasProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
 
-        console.log('El componente esta listo')
 
         const obtenerCitas = async () => {
 
@@ -31,7 +39,6 @@ const CitasProvider = ({ children }: { children: React.ReactNode }) => {
 
                 const token = localStorage.getItem('token');
 
-                console.log('Token desde citas: ', token);
 
 
                 if (!token) {
@@ -46,7 +53,7 @@ const CitasProvider = ({ children }: { children: React.ReactNode }) => {
                     }
                 }
 
-                const { data } = await clienteAxios.get(`app/obtener-citas/${auth?.idClientes}`, config);
+                const { data } : {data: CitasDetails[]} = await clienteAxios.get(`app/obtener-citas/${auth?.idClientes}`, config);
                 setCitas(data);
 
 

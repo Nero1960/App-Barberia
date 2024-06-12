@@ -78,7 +78,7 @@ function ActualizarPerfil() {
     };
 
     return (
-        <main className='md:max-w-5xl max-w-[90%] bg-dark-600 mb-10 py-5 md:px-6 mx-auto'>
+        <main className='md:max-w-5xl max-w-[90%] bg-black-500 mb-10 py-5 md:px-6 mx-auto'>
 
             <div className='p-5 flex flex-col md:flex-row gap-x-10 '>
 

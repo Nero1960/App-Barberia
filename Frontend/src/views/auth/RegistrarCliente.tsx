@@ -67,7 +67,7 @@ function RegistrarCliente() {
                 <img src={logo2} alt="LogoTipo" className='rounded-full mx-auto -mt-6 md:mt-0 w-[40%] h-[40%]' />
             </div>
 
-            <form action="/registrar" method="post" className="md:w-3/4 mx-auto bg-dark-600 p-8 rounded-xl shadow-dark-500 shadow-2xl" noValidate onSubmit={handleSubmit(registrarCliente)}>
+            <form action="/registrar" method="post" className="md:w-3/4 mx-auto bg-black-500 p-8 rounded-xl shadow-dark-500 shadow-2xl" noValidate onSubmit={handleSubmit(registrarCliente)}>
 
                 <div className='mb-5'>
                     <img src={logo} alt="LogoTipo" className='rounded-full mx-auto' width={150} height={150} />

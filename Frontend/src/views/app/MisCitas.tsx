@@ -1,4 +1,4 @@
-import { useEffect} from "react"
+import { useEffect } from "react"
 import clienteAxios from "../../config/axios";
 import formatToCordobas from "../../helpers/formatDinero";
 import formatFecha from "../../helpers/FormatFecha";
@@ -6,55 +6,58 @@ import formatHora from "../../helpers/FormatHora";
 import logo from '../../public/logo2.png'
 import useCitas from "../../hooks/useCitas";
 import { toast } from "react-toastify";
-import { FiCalendar, FiDelete, FiEdit } from "react-icons/fi";
+import { FiCalendar, FiClock, FiDelete, FiEdit } from "react-icons/fi";
+
+
 
 
 function MisCitas() {
 
-   const { citas , actualizarCitas} = useCitas();
+    const { citas, actualizarCitas } = useCitas();
+    console.log(citas)
+  
 
-
-   useEffect(() => {
+    useEffect(() => {
         actualizarCitas();
-   }, [])
+    }, [])
 
-   const eliminarCita = async (idCitas: number) => {
+    const eliminarCita = async (idCitas: number) => {
 
-       try {
+        try {
 
 
-           const token = localStorage.getItem('token');
+            const token = localStorage.getItem('token');
 
-           if (!token) {
-               return;
-           }
+            if (!token) {
+                return;
+            }
 
-           const config = {
-               headers: {
-                   'Content-Type': 'application/json',
-                   Authorization: `Bearer ${token}`
-               }
-           }
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
 
-           const { data } : any  = await clienteAxios.delete(`app/eliminar-cita/${idCitas}`, config);
-           toast.success(data.msg, {
-            theme: 'colored',
-            position: 'top-left',
-            autoClose: false
-           })
-       } catch (error : any) {
-           console.log(error)
-           toast.error(error.response.data.msg, {
-            theme: 'colored',
-            position: 'top-left',
-            autoClose: false
-           })
-       }
-       
+            const { data }: any = await clienteAxios.delete(`app/eliminar-cita/${idCitas}`, config);
+            toast.success(data.msg, {
+                theme: 'colored',
+                position: 'top-left',
+                autoClose: false
+            })
+        } catch (error: any) {
+            console.log(error)
+            toast.error(error.response.data.msg, {
+                theme: 'colored',
+                position: 'top-left',
+                autoClose: false
+            })
+        }
 
-       actualizarCitas();
 
-   }
+        actualizarCitas();
+
+    }
 
 
     return (
@@ -66,49 +69,43 @@ function MisCitas() {
 
                     <>
 
-                        <h1 className="text-secondary-400 text-4xl font-Heading text-center flex items-center gap-x-2 justify-center"><FiCalendar/>Mis Citas</h1>
+                        <h1 className="text-secondary-400 text-4xl font-Heading text-center flex items-center gap-x-2 justify-center"><FiCalendar />Mis Citas</h1>
 
                         {citas.map(cita => (
 
-                            <div className="bg-dark-600 grid md:grid-cols-2 my-10 " key={cita.idCitas}>
-
-                                <div className="flex flex-col gap-y-5 p-10 rounded">
-                                    <p className="font-black text-secondary-400 text-2xl font-Heading">Fecha: <span className="font-thin text-xl text-secondary-200">{formatFecha(cita.fecha)}</span></p>
-                                    <p className="font-black text-secondary-400 text-2xl font-Heading">Hora: <span className="font-thin text-xl text-secondary-200">{formatHora(cita.hora)}</span></p>
-
-                                    <p className="font-black text-secondary-400 text-2xl font-Heading">Servicios: </p>
-                                    {cita.servicios.map(servicio => (
-
-                                        <ul className="text-secondary-400 font-Heading" key={servicio.nombre}>
-                                            <li className="flex  items-center gap-x-5 list-inside text-secondary-400">
-                                                <p><span className="font-black text-xl text-secondary-200">{servicio.nombre}</span></p>
-                                                <p><span className="font-black text-xl text-secondary-200">{formatToCordobas(servicio.precio)}</span></p>
-                                            </li>
-
-                                        </ul>
-
-                                    ))}
-
-                                    <p className="font-black text-secondary-400 text-2xl font-Heading">Barbero: <span className="font-thin text-xl text-secondary-200">{cita.barbero.nombre} {" "} {cita.barbero.apellido}</span></p>
-
-                                    <p className="font-black text-secondary-400 text-2xl font-Heading">Total a Pagar: <span className="text-secondary-200 text-2xl">{formatToCordobas(cita.servicios.reduce((total, servicio) => total + servicio.precio, 0))}</span> </p>
-
-                                    <div className="flex gap-x-4">
-
-                                        <a href={`/app/actualizar-cita/${cita.idCitas}`} className="mt-5 bg-primary-500 text-white py-2 px-4 rounded hover:bg-primary-600 duration-300 flex items-center gap-x-2"> <FiEdit/> Actualizar</a>
-
-                                        <button type="button" onClick={() => eliminarCita(cita.idCitas as number)} className="mt-5 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 duration-300 flex items-center gap-x-2"><FiDelete/> Cancelar</button>
-
+                            <div className="w-full md:max-w-xl mx-auto rounded-lg shadow bg-black-500 my-10" key={cita.idCitas}>
+                                <div className=" md:p-10 space-y-5">
+                                    <div className="flex flex-col items-center space-y-2">
+                                        <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={`${import.meta.env.VITE_BASE_IMAGE}/${cita.cliente.imagen}`} alt="cliente image" />
+                                        <h5 className="mb-1 text-xl font-medium text-white">{cita.cliente.nombre} {""} {cita.cliente.apellido}</h5>
+                                        <span className="text-sm text-dark-100 flex gap-x-2 items-center"><span><FiCalendar /></span>  {formatFecha(cita.fecha)}</span>
+                                        <span className="text-sm text-dark-100 flex gap-x-2 items-center"><span><FiClock /></span>{formatHora(cita.hora)}</span>
+                                        <p className="text-sm text-dark-200 max-w-xl leading-6 flex items-center gap-x-2">Barbero<span className="font-medium text-white">{cita.barbero.nombre}{" "}{cita.barbero.apellido}</span> </p>
 
                                     </div>
 
+                                    <div className="space-y-4 px-10">
+                                        {cita.servicios.map((servicio, index) => (
+                                            <div key={index} className="servicio-item flex justify-between items-center text-sm text-white">
+                                                <p className="servicio-nombre">{servicio.nombre}</p>
+                                                <p className="servicio-precio text-lg text-primary-500">{formatToCordobas(servicio.CitasServicios.precioActual)}</p>
+                                            </div>
+
+                                        ))}
+
+                                        <p className="servicio-total flex justify-between text-white text-sm">Total <span className="text-2xl text-white">{formatToCordobas(cita.servicios.reduce((total, precio) => total + precio.CitasServicios.precioActual, 0))}</span></p>
+
+                                    </div>
+
+                                    <div className="flex justify-center items-center gap-x-3">
+                                        <a href={`/app/actualizar-cita/${cita.idCitas}`} className="bg-blue-500 text-white uppercase px-4 py-1 flex gap-x-2 items-center rounded-sm hover:bg-blue-600 duration-300"><FiEdit/> Actualizar</a>
+                                        <button onClick={() => eliminarCita} type="button" className="bg-red-500 text-white uppercase px-4 py-1 flex gap-x-2 items-center rounded-sm hover:bg-red-600 duration-300"><FiDelete/>Cancelar</button>
+
+                                    </div>
+
+                                    
                                 </div>
 
-                                <div className="flex justify-center items-center">
-
-                                    <img src={logo} alt="Logotipo" width={250} height={250} />
-
-                                </div>
 
                             </div>
 

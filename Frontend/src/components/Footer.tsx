@@ -9,7 +9,7 @@ import { AiFillTikTok } from 'react-icons/ai'
 
 function Footer() {
     return (
-        <footer className="bg-dark-600 pt-10 pb-4">
+        <footer className="bg-black-500 pt-10 pb-4">
             <div className="flex flex-col md:flex-row justify-around text-secondary-500 place-items-center space-y-5 md:space-y-0 md:max-w-5xl max-w-[90%] mx-auto ">
                 <div className='md:w-1/3 flex flex-col  justify-center items-center'>
                     <img src={logo} alt="Logotipo" width={150} height={150} />

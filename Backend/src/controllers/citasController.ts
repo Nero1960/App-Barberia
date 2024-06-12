@@ -6,7 +6,7 @@ import Barbero from "../models/Barberos";
 import CitasServicios from "../models/CitasServicios";
 import validarHora from "../helpers/validarHora";
 import Servicios from "../models/Servicios";
-import Sequelize, { Op } from 'sequelize';
+import Sequelize, { Op, where } from 'sequelize';
 
 
 type RequestCustom = Request & {
@@ -74,7 +74,7 @@ const obtenerCita = async (request: Request, response: Response) => {
                         model: Servicios,
                         through: {
                             model: CitasServicios,
-                            attributes: []
+                            attributes: ['precioActual']
                         } as any,
 
                         attributes: ['nombre', 'precio']
@@ -89,7 +89,7 @@ const obtenerCita = async (request: Request, response: Response) => {
                     }
                 ],
 
-                attributes: ['fecha', 'hora', 'idCitas']
+                attributes: ['fecha', 'hora', 'idCitas', 'estado']
 
             }
         ));
@@ -116,7 +116,7 @@ const obtenerCitas = async (request: Request, response: Response) => {
                     model: Servicios,
                     through: {
                         model: CitasServicios,
-                        attributes: []
+                        attributes: ['precioActual']
                     } as any,
 
                     attributes: ['nombre', 'precio']
@@ -131,7 +131,7 @@ const obtenerCitas = async (request: Request, response: Response) => {
                 }
             ],
 
-            attributes: ['fecha', 'hora', 'idCitas']
+            attributes: ['fecha', 'hora', 'idCitas', 'estado']
 
         })
 
@@ -184,11 +184,19 @@ const reservarCita = async (request: RequestCustom, response: Response) => {
         if (servicios && servicios.length > 0) {
             // Asociar los servicios con la nueva cita en la tabla de citas_servicios
             await Promise.all(servicios.map(async servicioID => {
+               console.log('this is idService?', servicioID)
+               const idServicios : number = Number(servicioID);
+
+               const servicio = await Servicios.findByPk(idServicios);
+               const precio = servicio.precio;
+
                 const citasServicio = new CitasServicios({
                     idCitas: nuevaCita.idCitas,
-                    idServicios: servicioID
+                    idServicios: servicioID,
+                    precioActual: precio
                 });
                 await citasServicio.save();
+                
             }));
         }
 
@@ -265,7 +273,7 @@ const actualizarCita = async (request: Request, response: Response) => {
                     model: Servicios,
                     through: {
                         model: CitasServicios,
-                        attributes: []
+                        attributes: ['precioActual']
                     },
                     attributes: ['nombre', 'precio']
                 } as any,
@@ -309,8 +317,11 @@ const actualizarCita = async (request: Request, response: Response) => {
 
         // Creamos los nuevos servicios para la cita
         // Crear nuevos registros en la tabla intermedia para los servicios actualizados
-        await Promise.all(servicios.map(async (servicioId: any) => {
-            await CitasServicios.create({ idCitas: idCitas, idServicios: servicioId });
+        await Promise.all(servicios.map(async (servicioId) => {
+            const idServicios : number = Number(servicioId);
+            const servicios = await Servicios.findByPk(idServicios)
+            const precioActual = servicios.precio;
+            await CitasServicios.create({ idCitas: idCitas, idServicios: servicioId, precioActual });
         }));
 
 
@@ -328,7 +339,6 @@ const mostrarCita = async (request: Request, response: Response) => {
 
     const idClientes = request.params.idClientes;
 
-    console.log(idClientes)
 
     try {
 
@@ -340,7 +350,7 @@ const mostrarCita = async (request: Request, response: Response) => {
                         model: Servicios,
                         through: {
                             model: CitasServicios,
-                            attributes: []
+                            attributes: ['precioActual']
                         } as any,
 
                         attributes: ['nombre', 'precio']
@@ -348,10 +358,14 @@ const mostrarCita = async (request: Request, response: Response) => {
                     {
                         model: Barbero,
                         attributes: ['nombre', 'apellido']
+                    },
+                    {
+                        model: Cliente,
+                        attributes: ['nombre', 'apellido', 'imagen', 'telefono']
                     }
                 ],
 
-                attributes: ['fecha', 'hora', 'idCitas']
+                attributes: ['fecha', 'hora', 'idCitas', 'estado']
 
             }
         ));
@@ -430,7 +444,7 @@ const buscarCitaDate = async (request: Request, response: Response) => {
                     model: Servicios,
                     through: {
                         model: CitasServicios,
-                        attributes: []
+                        attributes: ['precioActual']
                     } as any,
 
                     attributes: ['nombre', 'precio']
@@ -445,7 +459,7 @@ const buscarCitaDate = async (request: Request, response: Response) => {
                 }
             ],
 
-            attributes: ['fecha', 'hora', 'idCitas']
+            attributes: ['fecha', 'hora', 'idCitas', 'estado']
         })
 
         response.json(citas)
@@ -453,6 +467,78 @@ const buscarCitaDate = async (request: Request, response: Response) => {
     } catch (error) {
         console.log(error)
 
+    }
+
+}
+
+const buscarCitaEstado = async (request : Request, response: Response) => {
+    const { estado } = request.query;
+
+    try {
+        const citasByEstado = await Citas.findAll(
+            {
+                where : {
+                    estado : estado
+                }, 
+
+                include: [
+                    {
+                        model: Servicios,
+                        through: {
+                            model: CitasServicios,
+                            attributes: ['precioActual']
+                        } as any,
+
+                        attributes: ['nombre', 'precio']
+                    },
+
+                    {
+                        model: Barbero,
+                        attributes: ['idBarberos', 'nombre', 'apellido', 'imagen', 'email']
+                    },
+                    {
+                        model: Cliente,
+                        attributes: ['nombre', 'apellido', 'imagen', 'telefono']
+                    }
+
+                ]
+            }
+
+
+        )
+
+        if(!citasByEstado){
+            const error = new Error("No se han encontrado citas");
+            return response.status(400).json({msg : error.message})
+        }
+
+        response.json(citasByEstado).status(200)
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const finalizarCita = async ( request : Request, response: Response ) => {
+
+    const { idCitas } = request.params;
+
+    try {
+
+        const cita = await Citas.findByPk(idCitas);
+
+        if(!cita){
+            const error = new Error('No se encontro la cita')
+            return response.status(400).json({msg: error.message})
+        }
+
+        cita.estado = 'Finalizado'
+        await cita.save();
+
+        response.json({msg: 'La cita ha sido finalizada'}).status(200)
+        
+    } catch (error) {
+        console.log(error)
     }
 
 }
@@ -465,5 +551,7 @@ export {
     obtenerCita,
     obtenerCitas,
     obtenerCitasPendientes,
-    buscarCitaDate
+    buscarCitaDate,
+    buscarCitaEstado,
+    finalizarCita
 }

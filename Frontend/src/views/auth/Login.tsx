@@ -105,7 +105,7 @@ function Login() {
             </div>
 
 
-            <form action="/login" method="POST" className="md:w-3/4 mx-auto bg-dark-600 p-8 rounded-xl shadow-dark-500 shadow-2xl" noValidate onSubmit={handleSubmit(autenticarCliente)}>
+            <form action="/login" method="POST" className="md:w-3/4 mx-auto bg-black-500 p-8 rounded-xl shadow-black-500 shadow-sm" noValidate onSubmit={handleSubmit(autenticarCliente)}>
                 <div className='mb-5'>
                     <img src={logo1} alt="LogoTipo" className='rounded-full mx-auto' width={150} height={150} />
                     <span className='block text-sm text-secondary-400 text-center -mt-3'>Mojica's BarberShop</span>

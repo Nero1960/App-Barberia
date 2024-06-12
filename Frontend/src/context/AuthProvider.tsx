@@ -37,7 +37,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const autenticarUsuario = async () => {
             // Obtenemos el token del almacenamiento local
             const token = localStorage.getItem('token');
-            console.log(token)
 
 
             // Si no hay token, retornamos sin hacer nada más

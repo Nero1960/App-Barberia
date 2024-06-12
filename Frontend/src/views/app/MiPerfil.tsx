@@ -6,12 +6,10 @@ import pencilSquare from '../../public/Icons/PencilSquare.svg'
 function MiPerfil() {
 
     const { auth } = useAuth();
-    console.log(auth);
-    console.log(auth?.telefono)
-    console.log(auth?.imagen)
+
 
     return (
-        <main className='max-w-5xl md:max-w-[80%] bg-dark-600 mb-10 py-5 mx-auto'>
+        <main className='max-w-5xl md:max-w-[80%] bg-black-500 mb-10 py-5 mx-auto'>
 
             <div className='p-5 flex flex-col md:flex-row gap-x-10'>
                 <aside className='imagen-perfil md:w-[20%]'>

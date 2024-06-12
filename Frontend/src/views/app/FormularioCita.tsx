@@ -15,11 +15,10 @@ function FormularioCita() {
     const { barberos } = useBarberos();
     const { auth } = useAuth();
 
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const [cargando, setCargando] = useState(false);
 
     const reservarCita = async (datos: any) => {
-        console.log(datos)
 
         const token = localStorage.getItem('token')
 
@@ -38,7 +37,6 @@ function FormularioCita() {
             const { data } = await clienteAxios.post('/app/reservar-cita', datos, config);
             setCargando(true);
 
-            console.log(data)
 
             setTimeout(() => {
                 toast.success(data.msg, {
@@ -63,8 +61,9 @@ function FormularioCita() {
                 setCargando(false)
             }, 3000)
 
-            console.log(error)
         }
+
+        reset();
     }
 
     return (

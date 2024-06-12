@@ -18,11 +18,21 @@ export type CitaConDetalle = {
         email: string
         telefono: string
     };
+    cliente: {
+        nombre: string,
+        imagen: string,
+        apellido: string
+        telefono: string
+    }
     fecha: string;
     hora: string;
-    idCitas: number
+    idCitas: number;
+    estado: string;
     servicios: {
         nombre: string;
         precio: number;
+        CitasServicios: {
+            precioActual : number;
+        }
     }[];
 };

@@ -44,21 +44,21 @@ class Cliente extends Model {
 
     // Define el atributo password como una cadena de hasta 60 caracteres, no nulo
     @Column({
-        type: DataType.STRING(60),
+        type: DataType.STRING(100),
         allowNull: false
     })
     declare password: string;
 
-    // Define el atributo telefono como una cadena de hasta 12 caracteres, no nulo
+    // Define el atributo teléfono como una cadena de hasta 12 caracteres, no nulo
     @Column({
         type: DataType.STRING(12),
         allowNull: false
     })
     declare telefono: string;
 
-    // Define el atributo direccion como una cadena de hasta 60 caracteres, puede ser nulo
+    // Define el atributo dirección como una cadena de hasta 60 caracteres, puede ser nulo
     @Column({
-        type: DataType.STRING(60),
+        type: DataType.STRING(200),
         allowNull: true
     })
     declare direccion: string;

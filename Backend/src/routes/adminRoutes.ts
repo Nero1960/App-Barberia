@@ -4,7 +4,7 @@ import upload from '../middleware/subidaArchivos';
 import { addBarbero, deleteBarbero, getBarbero, getBarberos, obtenerTotalBarbero, updateBarbero } from '../controllers/barberoController';
 import { addService, deleteService, getService, getServices, obtenerServiciosMasSolicitados, obtenerTotalServicios, updateService } from '../controllers/serviciosController';
 import { buscarCliente, obtenerClientes, obtenerTotalCliente } from '../controllers/clientesControllers';
-import { buscarCitaDate, obtenerCita, obtenerCitas, obtenerCitasPendientes } from '../controllers/citasController';
+import { buscarCitaDate, buscarCitaEstado, finalizarCita, obtenerCita, obtenerCitas, obtenerCitasPendientes } from '../controllers/citasController';
 import { desaprobarTestimonial, eliminarTestimonial, obtenerTestimonial, obtenerTestimonialesAdmin, permitirTestimonial } from '../controllers/testimonialesController';
 
 const router = express.Router();
@@ -25,6 +25,8 @@ router.get('/citas-pendientes', checkAdmin, obtenerCitasPendientes);
 router.get('/obtener-citas', checkAdmin, obtenerCitas)
 router.get('/obtener-cita/:idCitas', checkAdmin, obtenerCita)
 router.get('/buscar-cita', checkAdmin, buscarCitaDate )
+router.get('/buscar-cita-estado', checkAdmin, buscarCitaEstado);
+router.put('/finalizar-cita/:idCitas', checkAdmin, finalizarCita)
 
 router.post('/registrar-servicio', checkAdmin, addService);
 router.get('/obtener-servicio/:idServicio', checkAdmin, getService);

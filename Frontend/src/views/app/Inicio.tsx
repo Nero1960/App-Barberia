@@ -17,9 +17,7 @@ import Arrow from '../../public/Icons/ArrowUp.svg'
 import useServicios from '../../hooks/useServicios'
 import useBarberos from '../../hooks/useBarberos'
 import Testimoniales from './Testimoniales'
-import { FiStar } from 'react-icons/fi'
-
-
+import { FiEye, FiStar } from 'react-icons/fi'
 
 
 function Inicio() {
@@ -59,9 +57,9 @@ function Inicio() {
             <p className="leading-relaxed text-secondary-100 text-xs md:w-3/4 font-Heading">Descubre nuestra colección exclusiva de cortes de cabello para lucir un estilo impresionante y único..</p>
 
             <div className="flex gap-x-3">
-              <a href='#servicios' className="bg-primary-500 px-4 py-2 text-white rounded-lg hover:bg-primary-600 duration-300">Ver Servicios</a>
+              <a href='#servicios' className="bg-primary-500 px-4 py-2 text-white rounded-lg hover:bg-primary-600 duration-300 flex items-center gap-x-2"> <FiEye/>Servicios</a>
 
-              <a href='#galeria' className="flex items-center gap-x-2 bg-transparent px-4 py-2 text-secondary-400 rounded-lg hover:bg-dark-500 duration-300"> <img src={play} alt="icono playclassName='object-cover h-full' " width={22} height={22} /> Galería</a>
+              <a href='#galeria' className="flex items-center gap-x-2 bg-transparent px-4 py-2 text-secondary-400 rounded-lg hover:bg-black-500 duration-300"> <img src={play} alt="icono playclassName='object-cover h-full' " width={22} height={22} /> Galería</a>
 
             </div>
 
@@ -79,7 +77,7 @@ function Inicio() {
 
       </section>
 
-      <section className='about bg-dark-600 px-5 py-10'>
+      <section className='about bg-black-500 px-5 py-10'>
         <div className='max-w-[90%] md:max-w-5xl mx-auto '>
           <h2 className='font-Heading text-3xl md:text-5xl text-secondary-400 mb-10'>Nosotros</h2>
 
@@ -174,7 +172,7 @@ function Inicio() {
       </section>
 
 
-      <section className='galeria bg-dark-600  py-20' id='galeria'>
+      <section className='galeria bg-black-500  py-20' id='galeria'>
 
         <div className='md:max-w-5xl max-w-[90%] mx-auto'>
           <h2 className='font-Heading text-secondary-400 text-5xl text-center'>Galería</h2>

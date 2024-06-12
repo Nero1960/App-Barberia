@@ -10,7 +10,7 @@ function SideBar() {
     const location = useLocation();
     const pathname = location.pathname;
     return (
-        <aside className="h-full md:w-[20%] px-5">
+        <aside className="h-full md:w-[20%] px-5 bg-black-500">
 
             <div className="logo flex justify-center mt-4">
                 <img src={logo} alt="logo" width={150} height={150} />

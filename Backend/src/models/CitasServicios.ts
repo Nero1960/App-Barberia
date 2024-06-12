@@ -38,6 +38,13 @@ class CitasServicios extends Model {
 
     @BelongsTo(() => Servicios)
     declare servicio: Servicios;
+
+    @Column({
+        type: DataType.DOUBLE(5,2),
+        allowNull: false
+    })
+
+    declare precioActual : number
 }
 
 export default CitasServicios;

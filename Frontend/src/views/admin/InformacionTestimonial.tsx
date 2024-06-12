@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate} from "react-router-dom";
 import HeaderAdmin from "../../components/HeaderAdmin"
 import { TestimonialType } from "../../types/Testimoniales";
 import clienteAxios from "../../config/axios";
@@ -7,7 +7,6 @@ import formatFecha from "../../helpers/FormatFecha";
 import { FiCheckCircle } from "react-icons/fi";
 import useTestimonial from "../../hooks/useTestimoniales";
 import { toast } from "react-toastify";
-import Spinner from "../../components/Spinner";
 
 type TestimonialListType = TestimonialType & {
     cliente: {
@@ -24,6 +23,7 @@ const InformacionTestimonial = () => {
     const { actualizarTestimoniales } = useTestimonial();
     const [cargando, setCargando] = useState(false)
     const params = useParams();
+    const navigate = useNavigate();
     const idTestimoniales = Number(params.idTestimoniales);
 
 
@@ -78,18 +78,14 @@ const InformacionTestimonial = () => {
                 }
             }
 
-            console.log(config)
 
             const { data }: { data: { msg: string } } = await clienteAxios.put(`/admin/permitir-testimonial/${idTestimoniales}`, {}, config)
 
             setCargando(true)
+            setCargando(false)
+            toast.success(data.msg, { autoClose: false })
+            navigate('/admin/testimoniales')
 
-
-            setTimeout(() => {
-                setCargando(false)
-                toast.success(data.msg, {autoClose: false})
-
-            }, 2000)
 
         } catch (error) {
 
@@ -117,14 +113,13 @@ const InformacionTestimonial = () => {
 
             const { data }: { data: { msg: string } } = await clienteAxios.put(`/admin/desaprobar-Testimonial/${idTestimoniales}`, {}, config)
 
-            console.log(data)
             setCargando(true)
 
-            setTimeout(() => {
-                setCargando(false)
-                toast.warning(data.msg, {autoClose: false})
+            setCargando(false)
+            toast.warning(data.msg, { autoClose: false })
+            navigate('/admin/testimoniales')
 
-            }, 2000)
+
 
         } catch (error) {
 
@@ -160,7 +155,6 @@ const InformacionTestimonial = () => {
 
                         </div>
 
-                        {cargando && <Spinner />}
                     </div>
                 </div>
 

@@ -16,7 +16,7 @@ function AdminLayout() {
 
       {auth?.admin ? (
         <>
-          <main className="flex md:flex-row flex-col">
+          <main className="flex md:flex-row flex-col bg-black-500">
             <SideBar />
             <Outlet/>
 
