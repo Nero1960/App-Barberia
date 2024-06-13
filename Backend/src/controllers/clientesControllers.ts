@@ -264,10 +264,10 @@ const obtenerUltimosClientes = async (request: Request, response: Response) => {
     try {
         // Consulta para obtener los últimos clientes registrados
         const ultimosClientes = await Cliente.findAll({
-            order: [['id', 'DESC']], // Ordenar por ID en orden descendente
-            limit: 5 // Obtener los últimos 5 clientes
+            order: [['idClientes', 'DESC']], // Ordenar por ID en orden descendente
+            limit: 3 // Obtener los últimos 5 clientes
         });
-        response.status(200).json({ ultimosClientes });
+        response.status(200).json(ultimosClientes);
     } catch (error) {
         console.error('Error al obtener los últimos clientes:', error);
         response.status(500).json({ error: 'Ocurrió un error al obtener los últimos clientes' });

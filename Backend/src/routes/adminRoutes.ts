@@ -3,7 +3,7 @@ import checkAdmin from '../middleware/checkAdmin';
 import upload from '../middleware/subidaArchivos';
 import { addBarbero, deleteBarbero, getBarbero, getBarberos, obtenerTotalBarbero, updateBarbero } from '../controllers/barberoController';
 import { addService, deleteService, getService, getServices, obtenerServiciosMasSolicitados, obtenerTotalServicios, updateService } from '../controllers/serviciosController';
-import { buscarCliente, obtenerClientes, obtenerTotalCliente } from '../controllers/clientesControllers';
+import { buscarCliente, obtenerClientes, obtenerTotalCliente, obtenerUltimosClientes } from '../controllers/clientesControllers';
 import { buscarCitaDate, buscarCitaEstado, finalizarCita, obtenerCita, obtenerCitas, obtenerCitasPendientes } from '../controllers/citasController';
 import { desaprobarTestimonial, eliminarTestimonial, obtenerTestimonial, obtenerTestimonialesAdmin, permitirTestimonial } from '../controllers/testimonialesController';
 
@@ -13,6 +13,7 @@ const router = express.Router();
 router.get('/total-cliente', checkAdmin, obtenerTotalCliente);
 router.get('/obtener-clientes', checkAdmin, obtenerClientes);
 router.get('/buscar-clientes', checkAdmin, buscarCliente);
+router.get('/obtener-ultimos-clientes', checkAdmin, obtenerUltimosClientes)
 
 router.post('/registrar-barbero', checkAdmin, upload.single('imagen'), addBarbero);
 router.get('/obtener-barberos', checkAdmin, getBarberos);
