@@ -184,6 +184,8 @@ const obtenerTotalBarbero = async (request: Request, response: Response) => {
 
     }
 }
+
+
 export {
     addBarbero,
     getBarbero,

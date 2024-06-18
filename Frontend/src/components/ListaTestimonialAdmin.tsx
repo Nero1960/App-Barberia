@@ -65,15 +65,11 @@ const ListaTestimonialAdmin = ({ testimonial }: { testimonial: TestimonialListTy
                     </div>
 
                 </td>
-                <td className="px-6 py-4">
-                    <div className="flex items-center">
-                        <div className="font-normal text-dark-200">{
-                            testimonial.titulo
-                        }</div>
-                    </div>
+                <td className="py-4">
+                    <p>{testimonial.titulo}</p>
                 </td>
 
-                <td className="px-6 py-4">
+                <td className="py-4">
                     <div className="flex items-center">
                         <div className={`font-normal ${testimonial.estado === 'Pendiente' ? 'text-primary-500  before:w-2 before:h-2 before:bg-primary-500 before:rounded-full before:block flex items-center gap-x-2' : 'text-green-500 before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:block flex items-center gap-x-2'}`}>{
                             testimonial.estado

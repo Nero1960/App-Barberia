@@ -10,6 +10,7 @@ import Servicios from './Servicios';
 })
 
 class Citas extends Model {
+    
     @Column({
         type: DataType.INTEGER,
         allowNull: false,

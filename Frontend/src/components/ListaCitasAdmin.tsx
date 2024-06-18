@@ -65,9 +65,7 @@ function ListaCitasAdmin({ cita, actualizarCitaAdmin }: { cita: CitasDetails, ac
 
     return (
 
-
         <>
-
 
             <tr className="bg-black-500 border-b border-b-dark-500 hover:bg-dark-500">
                 <td className="px-6 py-4">
@@ -88,7 +86,7 @@ function ListaCitasAdmin({ cita, actualizarCitaAdmin }: { cita: CitasDetails, ac
 
                 <td className=" py-4">
                     <div className="flex items-center">
-                        <div className={`font-normal ${cita.estado === 'Pendiente' ? 'text-primary-500  before:w-2 before:h-2 before:bg-primary-500 before:rounded-full before:block flex items-center gap-x-2' : 'text-red-500 before:w-2 before:h-2 before:bg-red-500 before:rounded-full before:block flex items-center gap-x-2'}`}>{
+                        <div className={`font-normal ${cita.estado === 'Pendiente' ? 'text-primary-500  before:w-2 before:h-2 before:bg-primary-500 before:rounded-full before:block flex items-center gap-x-2' : 'text-green-500 before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:block flex items-center gap-x-2'}`}>{
                             cita.estado
                         }</div>
                     </div>

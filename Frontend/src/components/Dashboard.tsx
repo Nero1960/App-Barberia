@@ -7,6 +7,7 @@ import { cliente } from "../types/cliente";
 import ListaClientesAdmin from "./ListaClientesAdmin";
 import { Servicios } from "../types/Servicios";
 import ListaServiciosAdmin from "./ListaServiciosAdmin";
+import FormularioIngresos from "./FormularioIngresos";
 
 function Dashboard() {
 
@@ -171,7 +172,8 @@ function Dashboard() {
     }, [])
 
 
-    console.log(lastClientes)
+
+
     return (
         <div className="md:w-[80%] bg-black-900">
 
@@ -279,7 +281,7 @@ function Dashboard() {
                 </div>
 
 
-                <div className="mx-10 mb-10 ">
+                <div className="mx-10 mb-10 border-b border-b-gray-300 pb-5">
                     <h2 className="text-white font-bold text-2xl my-3">Servicios Mas Solicitados</h2>
 
                     <table className="w-full text-sm text-left rtl:text-right bg-black-500 text-dark-200">
@@ -319,7 +321,10 @@ function Dashboard() {
 
                 </div>
 
+                <FormularioIngresos />
 
+                
+              
 
             </div>
 

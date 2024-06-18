@@ -54,7 +54,7 @@ const CitasProvider = ({ children }: { children: React.ReactNode }) => {
                 }
 
                 const { data } : {data: CitasDetails[]} = await clienteAxios.get(`app/obtener-citas/${auth?.idClientes}`, config);
-                setCitas(data);
+                setCitas(data.sort((a, b) => b.idCitas - a.idCitas));
 
 
             } catch (error) {

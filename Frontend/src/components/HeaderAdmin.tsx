@@ -14,8 +14,7 @@ function HeaderAdmin() {
 
                 <div className="flex flex-col space-y-1 text-dark-200 text-center md:text-left">
                     <p className="font-bold text-sm">{auth?.nombre} {" "} {auth?.apellido}</p>
-                    <p className="text-xs">Admin</p>
-
+                    <p className="text-xs">Administrador</p>
                 </div>
 
             </div>

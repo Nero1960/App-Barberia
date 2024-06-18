@@ -9,20 +9,13 @@ import formatToCordobas from "../../helpers/formatDinero";
 import formatHora from "../../helpers/FormatHora";
 import { toast } from "react-toastify";
 
-type CitasDetails = CitaConDetalle & {
-    cliente: {
-        nombre: string,
-        imagen: string,
-        apellido: string
-        telefono: string
-    }
-}
+
 
 function InfoCita() {
 
     const params = useParams();
     const idCitas = Number(params.idCitas);
-    const [cita, setCita] = useState<CitasDetails>({} as CitasDetails)
+    const [cita, setCita] = useState<CitaConDetalle>({} as CitaConDetalle)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -44,12 +37,12 @@ function InfoCita() {
                     }
                 }
 
-                const { data }: { data: CitasDetails } = await clienteAxios.get(`/admin/obtener-cita/${idCitas}`, config);
+                const { data }: { data: CitaConDetalle } = await clienteAxios.get(`/admin/obtener-cita/${idCitas}`, config);
                 setCita(data)
 
             } catch (error) {
                 console.log(error)
-                setCita({} as CitasDetails)
+                setCita({} as CitaConDetalle)
             }
 
         }
@@ -85,12 +78,8 @@ function InfoCita() {
         } catch (error) {
             console.log(error)
         }
-
-    
-
     }
 
-    console.log(cita)
         
 
     return (

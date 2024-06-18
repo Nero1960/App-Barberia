@@ -6,7 +6,7 @@ import Barbero from "../models/Barberos";
 import CitasServicios from "../models/CitasServicios";
 import validarHora from "../helpers/validarHora";
 import Servicios from "../models/Servicios";
-import Sequelize, { Op, where } from 'sequelize';
+import Sequelize, { Model, Op, where } from 'sequelize';
 
 
 type RequestCustom = Request & {
@@ -131,7 +131,8 @@ const obtenerCitas = async (request: Request, response: Response) => {
                 }
             ],
 
-            attributes: ['fecha', 'hora', 'idCitas', 'estado']
+            attributes: ['fecha', 'hora', 'idCitas', 'estado'],
+            order: [['fecha', 'DESC']]
 
         })
 
@@ -291,8 +292,9 @@ const actualizarCita = async (request: Request, response: Response) => {
         }
 
         const diferenciaHoras = Math.abs(moment.duration(fechaActual.diff(cita.fecha)).asHours());
+        console.log(diferenciaHoras)
 
-        if (diferenciaHoras <= 24) {
+        if (diferenciaHoras < 24) {
             response.status(404).json({ msg: 'No se puede reprogramar la cita dentro de las 24 horas previas a la cita original' })
             return;
 
@@ -365,7 +367,8 @@ const mostrarCita = async (request: Request, response: Response) => {
                     }
                 ],
 
-                attributes: ['fecha', 'hora', 'idCitas', 'estado']
+                attributes: ['fecha', 'hora', 'idCitas', 'estado'],
+                order: [['fecha', 'DESC']]
 
             }
         ));
@@ -519,6 +522,64 @@ const buscarCitaEstado = async (request : Request, response: Response) => {
     }
 }
 
+const buscarCitaBarbero = async (request: Request, response: Response) => {
+
+    const { idBarberos } = request.params;
+    console.log(idBarberos)
+
+    if(!idBarberos){
+        const error = new Error('No se proporciono un ID');
+        console.log(error);
+        return;
+
+    }
+
+    try {
+        const citasBarberos = await Citas.findAll({
+            where : {
+                idBarberos
+            },
+
+            include: [
+                {
+                    model: Servicios,
+                    through: {
+                        model: CitasServicios,
+                        attributes: ['precioActual']
+                    } as any,
+
+                    attributes: ['nombre']
+                },
+                {
+                    model: Barbero,
+                    attributes: ['idBarberos', 'nombre', 'apellido', 'imagen', 'email']
+                },
+                {
+                    model: Cliente,
+                    attributes: ['nombre', 'apellido', 'imagen', 'telefono']
+                }
+
+            ],
+
+            attributes: ['estado', 'fecha', 'hora', 'idCitas']
+        });
+
+        if(!citasBarberos){
+            const error = new Error('No se encontraron citas');
+            return response.status(400).json({msg: error.message})
+        }
+
+        response.json(citasBarberos);
+        
+    } catch (error) {
+        // const err = new Error('Opps Ocurrió un error en el servidor')
+        // response.status(400).json({msg : err, error})
+        console.log(error)
+        
+    }
+
+}
+
 const finalizarCita = async ( request : Request, response: Response ) => {
 
     const { idCitas } = request.params;
@@ -553,5 +614,6 @@ export {
     obtenerCitasPendientes,
     buscarCitaDate,
     buscarCitaEstado,
+    buscarCitaBarbero,
     finalizarCita
 }
