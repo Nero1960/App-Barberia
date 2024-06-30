@@ -69,7 +69,7 @@ function MisCitas() {
     return (
         <>
 
-            <main className={`${citas?.length === 0 ? 'h-screen' : 'h-full'} max-w-[90%] my-10 md:max-w-3xl mx-auto`}>
+            <main className={`${citas?.length === 0 ? 'h-screen' : 'h-full'} max-w-[90%] my-10 md:max-w-5xl mx-auto`}>
 
                 {citas?.length > 0 ?
 
@@ -85,7 +85,7 @@ function MisCitas() {
                             {citas.map(cita => (
 
 
-                                <div className="w-full md:max-w-xl mx-auto rounded-lg shadow bg-black-500 my-10" key={cita.idCitas}>
+                                <div className="w-full md:max-w-3xl mx-auto rounded-lg shadow bg-black-500 my-10" key={cita.idCitas}>
                                     <div className=" md:p-10 space-y-5">
                                         <div className="flex flex-col items-center space-y-2">
                                             <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={`${import.meta.env.VITE_BASE_IMAGE}/${cita.cliente.imagen}`} alt="cliente image" />
@@ -119,7 +119,7 @@ function MisCitas() {
                                                 onClick={() => eliminarCita(cita.idCitas)}
                                                 type="button"
                                                 disabled={finalizado}
-                                                className={`bg-red-500 text-white uppercase px-4 py-1 flex gap-x-2 items-center rounded-sm hover:bg-red-600 duration-300 ${cita.estado === 'Finalizado' ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                                className={`bg-red-500 text-white uppercase px-4 py-1 flex gap-x-2 items-center rounded-sm hover:bg-red-600 duration-300 ${cita.estado === 'Finalizado' ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}`}>
                                                 <FiDelete /> Cancelar
                                             </button>
                                         </div>
