@@ -4,8 +4,9 @@ import formatToCordobas from "../helpers/formatDinero";
 import { MdAttachMoney } from "react-icons/md";
 import { RiUserStarFill } from "react-icons/ri";
 import { LuActivitySquare } from "react-icons/lu";
-import  { generatePDF } from "./Pdf";
+import  PDFReport, { generatePDF } from "./Pdf";
 import { FiDownload } from "react-icons/fi";
+import { PDFViewer } from "@react-pdf/renderer";
 
 
 type ActividadBarbero = {
@@ -314,7 +315,7 @@ const FormularioIngresos = () => {
                 </div>
 
                 <div className="">
-                    <button onClick={handleDownload} className="text-white bg-primary-500 px-5 py-2 rounded flex items-center gap-x-2"><FiDownload/> Descargar Reporte PDF</button>
+                    <button onClick={handleDownload} className="text-white bg-blue-500 px-5 py-2 rounded flex items-center gap-x-2"><FiDownload/> Ingresos Mes PDF</button>
                 </div>
 
             </section>
@@ -330,9 +331,7 @@ const FormularioIngresos = () => {
                     clientes={clientes}
                     mes={mes}
                 />
-            </PDFViewer> */}
-
-
+            </PDFViewer>  */}
 
         </>
 

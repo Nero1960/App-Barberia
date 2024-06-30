@@ -1,6 +1,5 @@
 import { Op, QueryTypes, col, fn } from "sequelize";
 import Citas from "../models/Citas";
-import Servicios from "../models/Servicios";
 import CitasServicios from "../models/CitasServicios";
 import { Request, Response } from "express";
 import Barberos from "../models/Barberos";
@@ -142,9 +141,119 @@ const clientesMasFrecuentados = async (request: Request, response: Response) => 
     }
 }
 
+const ingresosCitasDia = async (request: Request, response: Response) => {
+
+    const { fecha } = request.query;
+
+    if (!fecha) {
+        const error = new Error('No se ha proporcionado una fecha');
+        return response.status(400).json({ msg: error.message });
+
+    }
+
+    try {
+
+        //obtener el total de citas
+        const totalCitasDia = await Citas.count({
+            where: {
+                fecha: {
+                    [Op.eq]: new Date(fecha as string)
+                }
+            },
+        });
+
+        //obtener el total de ingresos por dia
+        const totalPrecio = await CitasServicios.findAll({
+            attributes: [
+                [fn('SUM', col('precioActual')), 'precioActual']
+            ],
+            where: {
+                '$Cita.fecha$': {
+                    [Op.eq]: new Date(fecha as string),
+                }
+            },
+            include: [{
+                model: Citas,
+                attributes: [],
+                where: {
+                    fecha: {
+                        [Op.eq]: new Date(fecha as string),
+
+                    }
+                }
+            }],
+            group: ['CitasServicios.idCitas'], // Agrupar por el identificador único de la cita
+        });
+
+        // Calcular los ingresos sumando los precios actuales de los servicios asociados
+        const ingresos = totalPrecio.reduce((total: number, cita: CitasServicios) => total + Number(cita.precioActual), 0)
+
+        response.json({ totalCitasDia, ingresos });
+
+
+    } catch (error) {
+        const err = new Error('Oops, Error en el servidor');
+        return response.status(400).json({ msg: err.message, error })
+    }
+
+
+}
+
+const ingresosPerBarberosDia = async (request: Request, response: Response) => {
+    const { fecha } = request.query;
+
+    if (!fecha) {
+        return response.status(400).json({ error: 'Debe proporcionar una fecha' });
+    }
+
+    try {
+
+        const query = `
+            SELECT
+                barberos.idBarberos,
+                barberos.nombre,
+                barberos.apellido,
+                barberos.imagen,
+                barberos.telefono,
+                barberos.email,
+                COUNT(DISTINCT citas.idCitas) as citas_atendidas,
+                SUM(citas_servicios.precioActual) AS ingresos_generados
+            FROM
+                citas
+            INNER JOIN barberos ON citas.idBarberos = barberos.idBarberos
+            INNER JOIN citas_servicios ON citas.idCitas = citas_servicios.idCitas
+            INNER JOIN servicios ON citas_servicios.idServicios = servicios.idServicios
+            WHERE
+                citas.fecha = :fecha
+            GROUP BY
+                barberos.idBarberos,
+                barberos.nombre
+            ORDER BY
+                ingresos_generados DESC; 
+        `
+
+        const resultado = await db.query(query, {
+            type: QueryTypes.SELECT,
+            replacements: { fecha },
+            mapToModel: true, // Mapea automáticamente los resultados a modelos Sequelize si están definidos
+            model: Barberos, // Modelo Sequelize a mapear si es necesario
+            raw: false,
+        })
+
+        response.json(resultado);
+
+    } catch (error) {
+        const err = new Error('Oops, Error en el servidor');
+        console.log(error)
+        return response.status(400).json({ msg: err.message, error })
+    }
+
+}
 
 export {
     ingresosCitasMes,
+    ingresosCitasDia,
     ingresosPerBarberos,
+    ingresosPerBarberosDia,
     clientesMasFrecuentados
 }

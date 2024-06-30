@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import clienteAxios from "../config/axios";
-import { FiUsers, FiUser, FiCalendar, FiLayers } from "react-icons/fi";
+import { FiUsers,  FiCalendar, FiLayers } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import HeaderAdmin from "./HeaderAdmin";
 import { cliente } from "../types/cliente";
@@ -8,6 +8,7 @@ import ListaClientesAdmin from "./ListaClientesAdmin";
 import { Servicios } from "../types/Servicios";
 import ListaServiciosAdmin from "./ListaServiciosAdmin";
 import FormularioIngresos from "./FormularioIngresos";
+import IngresosDias from "./IngresosDias";
 
 function Dashboard() {
 
@@ -322,6 +323,7 @@ function Dashboard() {
                 </div>
 
                 <FormularioIngresos />
+                <IngresosDias/>
 
                 
               

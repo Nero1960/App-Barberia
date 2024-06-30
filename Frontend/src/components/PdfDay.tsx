@@ -2,6 +2,7 @@ import { Document, Page, Text, View, StyleSheet, Image, pdf } from '@react-pdf/r
 import { saveAs } from 'file-saver'
 import imagen from '../public/logo2.png'
 import formatToCordobas from '../helpers/formatDinero';
+import formatFecha from '../helpers/FormatFecha';
 
 // types.ts
 
@@ -16,28 +17,12 @@ export interface Barbero {
     citas_atendidas: number;
 }
 
-export interface Cliente {
-    idClientes: number;
-    cliente: {
-        imagen: string;
-        nombre: string;
-        apellido: string;
-        email: string;
-        telefono: string;
-        direccion: string;
-    };
-    numCitas: number;
-}
 
 export interface PDFReportProps {
-    queryMes: number;
-    queryYear: number;
-    meses: string[];
-    years: number[];
-    actividad: Barbero[];
-    total: number;
-    clientes: Cliente[];
-    mes: number
+    queryFecha: string;
+    barberos: Barbero[];
+    totalCitas: number;
+    ingresos: number
 }
 
 
@@ -213,7 +198,7 @@ const Table: React.FC<{ headers: string[], data: React.ReactNode[][] }> = ({ hea
 );
 
 // Componente de reporte PDF
-const PDFReport: React.FC<PDFReportProps> = ({ queryMes, queryYear, meses, years, actividad, total, clientes, mes }) => (
+const PDFReport: React.FC<PDFReportProps> = ({ queryFecha, ingresos, barberos, totalCitas }) => (
 
     <Document>
         <Page size="A4" style={styles.page}>
@@ -221,23 +206,20 @@ const PDFReport: React.FC<PDFReportProps> = ({ queryMes, queryYear, meses, years
             <Image src={imagen} style={styles.img} />
             <View style={styles.section}>
                 <Text style={styles.header}>
-                    Reporte de Ingresos de la barbería por Mes
+                    Reporte de Ingresos de la barbería por Día
                 </Text>
                 <View style={styles.form}>
                     <View style={styles.formGroup}>
                         <View>
-                            <Text style={styles.label}>Mes</Text>
-                            <Text style={styles.select}>{meses[queryMes - 1]}</Text>
+                            <Text style={styles.label}>Día</Text>
+                            <Text style={styles.select}>{formatFecha(queryFecha)}</Text>
                         </View>
-                        <View>
-                            <Text style={styles.label}>Año</Text>
-                            <Text style={styles.select}>{queryYear}</Text>
-                        </View>
+                        
                     </View>
                 </View>
                 <View style={[styles.textWhite, styles.mb10]}>
-                    <Text style={styles.parrafos}>En el mes de {meses[queryMes - 1]} se han realizado un total de <Text style={styles.span}>{mes}</Text> citas</Text>
-                    <Text style={styles.parrafos}>Ingresos Totales por las citas realizadas: <Text style={styles.span}>{formatToCordobas(total)}</Text> </Text>
+                    <Text style={styles.parrafos}>El Día {formatFecha(queryFecha)} se han realizado un total de <Text style={styles.span}>{totalCitas}</Text> citas</Text>
+                    <Text style={styles.parrafos}>Ingresos Totales por las citas realizadas: <Text style={styles.span}>{formatToCordobas(ingresos)}</Text> </Text>
                 </View>
                 <View>
                     <Text style={[styles.header, styles.mbY]}>
@@ -245,7 +227,7 @@ const PDFReport: React.FC<PDFReportProps> = ({ queryMes, queryYear, meses, years
                     </Text>
                     <Table
                         headers={['Nombre', 'Teléfono', 'Ingresos', 'Total Citas']}
-                        data={actividad.map(barbero => ([
+                        data={barberos.map(barbero => ([
                             <View key={barbero.idBarberos} style={styles.flex}>
 
                                 <View >
@@ -257,28 +239,6 @@ const PDFReport: React.FC<PDFReportProps> = ({ queryMes, queryYear, meses, years
                             <Text style={styles.pTablemt}>{barbero.telefono}</Text>,
                             <Text style={styles.pTablemt}>{formatToCordobas(barbero.ingresos_generados)}</Text>,
                             <Text style={styles.pTablemt}>{barbero.citas_atendidas}</Text>,
-
-
-                        ]))}
-                    />
-                </View>
-                <View>
-                    <Text style={[styles.header, styles.mbYY]}>
-                        Clientes Frecuentes
-                    </Text>
-                    <Table
-                        headers={['Nombre', 'Teléfono', 'Dirección', 'Numero de Citas']}
-                        data={clientes.map(cliente => ([
-                            <View style={styles.flex} key={cliente.idClientes}>
-                                <Image style={styles.imagenPerfil} src={`${import.meta.env.VITE_BASE_IMAGE}/${cliente.cliente.imagen}`} />
-                                <View>
-                                    <Text style={styles.pTable}>{cliente.cliente.nombre} {cliente.cliente.apellido}</Text>
-                                </View>
-                            </View>,
-                            <Text style={styles.pTable}>{cliente.cliente.telefono}</Text>,
-                            <Text style={styles.pTable}>{cliente.cliente.direccion}</Text>,
-                            <Text style={styles.pTable}>{cliente.numCitas}</Text>,
-
 
 
                         ]))}

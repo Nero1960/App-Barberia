@@ -6,7 +6,7 @@ import { addService, deleteService, getService, getServices, obtenerServiciosMas
 import { buscarCliente, obtenerClientes, obtenerTotalCliente, obtenerUltimosClientes } from '../controllers/clientesControllers';
 import { buscarCitaBarbero, buscarCitaDate, buscarCitaEstado, finalizarCita, obtenerCita, obtenerCitas, obtenerCitasPendientes } from '../controllers/citasController';
 import { desaprobarTestimonial, eliminarTestimonial, obtenerTestimonial, obtenerTestimonialesAdmin, permitirTestimonial } from '../controllers/testimonialesController';
-import { clientesMasFrecuentados, ingresosCitasMes, ingresosPerBarberos } from '../controllers/reportesController';
+import { clientesMasFrecuentados, ingresosCitasDia, ingresosCitasMes, ingresosPerBarberos, ingresosPerBarberosDia } from '../controllers/reportesController';
 
 const router = express.Router();
 
@@ -48,7 +48,9 @@ router.delete('/eliminar-testimonial/:idTestimoniales', checkAdmin, eliminarTest
 
 //registros
 router.get('/ingresos-citas-mes', checkAdmin, ingresosCitasMes);
+router.get('/ingresos-citas-dia', checkAdmin, ingresosCitasDia);
 router.get('/ingresos-perBarberos', checkAdmin, ingresosPerBarberos);
+router.get('/ingresos-perBarberosDia', checkAdmin, ingresosPerBarberosDia);
 router.get('/clientes-frecuentes', checkAdmin, clientesMasFrecuentados);
 
 
