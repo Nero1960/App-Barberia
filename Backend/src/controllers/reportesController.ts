@@ -1,4 +1,5 @@
 import { Op, QueryTypes, col, fn } from "sequelize";
+import moment from 'moment-timezone'
 import Citas from "../models/Citas";
 import CitasServicios from "../models/CitasServicios";
 import { Request, Response } from "express";
@@ -6,60 +7,51 @@ import Barberos from "../models/Barberos";
 import db from "../config/database";
 import Clientes from "../models/Clientes";
 import sequelize from "sequelize/lib/sequelize";
+import Servicios from "../models/Servicios";
 
 
 const ingresosCitasMes = async (request: Request, response: Response) => {
 
+    const { mes, year } = request.query;
+
+    if (!mes || !year) {
+        return response.status(400).json({ error: 'Debe proporcionar el mes y el year' });
+    }
+
+
+    const query = `
+         SELECT
+            COUNT(DISTINCT citas.idCitas) AS totalCitas,
+            SUM(citas_servicios.precioActual) AS ingresos
+        FROM
+            citas
+        INNER JOIN citas_servicios ON citas.idCitas = citas_servicios.idCitas
+        WHERE
+            MONTH(citas.fecha) = :mes
+        AND 
+            YEAR(citas.fecha) = :year
+        GROUP BY
+            YEAR(citas.fecha), MONTH(citas.fecha)
+        ORDER BY
+            YEAR(citas.fecha), MONTH(citas.fecha)
+
+      
+        
+    `;
+
     try {
-        const { mes, year } = request.query;
+        const resultado = await db.query(query, {
+            type: QueryTypes.SELECT,
+            replacements: { mes, year },
+            mapToModel: true, // Mapea automáticamente los resultados a modelos Sequelize si están definidos
+            raw: false,
+        })
 
-        if (!mes || !year) {
-            return response.status(400).json({ error: 'Debe proporcionar el mes y el year' });
-        }
+        response.json(resultado);
 
-        const inicioMes = new Date(Number(year), Number(mes) - 1, 1);
-        const finMes = new Date(Number(year), Number(mes), 1);
+    } catch (error) {
+        console.log(error)
 
-        const totalCitas = await Citas.count({
-            where: {
-                fecha: {
-                    [Op.gte]: inicioMes,
-                    [Op.lt]: finMes
-                }
-            }
-        });
-
-        // Obtener el total de ingresos
-        const totalPrecio = await CitasServicios.findAll({
-            attributes: [
-                [fn('SUM', col('precioActual')), 'precioActual']
-            ],
-            where: {
-                '$Cita.fecha$': {
-                    [Op.gte]: inicioMes,
-                    [Op.lt]: finMes
-                }
-            },
-            include: [{
-                model: Citas,
-                attributes: [],
-                where: {
-                    fecha: {
-                        [Op.gte]: inicioMes,
-                        [Op.lt]: finMes
-                    }
-                }
-            }],
-            group: ['CitasServicios.idCitas'], // Agrupar por el identificador único de la cita
-        });
-
-        // Calcular los ingresos sumando los precios actuales de los servicios asociados
-        const ingresos = totalPrecio.reduce((total: number, cita: CitasServicios) => total + Number(cita.precioActual), 0)
-
-        response.json({ totalCitas, ingresos });
-
-    } catch (err) {
-        response.status(500).json({ error: err.message });
     }
 
 }
@@ -250,10 +242,56 @@ const ingresosPerBarberosDia = async (request: Request, response: Response) => {
 
 }
 
+const actividadBarberos = async (request: Request, response: Response) => {
+    const { idBarberos, fecha } = request.body;
+
+    if (!idBarberos || !fecha) {
+        const error = new Error('No se han proporcionado los datos');
+        return response.status(400).json({ msg: error });
+    }
+
+    try {
+        const resultado = await Citas.findAll({
+
+            where: {
+                idBarberos: idBarberos,
+                fecha: new Date(fecha as string)
+            },
+
+            include: [
+                {
+                    model: Clientes,
+                    attributes: ['nombre', 'imagen', 'apellido', 'email', 'telefono']
+                },
+
+                {
+                    model: Barberos,
+                    attributes: ['nombre', 'apellido', 'imagen', 'especialidad', 'email', 'telefono']
+                },
+
+                {
+                    model: Servicios,
+                    through: {
+                        model: CitasServicios,
+                        attributes: ['precioActual']
+                    } as any,
+                    attributes: ['nombre']
+                }
+            ]
+        });
+
+        response.json(resultado);
+    } catch (error) {
+        console.log(error)
+
+    }
+}
+
 export {
     ingresosCitasMes,
     ingresosCitasDia,
     ingresosPerBarberos,
     ingresosPerBarberosDia,
-    clientesMasFrecuentados
+    clientesMasFrecuentados,
+    actividadBarberos
 }

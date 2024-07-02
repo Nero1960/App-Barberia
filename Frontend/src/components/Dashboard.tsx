@@ -9,6 +9,7 @@ import { Servicios } from "../types/Servicios";
 import ListaServiciosAdmin from "./ListaServiciosAdmin";
 import FormularioIngresos from "./FormularioIngresos";
 import IngresosDias from "./IngresosDias";
+import ActividadesBarberos from "./ActividadesBarberos";
 
 function Dashboard() {
 
@@ -324,6 +325,7 @@ function Dashboard() {
 
                 <FormularioIngresos />
                 <IngresosDias/>
+                <ActividadesBarberos/>
 
                 
               

@@ -22,7 +22,8 @@ export type CitaConDetalle = {
         nombre: string,
         imagen: string,
         apellido: string
-        telefono: string
+        telefono: string,
+        email: string
     }
     fecha: string;
     hora: string;

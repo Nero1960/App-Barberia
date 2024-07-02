@@ -1,4 +1,4 @@
-import { Request, Response, response } from "express";
+import { Request, Response, request, response } from "express";
 import moment from 'moment';
 import Citas from "../models/Citas";
 import Cliente from "../models/Clientes";
@@ -386,6 +386,38 @@ const mostrarCita = async (request: Request, response: Response) => {
 
 }
 
+const eliminarCitaAdmin = async (request: Request, response: Response) => {
+    const { idCitas } = request.params;
+    console.log(idCitas)
+
+    try {
+        const citaExiste = await Citas.findByPk(idCitas);
+
+        const fechaActual = moment();
+
+
+        if (!citaExiste) {
+            const error = new Error("No se ha encontrado ninguna cita");
+            return response.json({ msg: error.message })
+        }
+
+       
+
+        // Eliminar las filas relacionadas en la tabla citas_servicios
+        await CitasServicios.destroy({ where: { idCitas: idCitas } });
+
+
+        await Citas.destroy({ where: { idCitas: idCitas } })
+        response.json({ msg: "Se ha eliminado la cita, según la política de cita", Citas });
+
+
+    } catch (error) {
+
+        console.log(error)
+
+    }
+}
+
 const eliminarCita = async (request: Request, response: Response) => {
     const { idCitas } = request.params;
     console.log(idCitas)
@@ -606,6 +638,7 @@ const finalizarCita = async ( request : Request, response: Response ) => {
 export {
     reservarCita,
     reprogramarCita,
+    eliminarCitaAdmin,
     actualizarCita,
     mostrarCita,
     eliminarCita,

@@ -4,6 +4,7 @@ import useTestimonial from "../../hooks/useTestimoniales"
 
 const TestimonialesAdmin = () => {
     const { testimonialesAdmin } = useTestimonial();
+    console.log(testimonialesAdmin)
     return (
         <div className="md:w-[80%] bg-black-900">
             <HeaderAdmin />

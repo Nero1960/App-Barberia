@@ -98,7 +98,7 @@ function Login() {
 
             <div className='flex flex-col items-center mt-10 md:mt-0'>
                 <h1 className="text-center text-secondary-400 text-3xl mt-10 mb-10 md:mt-0 md:mb-0 md:text-5xl font-Heading font-bold md:leading-tight">
-                    ! Bienvenido a Mojica's BarberShop!
+                    Bienvenido a Mojica's BarberShop!
                 </h1>
 
                 <img src={logo2} alt="LogoTipo" className='rounded-full mx-auto -mt-6 md:mt-0 w-[40%] h-[40%]'/>

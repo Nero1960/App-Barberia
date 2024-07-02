@@ -4,9 +4,9 @@ import upload from '../middleware/subidaArchivos';
 import { addBarbero, deleteBarbero, getBarbero, getBarberos, obtenerTotalBarbero, updateBarbero } from '../controllers/barberoController';
 import { addService, deleteService, getService, getServices, obtenerServiciosMasSolicitados, obtenerTotalServicios, updateService } from '../controllers/serviciosController';
 import { buscarCliente, obtenerClientes, obtenerTotalCliente, obtenerUltimosClientes } from '../controllers/clientesControllers';
-import { buscarCitaBarbero, buscarCitaDate, buscarCitaEstado, finalizarCita, obtenerCita, obtenerCitas, obtenerCitasPendientes } from '../controllers/citasController';
+import { buscarCitaBarbero, buscarCitaDate, buscarCitaEstado, eliminarCitaAdmin, finalizarCita, obtenerCita, obtenerCitas, obtenerCitasPendientes } from '../controllers/citasController';
 import { desaprobarTestimonial, eliminarTestimonial, obtenerTestimonial, obtenerTestimonialesAdmin, permitirTestimonial } from '../controllers/testimonialesController';
-import { clientesMasFrecuentados, ingresosCitasDia, ingresosCitasMes, ingresosPerBarberos, ingresosPerBarberosDia } from '../controllers/reportesController';
+import { actividadBarberos, clientesMasFrecuentados, ingresosCitasDia, ingresosCitasMes, ingresosPerBarberos, ingresosPerBarberosDia } from '../controllers/reportesController';
 
 const router = express.Router();
 
@@ -30,6 +30,7 @@ router.get('/buscar-cita', checkAdmin, buscarCitaDate )
 router.get('/buscar-cita-estado', checkAdmin, buscarCitaEstado);
 router.get('/buscar-cita-barbero/:idBarberos', checkAdmin, buscarCitaBarbero);
 router.put('/finalizar-cita/:idCitas', checkAdmin, finalizarCita)
+router.delete('/eliminar-cita-admin/:idCitas', checkAdmin, eliminarCitaAdmin);
 
 router.post('/registrar-servicio', checkAdmin, addService);
 router.get('/obtener-servicio/:idServicio', checkAdmin, getService);
@@ -52,6 +53,7 @@ router.get('/ingresos-citas-dia', checkAdmin, ingresosCitasDia);
 router.get('/ingresos-perBarberos', checkAdmin, ingresosPerBarberos);
 router.get('/ingresos-perBarberosDia', checkAdmin, ingresosPerBarberosDia);
 router.get('/clientes-frecuentes', checkAdmin, clientesMasFrecuentados);
+router.post('/actividad-barbero', checkAdmin, actividadBarberos);
 
 
 

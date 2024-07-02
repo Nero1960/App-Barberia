@@ -34,6 +34,11 @@ type clientesFrecuentesType = {
     }
 }
 
+type DataType = {
+    totalCitas: number,
+    ingresos: number
+}
+
 const FormularioIngresos = () => {
 
     const [queryMes, setQueryMes] = useState<number>(new Date().getMonth() + 1);
@@ -110,10 +115,15 @@ const FormularioIngresos = () => {
                 }
             }
 
-            const { data }: { data: { totalCitas: number, ingresos: number } } = await clienteAxios.get(`/admin/ingresos-citas-mes?mes=${queryMes}&year=${queryYear}`, config);
 
-            setMes(data.totalCitas)
-            setTotal(data.ingresos)
+            const { data }: { data: DataType[] } = await clienteAxios.get(`/admin/ingresos-citas-mes?mes=${queryMes}&year=${queryYear}`, config);
+
+
+            setMes(data[0].totalCitas)
+            setTotal(data[0].ingresos)
+
+
+            
 
 
         } catch (error) {
@@ -122,6 +132,7 @@ const FormularioIngresos = () => {
         }
 
     }
+
 
     useEffect(() => {
 

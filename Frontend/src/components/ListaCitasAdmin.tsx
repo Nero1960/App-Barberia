@@ -5,6 +5,7 @@ import formatHora from "../helpers/FormatHora"
 import formatToCordobas from "../helpers/formatDinero"
 import clienteAxios from "../config/axios"
 import { toast } from "react-toastify"
+import useCitas from "../hooks/useCitas"
 
 type CitasDetails = CitaConDetalle & {
     cliente: {
@@ -17,6 +18,7 @@ type CitasDetails = CitaConDetalle & {
 
 function ListaCitasAdmin({ cita, actualizarCitaAdmin }: { cita: CitasDetails, actualizarCitaAdmin: () => void }) {
 
+    const {actualizarCitas} = useCitas();
 
     const eliminarCita = async (idCitas: number) => {
 
@@ -42,7 +44,7 @@ function ListaCitasAdmin({ cita, actualizarCitaAdmin }: { cita: CitasDetails, ac
                 }
             }
 
-            const { data }: any = await clienteAxios.delete(`app/eliminar-cita/${idCitas}`, config);
+            const { data }: any = await clienteAxios.delete(`admin/eliminar-cita-admin/${idCitas}`, config);
             toast.success(data.msg, {
                 theme: 'colored',
                 position: 'top-left',
@@ -59,6 +61,7 @@ function ListaCitasAdmin({ cita, actualizarCitaAdmin }: { cita: CitasDetails, ac
 
 
         actualizarCitaAdmin();
+        actualizarCitas();
 
     }
 
